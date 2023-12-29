@@ -1,24 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Suspense } from 'react';
+import { createTheme, ThemeProvider } from "@mui/material/styles"
+import ShoppingBag from './views/ShoPppingbag/ShoppingBag';
+import Login from './views/auth/Login';
+import Home from './views/Home/Home';
+import Shop from './views/Shop/Shop';
+import Navbar from './views/Navbar/Navbar';
 
+export const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#EFC80C",
+    },
+    secondary: {
+      main: "#FFFFFF",
+    },
+  },
+})
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+    <BrowserRouter>
+    <Navbar/>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/shope" element={<Shop />} />
+            <Route path="/shopping-bag" element={<ShoppingBag/>} />
+          </Routes>
+        </Suspense>
+    </BrowserRouter>
+  </ThemeProvider>
   );
 }
 
