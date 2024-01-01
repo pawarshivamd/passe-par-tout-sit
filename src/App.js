@@ -7,6 +7,8 @@ import Login from './views/auth/Login';
 import Home from './views/Home/Home';
 import Shop from './views/Shop/Shop';
 import Navbar from './views/Navbar/Navbar';
+import SingUp from './views/auth/SingUp';
+// import Product from './layout/productModel/Product';
 
 export const theme = createTheme({
   palette: {
@@ -26,9 +28,12 @@ function App() {
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/register" element={<SingUp />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/shope" element={<Shop />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/shop/id:" element={<Shop />} />
             <Route path="/shopping-bag" element={<ShoppingBag/>} />
+            {/* <Route path="/m" element={<Product />} /> */}
           </Routes>
         </Suspense>
     </BrowserRouter>
