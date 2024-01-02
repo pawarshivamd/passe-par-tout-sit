@@ -6,7 +6,7 @@ import { ReactComponent as CartIcon } from "../../assets/img/icon/cart.svg";
 import Footer from "../footer/Footer";
 import CloseIcon from '@mui/icons-material/Close';
 
-const productData = [
+export const productData = [
   {
     id: "0",
     Rating: "4.5",
@@ -48,17 +48,17 @@ const Home = () => {
   const [state, setState] = React.useState({
     right: false,
   });
+ const toggleDrawer = (anchor, open) => (event) => {
+      if (
+        event.type === "keydown" &&
+        (event.key === "Tab" || event.key === "Shift")
+      ) {
+        return;
+      }
+  
+      setState({ ...state, [anchor]: open });
+    };
 
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
-  };
 
   const list = (anchor) => (
     <Box

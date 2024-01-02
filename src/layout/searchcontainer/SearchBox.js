@@ -2,18 +2,17 @@ import { Box, Container, Grid, InputBase, TextField, alpha } from '@mui/material
 import React from 'react'
 import smile from '../../assets/img/icon/smile.svg'
 import CustomInput from '../CustomInput'
-import styled from 'styled-components';
-
-  
 const SearchBox = () => {
   return (
-    <Container>
-    <Grid container>
+    <Container sx={{mb:5}}>
+    <Grid container spacing={2} alignItems="center" justifyContent="space-between">
         <Grid item lg={6}>
-            <Box><img src={smile} alt='' className='smile-img' /></Box>
+            <Box sx={{display:"flex",flexDirection:"column"}} className="smile-box">
+            <img src={smile} alt='' width="50px" className='smile-img' />
+            </Box>
         </Grid>
-        <Grid item >
-            <CustomInput type='search' color="secondary" variant="outlined" />
+        <Grid item lg={3}>
+            <CustomInput type='search' placeholder="SEARCH" color="secondary" variant="outlined" className="search-filed" />
         </Grid>
     </Grid>
     </Container>

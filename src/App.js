@@ -8,6 +8,7 @@ import Home from './views/Home/Home';
 import Shop from './views/Shop/Shop';
 import Navbar from './views/Navbar/Navbar';
 import SingUp from './views/auth/SingUp';
+import ProductDetails from './views/Shop/ProductDetails';
 // import Product from './layout/productModel/Product';
 
 export const theme = createTheme({
@@ -31,7 +32,7 @@ function App() {
             <Route path="/register" element={<SingUp />} />
             <Route path="/home" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
-            <Route path="/shop/id:" element={<Shop />} />
+            <Route path="/shop/new" element={<ProductDetails />} />
             <Route path="/shopping-bag" element={<ShoppingBag/>} />
             {/* <Route path="/m" element={<Product />} /> */}
           </Routes>

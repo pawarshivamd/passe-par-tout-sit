@@ -9,10 +9,11 @@ import {
   Typography,
 } from "@mui/material";
 import productimg from "../../assets/img/products/product1.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as Yellowfillstar } from "../../assets/img/icon/yellowfillstar.svg";
 import Footer from "../footer/Footer";
-const ShopData = [
+import SearchBox from "../../layout/searchcontainer/SearchBox";
+export const ShopData = [
   {
     id:"0",
     ShopImg:productimg,
@@ -78,8 +79,10 @@ const ShopData = [
   },
 ]
 const Shop = () => {
+  const navigaet = useNavigate()
   return (
     <Box>
+    <SearchBox/>
       <Container>
         <Grid container spacing={2}>
         {ShopData.map((cureEle,index)=>{
@@ -87,7 +90,7 @@ const Shop = () => {
           return(
             <Grid item lg={4} md={4} sm={6} xs={12}>
             <Card sx={{borderRadius:"0px"}}>
-              <CardActionArea>
+              <CardActionArea onClick={()=> navigaet('/shop/new')}>
               <Box sx={{height:"350px",width:"min(100% - 0px, 100%)",marginInline:"auto"}}>
                 <CardMedia
                   component="img"
@@ -98,7 +101,7 @@ const Shop = () => {
               </Box>
               </CardActionArea>
                 <CardContent sx={{background:"#191919" ,color:"#D9D9D9" , paddingInline:"0px"}}>
-                  <Box sx={{display:"flex" , justifyContent:"space-between"}}>
+                  <Box sx={{display:"flex" , justifyContent:"space-between",alignItems:"center"}}>
                   <Typography variant="subtitle1" component="div">
                     <Link>{MainText}</Link>
                   </Typography>
