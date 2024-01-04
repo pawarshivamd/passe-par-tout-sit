@@ -9,6 +9,11 @@ import Shop from './views/Shop/Shop';
 import Navbar from './views/Navbar/Navbar';
 import SingUp from './views/auth/SingUp';
 import ProductDetails from './views/Shop/ProductDetails';
+import AddressMain from './views/address/AddressMain';
+import SelectAddress from './views/address/SelectAddress';
+import ContactUs from './views/Contact-us/ContactUs';
+import Profile from './views/profile/Profile';
+
 // import Product from './layout/productModel/Product';
 
 export const theme = createTheme({
@@ -34,6 +39,10 @@ function App() {
             <Route path="/shop" element={<Shop />} />
             <Route path="/shop/new" element={<ProductDetails />} />
             <Route path="/shopping-bag" element={<ShoppingBag/>} />
+            <Route path="/address" element={<AddressMain/>} />
+            <Route path="/select-address" element={<SelectAddress/>} />
+            <Route path="/contact-us" element={<ContactUs/>} />
+            <Route path="/profile" element={<Profile />} />
             {/* <Route path="/m" element={<Product />} /> */}
           </Routes>
         </Suspense>

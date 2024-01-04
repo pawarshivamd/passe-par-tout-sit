@@ -46,7 +46,7 @@ const ProductDetails = () => {
     <SearchBox/> 
       <Container>
         <Grid container spacing={2}>
-          <Grid item lg={6} md={6} sm={12}>
+          <Grid item lg={6} md={6} sm={12} xs={12}>
             <Box className="product-zoom-left-setion">
               <Grid container spacing={1}>
                 <Grid
@@ -94,6 +94,7 @@ const ProductDetails = () => {
                   lg={2}
                   md={12}
                   sm={12}
+                  xs={12}
                   order={{ xs: 2, sm: 2, lg: 2, md: 2 }}
                   className="ss"
                 >

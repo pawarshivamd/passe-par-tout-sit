@@ -1,33 +1,32 @@
-import { Box, Card, CardContent, CardMedia, Container, Grid, Tab, Tabs, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { ShopData } from "../Shop/Shop";
-import { Link, NavLink } from "react-router-dom";
+import { Box, Card, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material'
+import React, { useState } from 'react'
+import SearchBox from '../../layout/searchcontainer/SearchBox'
+import Favorite from '../favorite/Favorite'
+import { Link, NavLink } from 'react-router-dom'
+import { ShopData } from '../Shop/Shop'
 import { ReactComponent as CloseIcon } from "../../assets/img/icon/closeicon.svg";
-import SearchBox from "../../layout/searchcontainer/SearchBox";
-import ContinueProFooter from "../../layout/ContinueProFooter";
-import Favorite from "../favorite/Favorite";
 
-const ShoppingBag = () => {
-  const [activeTab, setActiveTab] = useState(1);
+const Profile = () => {
+    const [activeTab, setActiveTab] = useState(1);
 
-  const handleTabChange = (tabNumber) => {
-    setActiveTab(tabNumber);
-  };
+    const handleTabChange = (tabNumber) => {
+      setActiveTab(tabNumber);
+    };
   return (
+<Box>
+    <SearchBox/>
+    <Container>
     <Box>
-      <SearchBox />
-      <Container>
-        <Box>
           <Box sx={{ display: "flex", alignItems: "center" }} className="tab-section">
             <Typography
               onClick={() => handleTabChange(1)}
               style={{ marginRight: "50px" }}
             >
               <NavLink>
-              Shopping Bag (0)
+              PURCHASES
               </NavLink>
             </Typography>
-            <Typography onClick={() => handleTabChange(2)}><NavLink> Favorite </NavLink></Typography>
+            <Typography onClick={() => handleTabChange(2)}><NavLink>PROFILE</NavLink></Typography>
           </Box>
           <Box>
             {activeTab === 1 && (
@@ -85,15 +84,13 @@ const ShoppingBag = () => {
             )}
             {activeTab === 2 && (
             <Favorite/>
+            
             )}
           </Box>
         </Box>
-      </Container>
-      <ContinueProFooter 
-      BtnText="Continue"
-      />
-    </Box>
-  );
-};
+    </Container>
+</Box>
+  )
+}
 
-export default ShoppingBag;
+export default Profile
