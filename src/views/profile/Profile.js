@@ -1,10 +1,10 @@
 import { Box, Card, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import SearchBox from '../../layout/searchcontainer/SearchBox'
-import Favorite from '../favorite/Favorite'
 import { Link, NavLink } from 'react-router-dom'
 import { ShopData } from '../Shop/Shop'
 import { ReactComponent as CloseIcon } from "../../assets/img/icon/closeicon.svg";
+import ProfileMain from './ProfileMain'
 
 const Profile = () => {
     const [activeTab, setActiveTab] = useState(1);
@@ -83,8 +83,7 @@ const Profile = () => {
               </Box>
             )}
             {activeTab === 2 && (
-            <Favorite/>
-            
+            <ProfileMain/>
             )}
           </Box>
         </Box>
