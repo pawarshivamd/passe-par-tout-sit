@@ -3,8 +3,7 @@ import React from "react";
 import CustomInput from "../../layout/CustomInput";
 import { ReactComponent as Yellowfillstar } from "../../assets/img/icon/yellowfillstar.svg";
 
-const EditAddress = () => {
-    
+const EditAddress = ({ saveButton }) => {
   return (
     <Box>
       <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -86,6 +85,7 @@ const EditAddress = () => {
                 color="primary"
                 variant="outlined"
                 className="custom-button"
+                onClick={() => saveButton()}
               >
                 SAVE
               </Button>

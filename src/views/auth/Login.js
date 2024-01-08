@@ -15,7 +15,6 @@ import SearchBox from "../../layout/searchcontainer/SearchBox";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-
   return (
     <Box>
       <SearchBox />
@@ -88,11 +87,11 @@ const Login = () => {
                 <Box>NEED AN ACCOUNT?</Box>
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
                   <Button
-                  component={Link}
-                  to="/register"
-                  variant="outlined"
-                  className="custom-button"
-                  sx={{ padding: "10px 20px" }}
+                    component={Link}
+                    to="/register"
+                    variant="outlined"
+                    className="custom-button"
+                    sx={{ padding: "10px 20px" }}
                   >
                     REGISTER
                   </Button>

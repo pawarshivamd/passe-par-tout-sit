@@ -7,17 +7,19 @@ import { ReactComponent as EmailIcon } from "../../assets/img/icon/email.svg";
 import { ReactComponent as LocationIcon } from "../../assets/img/icon/loction.svg";
 const Footer = () => {
   return (
-    <Box sx={{background:"#000000",padding:"50px 0px"}}>
+    <Box sx={{ background: "#000000", padding: "50px 0px" }}>
       <Container>
         <Grid container spaceing={2} justifyContent="space-between">
           <Grid item lg={6}>
-          <Box className="footer-icon-box">
-            <Box>
-              <img src={logo} alt="logo" />
+            <Box className="footer-icon-box">
+              <Box>
+                <img src={logo} alt="logo" />
+              </Box>
+              <Typography sx={{ mt: 1 }}>Lorem ipsum dolor !</Typography>
+              <Typography sx={{ mt: 1 }}>
+                ©2023 idol All rights reserved
+              </Typography>
             </Box>
-            <Typography sx={{mt:1}}>Lorem ipsum dolor !</Typography>
-            <Typography sx={{mt:1}}>©2023 idol All rights reserved</Typography>
-          </Box>
           </Grid>
           <Grid item lg={3}>
             <Box sx={{ display: "flex", justifyContent: "center" }}>

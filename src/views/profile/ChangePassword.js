@@ -13,7 +13,7 @@ import React, { useState } from "react";
 import { ReactComponent as Yellowfillstar } from "../../assets/img/icon/yellowfillstar.svg";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-const ChangePassword = () => {
+const ChangePassword = ({ SaveButton }) => {
   const [showcurentpassword, setshowcurentpassword] = useState(false);
   const curentpasswordshow = () => setshowcurentpassword((show) => !show);
   const [showPassword, setShowPassword] = useState(false);
@@ -100,6 +100,7 @@ const ChangePassword = () => {
                 color="primary"
                 variant="outlined"
                 className="custom-button"
+                onClick={() => SaveButton()}
               >
                 SAVE
               </Button>

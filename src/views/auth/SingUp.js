@@ -3,7 +3,7 @@ import React from "react";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import CustomInput from "../../layout/CustomInput";
 import yellowfillstar from "../../assets/img/icon/yellowfillstar.svg";
-import {ReactComponent as Yellowfillstar} from '../../assets/img/icon/yellowfillstar.svg';
+import { ReactComponent as Yellowfillstar } from "../../assets/img/icon/yellowfillstar.svg";
 const SingUp = () => {
   return (
     <Box>
@@ -18,7 +18,7 @@ const SingUp = () => {
               <Grid item lg={11}>
                 <Typography>PERSONAL DETAILS</Typography>
                 <Box>
-                  <Grid container lg={9} spacing={2} >
+                  <Grid container lg={9} spacing={2}>
                     <Grid item lg={12}>
                       <CustomInput
                         id="E-MAIL"
@@ -80,10 +80,13 @@ const SingUp = () => {
                         We will send an SMS to verify your phone number
                       </Typography>
                     </Grid>
-                    <Grid item lg={12} sx={{display:"flex ",alignItems:"center"}}>
-                      <Box sx={{mr:1}}>
-
-                        <Yellowfillstar style={{fill:"transparent"}}  />
+                    <Grid
+                      item
+                      lg={12}
+                      sx={{ display: "flex ", alignItems: "center" }}
+                    >
+                      <Box sx={{ mr: 1 }}>
+                        <Yellowfillstar style={{ fill: "transparent" }} />
                       </Box>
                       <Typography>
                         I have read and understand the Privacy and Cookies

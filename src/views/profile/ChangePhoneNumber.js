@@ -1,9 +1,10 @@
-import { Box, Button, Grid, Typography } from '@mui/material'
-import React from 'react'
-import CustomInput from '../../layout/CustomInput'
+import { Box, Button, Grid, Typography } from "@mui/material";
+import React from "react";
+import CustomInput from "../../layout/CustomInput";
 import { ReactComponent as Yellowfillstar } from "../../assets/img/icon/yellowfillstar.svg";
+import { Sd } from "@mui/icons-material";
 
-const ChangePhoneNumber = () => {
+const ChangePhoneNumber = ({ SaveButton }) => {
   return (
     <Box>
       <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -25,7 +26,7 @@ const ChangePhoneNumber = () => {
               </Grid>
               <Grid item lg={10}>
                 <CustomInput
-                lable="NEW PHONE NUMBER"
+                  lable="NEW PHONE NUMBER"
                   placeholder="00 000 000"
                   color="primary"
                   variant="standard"
@@ -48,6 +49,7 @@ const ChangePhoneNumber = () => {
                 color="primary"
                 variant="outlined"
                 className="custom-button"
+                onClick={() => SaveButton()}
               >
                 UPDATE PHONE NUMBER
               </Button>
@@ -56,7 +58,7 @@ const ChangePhoneNumber = () => {
         </Grid>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default ChangePhoneNumber
+export default ChangePhoneNumber;

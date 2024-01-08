@@ -1,16 +1,10 @@
 import { Box, Button, Card, Container, Grid, Typography } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { ReactComponent as CartIcon } from "../../assets/img/icon/cart.svg";
 import { ReactComponent as Yellowfillstar } from "../../assets/img/icon/yellowfillstar.svg";
-
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
-
-// import required modules
 import { Navigation } from "swiper/modules";
 import img1 from "../../assets/img/products/product1.png";
 import img2 from "../../assets/img/products/product1.png";
@@ -21,29 +15,56 @@ import img6 from "../../assets/img/products/product1.png";
 import img7 from "../../assets/img/products/product1.png";
 import img8 from "../../assets/img/products/product1.png";
 import img9 from "../../assets/img/products/product1.png";
+import CloseIcon from "@mui/icons-material/Close";
+import productimg from "../../assets/img/products/product1.png";
 import ReactImageMagnify from "react-image-magnify";
 import { productData } from "../Home/Home";
 import Footer from "../footer/Footer";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
+import CustomDrawer from "../../layout/CustomDrawer";
 const ProductDetails = () => {
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+
   const slides = [img1, img2, img3, img4, img5, img6, img7, img8, img9];
   const [activeimg, setActiveimg] = useState(img1);
-  const [state, setState] = React.useState({
-    right: false,
-  });   
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
-  };
+  const list = (anchor) => (
+    <Box
+      sx={{ width: 550 }}
+      role="presentation"
+      onClick={() => setIsDrawerVisible(false)}
+      onKeyDown={() => setIsDrawerVisible(false)}
+    >
+      <Box>
+        <Grid container spacing={2}>
+          <Grid item lg={5}>
+            <Box>
+              <img src={productimg} width={"100%"} alt="" />
+            </Box>
+          </Grid>
+          <Grid item lg={7}>
+            <Box sx={{ display: "flex", justifyContent: "end" }}>
+              <CloseIcon color="primary" />
+            </Box>
+            <Typography sx={{ mt: 2 }}>ADDED TO YOUR SHOPPING BAG</Typography>
+            <Typography sx={{ mt: 1 }}>Lorem ipsum dolo</Typography>
+            <Typography>COLOR / SIZE</Typography>
+            <Box sx={{ mt: 3 }}>
+              <Button
+                variant="outlined"
+                className="custom-button"
+                sx={{ padding: "7px 40px" }}
+              >
+                SEE SHOPPING BAG
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+    </Box>
+  );
   return (
     <Box>
-    <SearchBox/> 
+      <SearchBox />
       <Container>
         <Grid container spacing={2}>
           <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -129,15 +150,24 @@ const ProductDetails = () => {
           </Grid>
           {/* col-6 right section for text */}
           <Grid item lg={6}>
-            <Box sx={{padding:"0 20px"}}>
-              <Typography  sx={{fontWeight:"400",fontSize:"22px"}}>Lorem ipsum dolor sit</Typography>
-              <Typography sx={{fontSize:"14px"}}>00.000</Typography>
-              <Typography sx={{mt:2}}>
+            <Box sx={{ padding: "0 20px" }}>
+              <Typography sx={{ fontWeight: "400", fontSize: "22px" }}>
+                Lorem ipsum dolor sit
+              </Typography>
+              <Typography sx={{ fontSize: "14px" }}>00.000</Typography>
+              <Typography sx={{ mt: 2 }}>
                 Lorem ipsum dolor sit amet consectetur. Aenean eget nec sed
                 pharetra quis diam lobortis placerat. Eget cras felis nec{" "}
               </Typography>
               <Box>
-                <Typography sx={{padding:"20px 0px",borderTop:"1px solid #EFC80C" , borderBottom:"1px solid #EFC80C" , margin:"20px 0px"}}>
+                <Typography
+                  sx={{
+                    padding: "20px 0px",
+                    borderTop: "1px solid #EFC80C",
+                    borderBottom: "1px solid #EFC80C",
+                    margin: "20px 0px",
+                  }}
+                >
                   <span>S-</span>
                   <span>M-</span>
                   <span>L-</span>
@@ -199,7 +229,9 @@ const ProductDetails = () => {
                               }}
                             >
                               <Button
-                                onClick={toggleDrawer("right", true)}
+                                onClick={() =>
+                                  setIsDrawerVisible(!isDrawerVisible)
+                                }
                                 variant="contained"
                                 sx={{
                                   background: "#000000",
@@ -228,8 +260,12 @@ const ProductDetails = () => {
       <section>
         <Footer />
       </section>
+      <CustomDrawer
+        onClose={() => setIsDrawerVisible(false)}
+        state={isDrawerVisible}
+        children={list("right")}
+      />
     </Box>
   );
 };
-
 export default ProductDetails;

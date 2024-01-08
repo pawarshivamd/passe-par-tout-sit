@@ -1,64 +1,71 @@
-import { Box, Container, Grid, TextField, TextareaAutosize, Typography } from '@mui/material'
-import React from 'react'
-import SearchBox from '../../layout/searchcontainer/SearchBox'
-import { Link } from 'react-router-dom'
+import {
+  Box,
+  Container,
+  Grid,
+  TextField,
+  TextareaAutosize,
+  Typography,
+} from "@mui/material";
+import React from "react";
+import SearchBox from "../../layout/searchcontainer/SearchBox";
+import { Link } from "react-router-dom";
 import { ReactComponent as PhoneIcon } from "../../assets/img/icon/phone.svg";
 import { ReactComponent as LocationIcon } from "../../assets/img/icon/loction.svg";
 import { ReactComponent as TagIcon } from "../../assets/img/icon/tag.svg";
 import { ReactComponent as ContactSupportIcon } from "../../assets/img/icon/contact-support.svg";
-import styled from 'styled-components';
-import ContinueProFooter from '../../layout/ContinueProFooter';
+import styled from "styled-components";
+import ContinueProFooter from "../../layout/ContinueProFooter";
 const InputCustom = styled(TextField)`
-border:0;
+  border: 0;
   & input {
     width: 100%;
     padding: 7px 10px;
-    color:#fff;
-    border:0;
-    &::placeholder{
-        color:"#fff"
+    color: #fff;
+    border: 0;
+    &::placeholder {
+      color: "#fff";
     }
     &:focus {
       border-color: #efc80c; /* Focused border color */
     }
 
     &:hover {
-      border-color: #efc80c; 
-      outlined:##EFC80C;/* Border color on hover, if needed */
+      border-color: #efc80c;
+      outlined: ##efc80c; /* Border color on hover, if needed */
     }
   }
-  & fieldset{
-    border-color:#EFC80C;
-    &:hover .MuiOutlinedInput-notchedOutline{
-        border-color:#EFC80C;
-        outlined:##EFC80C;
+  & fieldset {
+    border-color: #efc80c;
+    &:hover .MuiOutlinedInput-notchedOutline {
+      border-color: #efc80c;
+      outlined: ##efc80c;
     }
   }
   .MuiInputBase-root:hover fieldset {
-    border-color:#EFC80C;
+    border-color: #efc80c;
   }
-`
+`;
 const CustomTextarea = styled(TextareaAutosize)`
-    background:transparent;
-    width: 100%;
-    padding: 7px 10px;
-    color:##FFFFFF;
-    border-color: #efc80c;
-    &:focus{
+  background: transparent;
+  width: 100%;
+  padding: 7px 10px;
+  color: ##ffffff;
+  border-color: #efc80c;
+  &:focus {
     border-color: #EFC80C80c;
-    outlined:##EFC80C;
-    }
-    &:focus-visible{
+    outlined: ##efc80c;
+  }
+  &:focus-visible {
     border-color: #efc80c;
-    }
-`
+  }
+`;
 const ContactUs = () => {
   return (
     <Box>
       <SearchBox />
       <Container>
         <Box className="contact-main-text">Contact Way</Box>
-        <Grid container spacing={2} lg={11} md={12} sx={{mt:4}}>
+        <Grid container spacing={2} lg={11} md={12} sx={{ mt: 4 }}>
           <Grid item lg={3}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Box sx={{ mr: 2 }}>
@@ -109,10 +116,10 @@ const ContactUs = () => {
             </Box>
           </Grid>
         </Grid>
-        <Box sx={{mt:5,mb:5}}>
+        <Box sx={{ mt: 5, mb: 5 }}>
           <Typography>Get In Touch</Typography>
           <Grid container spacing={2} lg={9}>
-            <Grid item lg={10} sx={{mt:3}}>
+            <Grid item lg={10} sx={{ mt: 3 }}>
               <Typography>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mattis
                 neque ultrices tristique amet erat vitae eget dolor los vitae
@@ -167,9 +174,9 @@ const ContactUs = () => {
           </Grid>
         </Box>
       </Container>
-      <ContinueProFooter BtnText="Submit"/>
+      <ContinueProFooter BtnText="Submit" />
     </Box>
   );
-}
+};
 
-export default ContactUs
+export default ContactUs;

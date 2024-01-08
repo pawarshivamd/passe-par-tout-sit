@@ -1,10 +1,10 @@
-import { Box, Button, Container, Grid, Typography } from '@mui/material'
-import React from 'react'
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import React from "react";
 
-import AddIcon from '@mui/icons-material/Add';
-import { Link } from 'react-router-dom';
-import ContinueProFooter from '../../layout/ContinueProFooter';
-import SearchBox from '../../layout/searchcontainer/SearchBox';
+import AddIcon from "@mui/icons-material/Add";
+import { Link } from "react-router-dom";
+import ContinueProFooter from "../../layout/ContinueProFooter";
+import SearchBox from "../../layout/searchcontainer/SearchBox";
 
 const SelectAddress = () => {
   return (
@@ -22,12 +22,13 @@ const SelectAddress = () => {
               </Typography>
             </Box>
           </Grid>
-          <Grid item lg={12} >
+          <Grid item lg={12}>
             <Box className="select-address-box">
-                <Typography className='main-title-box'> Rami adolf H
-                <span className='select-opption-text'>Home</span>
-                </Typography>
-              <Typography className='select-address-here'>
+              <Typography className="main-title-box">
+                {" "}
+                Rami adolf H<span className="select-opption-text">Home</span>
+              </Typography>
+              <Typography className="select-address-here">
                 <span>Lebanon, Beirut</span>
                 <br />
                 <span>street 4 Hazmieh building 6 floor</span>
@@ -35,22 +36,23 @@ const SelectAddress = () => {
                 <sapn>+961 70 000 000, 70 000 000</sapn>
                 <br />
               </Typography>
-              <Box sx={{ padding:"10px"}}>
-                <Link >Edit</Link>
+              <Box sx={{ padding: "10px" }}>
+                <Link>Edit</Link>
               </Box>
-              <Box sx={{padding:"10px"}}>
-              <Button variant="outlined" className="custom-button">
-                Deliver to this Address
-              </Button>
+              <Box sx={{ padding: "10px" }}>
+                <Button variant="outlined" className="custom-button">
+                  Deliver to this Address
+                </Button>
               </Box>
             </Box>
           </Grid>
           <Grid item lg={12}>
             <Box className="select-address-box">
-                <Typography className='main-title-box'> Rami adolf H
-                <span className='select-opption-text'>Home</span>
-                </Typography>
-              <Typography className='select-address-here'>
+              <Typography className="main-title-box">
+                {" "}
+                Rami adolf H<span className="select-opption-text">Home</span>
+              </Typography>
+              <Typography className="select-address-here">
                 <span>Lebanon, Beirut</span>
                 <br />
                 <span>street 4 Hazmieh building 6 floor</span>
@@ -58,13 +60,13 @@ const SelectAddress = () => {
                 <sapn>+961 70 000 000, 70 000 000</sapn>
                 <br />
               </Typography>
-              <Box sx={{ padding:"10px"}}>
-                <Link >Edit</Link>
+              <Box sx={{ padding: "10px" }}>
+                <Link>Edit</Link>
               </Box>
-              <Box sx={{padding:"10px"}}>
-              <Button variant="outlined" className="custom-button">
-                Deliver to this Address
-              </Button>
+              <Box sx={{ padding: "10px" }}>
+                <Button variant="outlined" className="custom-button">
+                  Deliver to this Address
+                </Button>
               </Box>
             </Box>
           </Grid>
@@ -73,6 +75,6 @@ const SelectAddress = () => {
       <ContinueProFooter BtnText="Continue" />
     </Box>
   );
-}
+};
 
-export default SelectAddress
+export default SelectAddress;

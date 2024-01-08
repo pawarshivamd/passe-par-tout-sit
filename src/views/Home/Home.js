@@ -1,11 +1,21 @@
-import { Box, Button, Card, Container, Drawer, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  Drawer,
+  Grid,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import productimg from "../../assets/img/products/product1.png";
 import { ReactComponent as Yellowfillstar } from "../../assets/img/icon/yellowfillstar.svg";
 import { ReactComponent as CartIcon } from "../../assets/img/icon/cart.svg";
+import shape from "../../assets/img/shape/Rectangle.png";
 import Footer from "../footer/Footer";
-import CloseIcon from '@mui/icons-material/Close';
-
+import CloseIcon from "@mui/icons-material/Close";
+import { ReactComponent as Logo } from "../../assets/img/logo.svg";
+import CustomDrawer from "../../layout/CustomDrawer";
 export const productData = [
   {
     id: "0",
@@ -45,51 +55,55 @@ export const productData = [
   },
 ];
 const Home = () => {
-  const [state, setState] = React.useState({
-    right: false,
-  });
- const toggleDrawer = (anchor, open) => (event) => {
-      if (
-        event.type === "keydown" &&
-        (event.key === "Tab" || event.key === "Shift")
-      ) {
-        return;
-      }
+  const [isDrawerVisible, setIsDrawerVisible] = React.useState(false);
   
-      setState({ ...state, [anchor]: open });
-    };
-
-
   const list = (anchor) => (
     <Box
       sx={{ width: 550 }}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
+      onClick={() => setIsDrawerVisible(false)}
+      onKeyDown={() => setIsDrawerVisible(false)}
     >
-        <Box>
-            <Grid container spacing={2}>
-                <Grid item lg={5}>
-                    <Box><img src={productimg} width={"100%"} alt="" /></Box>
-                </Grid>
-                <Grid item lg={7}>
-                    <Box sx={{display:"flex" , justifyContent:"end"}}><CloseIcon color="primary" /></Box>
-                    <Typography sx={{mt:2}}>ADDED TO YOUR SHOPPING BAG</Typography>
-                    <Typography sx={{mt:1}}>Lorem ipsum dolo</Typography>
-                    <Typography>COLOR / SIZE</Typography>
-                    <Box sx={{mt:3}}><Button variant="outlined" className="custom-button" sx={{padding:"7px 40px"}}>SEE SHOPPING BAG</Button></Box>
-                </Grid>
-            </Grid>
-        </Box>
+      <Box>
+        <Grid container spacing={2}>
+          <Grid item lg={5}>
+            <Box>
+              <img src={productimg} width={"100%"} alt="" />
+            </Box>
+          </Grid>
+          <Grid item lg={7}>
+            <Box sx={{ display: "flex", justifyContent: "end" }}>
+              <CloseIcon color="primary" />
+            </Box>
+            <Typography sx={{ mt: 2 }}>ADDED TO YOUR SHOPPING BAG</Typography>
+            <Typography sx={{ mt: 1 }}>Lorem ipsum dolo</Typography>
+            <Typography>COLOR / SIZE</Typography>
+            <Box sx={{ mt: 3 }}>
+              <Button
+                variant="outlined"
+                className="custom-button"
+                sx={{ padding: "7px 40px" }}
+              >
+                SEE SHOPPING BAG
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
     </Box>
   );
 
   return (
-
     <Box>
       <Box className="banner-section">
-        {/* <img src={banner} alt='' className='banner-img-1' /> */}
-        {/* <img src={} alt='' /> */}
+        <Box className="banner-box">
+          <Box>
+            <Logo className="logo-banner" />
+          </Box>
+          <Box>
+            <Typography sx={{ color: "#fff" }}>A vous, pour tout</Typography>
+          </Box>
+        </Box>
       </Box>
       <section>
         <Box className="passe-banner-section">
@@ -98,6 +112,7 @@ const Home = () => {
             elementum lorem. Luctus natoque purus pellentesque proin id Gravida
             vel vel pharetra tortor.
           </Box>
+          <Box>lorem is </Box>
         </Box>
       </section>
       <section>
@@ -135,7 +150,7 @@ const Home = () => {
                               <Box className="head-section">
                                 <Typography className="rating-box">
                                   <Yellowfillstar />
-                                 <span className="rating-text"> {Rating}</span>
+                                  <span className="rating-text"> {Rating}</span>
                                 </Typography>
                                 <Typography className="rating-box">
                                   <Yellowfillstar />
@@ -161,7 +176,9 @@ const Home = () => {
                                   }}
                                 >
                                   <Button
-                                  onClick={toggleDrawer("right", true)}
+                                    onClick={() =>
+                                      setIsDrawerVisible(!isDrawerVisible)
+                                    }
                                     variant="contained"
                                     sx={{
                                       background: "#000000",
@@ -192,24 +209,14 @@ const Home = () => {
       <section style={{ marginTop: "50px" }}>
         <Footer />
       </section>
-    <Box>  
-        <React.Fragment key={"right"}>
-        <Drawer
-          anchor={"right"}
-          open={state["right"]}
-          onClose={toggleDrawer("right", false)}
-          PaperProps={{
-            sx: {
-              color: "#ffffff",
-              background: "#000000",
-              padding: "50px",
-            },
-          }}
-        >
-          {list("right")}
-        </Drawer>
-      </React.Fragment></Box>
+      <Box>
+        <CustomDrawer
+          state={isDrawerVisible}
+          onClose={() => setIsDrawerVisible(false)}
+          children={list("right")}
+        />
       </Box>
+    </Box>
   );
 };
 

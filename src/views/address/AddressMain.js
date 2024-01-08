@@ -5,16 +5,10 @@ import CustomInput from "../../layout/CustomInput";
 
 const AddressMain = () => {
   return (
-    <Box sx={{mb:5}}>
+    <Box sx={{ mb: 5 }}>
       <SearchBox />
       <Container>
-        <Grid
-          container
-          lg={6}
-          spacing={2}
-          rowGap={3}
-          alignItems="end"
-        >
+        <Grid container lg={6} spacing={2} rowGap={3} alignItems="end">
           <Grid item lg={12} xs={12}>
             <Typography>EDIT YOUR BILLING ADDRESS</Typography>
             <Typography sx={{ mt: 2 }}>
