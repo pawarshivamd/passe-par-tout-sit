@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { ReactComponent as Yellowfillstar } from "../../assets/img/icon/yellowfillstar.svg";
+import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 const ChangePassword = ({ SaveButton }) => {
@@ -25,7 +25,7 @@ const ChangePassword = ({ SaveButton }) => {
   return (
     <Box>
       <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Yellowfillstar />
+        <StarIcon />
         <Typography sx={{ ml: 2 }}>CHANGE PASSWORD</Typography>
       </Box>
       <Box>

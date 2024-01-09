@@ -18,7 +18,7 @@ const SearchBox = () => {
         alignItems="center"
         justifyContent="space-between"
       >
-        <Grid item lg={6}>
+        <Grid item lg={6} xs={6}>
           <Box
             sx={{ display: "flex", flexDirection: "column" }}
             className="smile-box"
@@ -26,7 +26,7 @@ const SearchBox = () => {
             <img src={smile} alt="" width="50px" className="smile-img" />
           </Box>
         </Grid>
-        <Grid item lg={3}>
+        <Grid item lg={3} xs={6}>
           <CustomInput
             type="search"
             placeholder="SEARCH"

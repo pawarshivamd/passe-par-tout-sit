@@ -2,8 +2,8 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import CustomInput from "../../layout/CustomInput";
-import yellowfillstar from "../../assets/img/icon/yellowfillstar.svg";
-import { ReactComponent as Yellowfillstar } from "../../assets/img/icon/yellowfillstar.svg";
+import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
+import { Link } from "react-router-dom";
 const SingUp = () => {
   return (
     <Box>
@@ -11,9 +11,9 @@ const SingUp = () => {
       <Container>
         <Grid container lg={12} spacing={2}>
           <Grid item lg={6}>
-            <Grid container>
+            <Grid container sx={{ mb: 5 }}>
               <Grid item lg={1}>
-                <img src={yellowfillstar} alt="star" />
+                <StarIcon />
               </Grid>
               <Grid item lg={11}>
                 <Typography>PERSONAL DETAILS</Typography>
@@ -86,7 +86,7 @@ const SingUp = () => {
                       sx={{ display: "flex ", alignItems: "center" }}
                     >
                       <Box sx={{ mr: 1 }}>
-                        <Yellowfillstar style={{ fill: "transparent" }} />
+                        <StarIcon style={{ fill: "transparent" }} />
                       </Box>
                       <Typography>
                         I have read and understand the Privacy and Cookies
@@ -102,11 +102,12 @@ const SingUp = () => {
                         }}
                       >
                         <Button
+                          component={Link}
+                          to="/home"
                           variant="outlined"
                           className="custom-button"
                           sx={{ minWidth: "200px", padding: "10px 20px" }}
                         >
-                          {" "}
                           Create Account
                         </Button>
                       </Box>

@@ -1,13 +1,13 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import React from "react";
 import CustomInput from "../../layout/CustomInput";
-import { ReactComponent as Yellowfillstar } from "../../assets/img/icon/yellowfillstar.svg";
+import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
 
 const EditAddress = ({ saveButton }) => {
   return (
     <Box>
       <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Yellowfillstar />
+        <StarIcon />
         <Typography sx={{ ml: 2 }}>EDIT ADDRESS</Typography>
       </Box>
       <Box>

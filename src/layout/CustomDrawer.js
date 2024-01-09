@@ -6,6 +6,7 @@ const CustomDrawer = ({ onClose, state, children }) => {
     <Box>
       <React.Fragment key={"right"}>
         <Drawer
+          sx={{ zIndex: "99999999999" }}
           anchor={"right"}
           open={state}
           onClose={() => onClose("jHi I am shivam tewzting trext")}

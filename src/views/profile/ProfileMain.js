@@ -1,6 +1,6 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { ReactComponent as Yellowfillstar } from "../../assets/img/icon/yellowfillstar.svg";
+import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Link } from "react-router-dom";
 import ChangeEmial from "./ChangeEmial";
@@ -29,7 +29,7 @@ const ProfileMain = () => {
               <Grid container spacing={2} sx={{ mt: 1 }}>
                 <Grid item lg={4} xs={8}>
                   <Box sx={{ display: "flex" }}>
-                    <Yellowfillstar />
+                    <StarIcon />
                     <Box sx={{ ml: 2 }}>
                       <Typography>
                         <Link onClick={() => handleClick("addresses")}>
@@ -48,7 +48,7 @@ const ProfileMain = () => {
               <Grid container spacing={2} sx={{ mt: 1 }}>
                 <Grid item lg={4} xs={8}>
                   <Box sx={{ display: "flex" }}>
-                    <Yellowfillstar />
+                    <StarIcon />
                     <Box sx={{ ml: 2 }}>
                       <Typography>
                         <Link onClick={() => handleClick("email")}>EMAIL</Link>
@@ -68,7 +68,7 @@ const ProfileMain = () => {
               <Grid container spacing={2} sx={{ mt: 1 }}>
                 <Grid item lg={4} xs={8}>
                   <Box sx={{ display: "flex" }}>
-                    <Yellowfillstar />
+                    <StarIcon />
                     <Box sx={{ ml: 2 }}>
                       <Typography>
                         <Link onClick={() => handleClick("phone")}>PHONE</Link>
@@ -86,7 +86,7 @@ const ProfileMain = () => {
               <Grid container spacing={2} sx={{ mt: 1 }}>
                 <Grid item lg={4} xs={8}>
                   <Box sx={{ display: "flex" }}>
-                    <Yellowfillstar />
+                    <StarIcon />
                     <Box sx={{ ml: 2 }}>
                       <Typography>
                         <Link onClick={() => handleClick("changePassword")}>

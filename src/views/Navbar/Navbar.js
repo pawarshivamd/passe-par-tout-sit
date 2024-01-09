@@ -1,6 +1,6 @@
 import { Box, Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import logo from "../../assets/img/logo.png";
+import { ReactComponent as Logo } from "../../assets/img/logo.svg";
 import { NavLink } from "react-router-dom";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -19,7 +19,7 @@ const Navbar = () => {
   };
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 200) {
+      if (window.scrollY > 2) {
         setFixedNavbar(true);
       } else {
         setFixedNavbar(false);
@@ -36,7 +36,8 @@ const Navbar = () => {
       <Container>
         <Box className="navbar-section">
           <Box>
-            <img src={logo} alt="logo" />
+            {/* <img src={logo} alt="logo" /> */}
+            <Logo width={70} />
           </Box>
           <Box sx={{ ml: "auto" }}>
             <Box
@@ -53,13 +54,25 @@ const Navbar = () => {
                 >
                   Home
                 </NavLink>
-                <NavLink className="nav-list" to="shop">
+                <NavLink
+                  onClick={handleNavLinkClick}
+                  className="nav-list"
+                  to="shop"
+                >
                   Shop
                 </NavLink>
-                <NavLink className="nav-list" to="shopping-bag">
+                <NavLink
+                  onClick={handleNavLinkClick}
+                  className="nav-list"
+                  to="shopping-bag"
+                >
                   Shopping Bag (0)
                 </NavLink>
-                <NavLink className="nav-list" to="/">
+                <NavLink
+                  onClick={handleNavLinkClick}
+                  className="nav-list"
+                  to="/"
+                >
                   LOG IN
                 </NavLink>
               </Box>

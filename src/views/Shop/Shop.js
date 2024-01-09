@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import productimg from "../../assets/img/products/product1.png";
 import { Link, useNavigate } from "react-router-dom";
-import { ReactComponent as Yellowfillstar } from "../../assets/img/icon/yellowfillstar.svg";
+import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
 import Footer from "../footer/Footer";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 export const ShopData = [
@@ -123,7 +123,7 @@ const Shop = () => {
                       <Typography variant="subtitle1" component="div">
                         <Link>{MainText}</Link>
                       </Typography>
-                      <Yellowfillstar />
+                      <StarIcon />
                     </Box>
                     <Typography variant="body2">{Price}</Typography>
                   </CardContent>

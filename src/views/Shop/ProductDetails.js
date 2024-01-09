@@ -1,19 +1,19 @@
 import { Box, Button, Card, Container, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { ReactComponent as CartIcon } from "../../assets/img/icon/cart.svg";
-import { ReactComponent as Yellowfillstar } from "../../assets/img/icon/yellowfillstar.svg";
+import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
-import img1 from "../../assets/img/products/product1.png";
-import img2 from "../../assets/img/products/product1.png";
-import img3 from "../../assets/img/products/product1.png";
+import img1 from "../../assets/img/products/product2.png";
+import img2 from "../../assets/img/products/product3.png";
+import img3 from "../../assets/img/products/product4.png";
 import img4 from "../../assets/img/products/product1.png";
-import img5 from "../../assets/img/products/product1.png";
-import img6 from "../../assets/img/products/product1.png";
-import img7 from "../../assets/img/products/product1.png";
-import img8 from "../../assets/img/products/product1.png";
+import img5 from "../../assets/img/products/product2.png";
+import img6 from "../../assets/img/products/product3.png";
+import img7 from "../../assets/img/products/product4.png";
+import img8 from "../../assets/img/products/product2.png";
 import img9 from "../../assets/img/products/product1.png";
 import CloseIcon from "@mui/icons-material/Close";
 import productimg from "../../assets/img/products/product1.png";
@@ -22,6 +22,7 @@ import { productData } from "../Home/Home";
 import Footer from "../footer/Footer";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import CustomDrawer from "../../layout/CustomDrawer";
+
 const ProductDetails = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
@@ -104,12 +105,10 @@ const ProductDetails = () => {
                       />
                     </div>
                     <Box className="star-box">
-                      {" "}
-                      <Yellowfillstar />{" "}
+                      <StarIcon />
                     </Box>
                   </Box>
                 </Grid>
-
                 <Grid
                   item
                   lg={2}
@@ -129,10 +128,11 @@ const ProductDetails = () => {
                     pagination={{
                       clickable: true,
                     }}
-                    navigation={{
-                      nextEl: ".swiper-button-next next",
-                      prevEl: ".swiper-button-prev prev",
-                    }}
+                    // navigation={true}
+                    // navigation={{
+                    //   nextEl: ".swiper-button-next next",
+                    //   prevEl: ".swiper-button-prev prev",
+                    // }}
                     modules={[Navigation]}
                     className="mySwiper"
                   >
@@ -150,7 +150,10 @@ const ProductDetails = () => {
           </Grid>
           {/* col-6 right section for text */}
           <Grid item lg={6}>
-            <Box sx={{ padding: "0 20px" }}>
+            <Box
+              sx={{ padding: "0 20px" }}
+              className="product-details-right-section"
+            >
               <Typography sx={{ fontWeight: "400", fontSize: "22px" }}>
                 Lorem ipsum dolor sit
               </Typography>
@@ -175,6 +178,23 @@ const ProductDetails = () => {
                   <span>XXL</span>
                 </Typography>
               </Box>
+              <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
+                <Box sx={{ mr: 2 }} className="white-sroke-icon">
+                  <StarIcon width={23} height={23} stroke="#fff" />
+                </Box>
+                <Box sx={{ mr: 2 }} className="black-sroke-icon">
+                  <StarIcon width={23} height={23} stroke="#000000" />
+                </Box>
+                <Box sx={{ mr: 2 }} className="red-sroke-icon">
+                  <StarIcon width={23} height={23} stroke="#EF0C0C" />
+                </Box>
+                <Box sx={{ mr: 2 }} className="parupal-sroke-icon">
+                  <StarIcon width={23} height={23} stroke="#9747FF" />
+                </Box>
+                <Box sx={{ mr: 2 }} className="gray-sroke-icon">
+                  <StarIcon width={23} height={23} stroke="#919191" />
+                </Box>
+              </Box>
               <Button variant="outlined">
                 <span style={{ marginRight: "7px" }}>ADD TO BAG </span>{" "}
                 <CartIcon width={18} height={18} />
@@ -193,20 +213,20 @@ const ProductDetails = () => {
                 <Grid item lg={6} md={6} sm={6} xs={12}>
                   <Card className="product-card">
                     <Grid container spacing={2}>
-                      <Grid item lg={6} sm={6} xs={6}>
+                      <Grid item lg={6} sm={6} xs={5}>
                         <Box className="img-box">
                           <img src={imgdata} alt={imgalt} />
                         </Box>
                       </Grid>
-                      <Grid item lg={6} sm={6} xs={6}>
+                      <Grid item lg={6} sm={6} xs={7}>
                         <Box className="card-contain">
                           <Box className="head-section">
                             <Typography className="rating-box">
-                              <Yellowfillstar />
+                              <StarIcon />
                               <span className="rating-text"> {Rating}</span>
                             </Typography>
                             <Typography className="rating-box">
-                              <Yellowfillstar />
+                              <StarIcon />
                             </Typography>
                           </Box>
                           <Box className="card-details-box">
@@ -239,9 +259,8 @@ const ProductDetails = () => {
                                 }}
                                 color="secondary"
                               >
-                                <CartIcon height={18} width={18} />{" "}
+                                <CartIcon height={18} width={18} />
                                 <span style={{ marginLeft: "7px" }}>
-                                  {" "}
                                   Add To Bag
                                 </span>
                               </Button>

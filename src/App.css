@@ -13,11 +13,17 @@ a {
   text-decoration: none;
   color: #ffffff;
 }
-input[ type = "number" ]{
+
+input[ type="number"] {
   appearance: none !important;
-				-moz-appearance: none !important;
-				-webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  -webkit-appearance: none !important;
 }
+
+.star-icon-fill {
+  fill: #EFC80C;
+}
+
 .smile-box {
   width: 100%;
   position: relative;
@@ -193,6 +199,36 @@ input[ type = "number" ]{
     margin: 0px auto;
     padding: 50px 0px;
   }
+
+  .arrow-icon {
+    width: 100px;
+    height: 100px;
+  }
+
+  .right-box-section {
+    width: min(100% - 0px, 50%);
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .left-box-section {
+    width: min(100% - 0px, 50%);
+    position: absolute;
+    bottom: 5%;
+    right: 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.trending-head-title {
+  font-size: 5rem !important;
+  color: #b0b0b04f;
 }
 
 .product-card {
@@ -200,6 +236,7 @@ input[ type = "number" ]{
   padding: 5px;
   display: flex;
   align-items: center;
+  border-radius: 0px !important;
 
   .img-box {
     width: min(100% - 0px, 80%);
@@ -209,6 +246,7 @@ input[ type = "number" ]{
     & img {
       width: 100%;
       height: 100%;
+      object-fit: contain;
     }
   }
 
@@ -262,6 +300,18 @@ input[ type = "number" ]{
       .rating-text {
         font-size: 14px;
         margin-left: 7px;
+      }
+
+
+    }
+
+    .rating-star {
+      .star-icon-fill {
+        fill: #ffffff;
+
+        &:hover {
+          fill: #EFC80C;
+        }
       }
     }
   }
@@ -359,6 +409,57 @@ input[ type = "number" ]{
   }
 }
 
+.product-details-right-section {
+  .white-sroke-icon {
+    .star-icon-fill {
+      fill: none;
+
+      &:hover {
+        fill: #FFFFFF;
+      }
+    }
+  }
+
+  .black-sroke-icon {
+    .star-icon-fill {
+      fill: none;
+
+      &:hover {
+        fill: #000000;
+      }
+    }
+  }
+
+  .red-sroke-icon {
+    .star-icon-fill {
+      fill: none;
+
+      &:hover {
+        fill: #EF0C0C;
+      }
+    }
+  }
+
+  .parupal-sroke-icon {
+    .star-icon-fill {
+      fill: none;
+
+      &:hover {
+        fill: #9747FF;
+      }
+    }
+  }
+
+  .gray-sroke-icon {
+    .star-icon-fill {
+      fill: none;
+
+      &:hover {
+        fill: #919191;
+      }
+    }
+  }
+}
 
 
 .select-address-head-section {
@@ -442,19 +543,30 @@ input[ type = "number" ]{
 }
 
 @media (max-width:768px) {
-  .banner-section
-.banner-box
-.logo-banner {
+  .banner-section .banner-box .logo-banner {
     width: 200px;
     height: 200px;
-}
-.passe-banner-section
-.banner-box {
-    width: min(100% - 0px, 95%);
-    text-align: center;
-    margin: 0px auto;
-    padding: 50px 0px;
-}
+  }
+
+  .footer-icon-box {
+    padding-left: 0px;
+  }
+
+  .passe-banner-section {
+
+    .banner-box {
+      width: min(100% - 0px, 95%);
+      text-align: center;
+      margin: 0px auto;
+      padding: 50px 0px;
+    }
+
+    .arrow-icon {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
   .product-zoom-left-setion {
     .ss {
       height: auto;
@@ -483,15 +595,73 @@ input[ type = "number" ]{
     }
   }
 
+  .trending-head-title {
+    font-size: 3rem !important;
+  }
+
+  .product-card {
+    height: 30vh;
+
+    .img-box {
+      width: min(100% - 0px, 100%);
+      height: 26vh;
+      margin-inline: auto;
+
+      & img {
+        object-fit: contain;
+      }
+    }
+
+    .card-contain {
+      padding: 10px 10px;
+      position: relative;
+      height: 100%;
+    }
+
+    .card-details-box {
+      margin-top: auto;
+
+      .main-text {
+        font-size: 15px;
+      }
+
+      .price-box {
+        .main-price-text {
+          font-size: 17px;
+        }
+
+        .sub-rpice {
+          font-size: 12px;
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .head-section {
+      margin-bottom: 10px;
+
+      .rating-box {
+        padding: 5px 7px;
+
+        .rating-text {
+          font-size: 12px;
+          margin-left: 7px;
+        }
+      }
+    }
+  }
 }
+
 
 @media (max-width:991px) {
   .banner-section {
     min-height: 40vh;
   }
-  .passe-banner-section{
+
+  .passe-banner-section {
     min-height: 40vh;
   }
+
   .navbar {
     padding: 20px 0px;
 
@@ -524,4 +694,15 @@ input[ type = "number" ]{
     }
   }
 
+}
+
+@media (max-width:1024px) and (min-width:1024px) {
+  .product-card {
+    min-height: 21vh;
+
+    .img-box {
+      width: min(100% - 0px, 90%);
+      min-height: 20vh;
+    }
+  }
 }

@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import FormControl from "@mui/material/FormControl";
-import { ReactComponent as Yellowfillstar } from "../../assets/img/icon/yellowfillstar.svg";
+import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
 import CustomInput from "../../layout/CustomInput";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
@@ -26,7 +26,7 @@ const ChangeEmial = ({ SaveButton }) => {
   return (
     <Box>
       <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Yellowfillstar />
+        <StarIcon />
         <Typography sx={{ ml: 2 }}>CHANGE EMAIL</Typography>
       </Box>
       <Typography sx={{ ml: 2 }}>

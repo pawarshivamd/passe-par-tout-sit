@@ -9,13 +9,18 @@ import {
 } from "@mui/material";
 import React from "react";
 import productimg from "../../assets/img/products/product1.png";
-import { ReactComponent as Yellowfillstar } from "../../assets/img/icon/yellowfillstar.svg";
+import productimg2 from "../../assets/img/products/product2.png";
+import productimg3 from "../../assets/img/products/product3.png";
+import productimg4 from "../../assets/img/products/product4.png";
+import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
 import { ReactComponent as CartIcon } from "../../assets/img/icon/cart.svg";
-import shape from "../../assets/img/shape/Rectangle.png";
 import Footer from "../footer/Footer";
 import CloseIcon from "@mui/icons-material/Close";
 import { ReactComponent as Logo } from "../../assets/img/logo.svg";
 import CustomDrawer from "../../layout/CustomDrawer";
+import { ReactComponent as RightMoveArrow } from "../../assets/img/icon/reightmovearrow.svg";
+import { ReactComponent as LeftMoveArrow } from "../../assets/img/icon/leftmovearrow.svg";
+
 export const productData = [
   {
     id: "0",
@@ -29,7 +34,7 @@ export const productData = [
   {
     id: "1",
     Rating: "4.5",
-    imgdata: productimg,
+    imgdata: productimg2,
     imgalt: "cloth",
     mainText: "Lorem ipsum",
     MainPrice: "30",
@@ -38,7 +43,7 @@ export const productData = [
   {
     id: "2",
     Rating: "4.5",
-    imgdata: productimg,
+    imgdata: productimg3,
     imgalt: "cloth",
     mainText: "Lorem ipsum",
     MainPrice: "30",
@@ -47,7 +52,7 @@ export const productData = [
   {
     id: "3",
     Rating: "4.5",
-    imgdata: productimg,
+    imgdata: productimg4,
     imgalt: "cloth",
     mainText: "Lorem ipsum",
     MainPrice: "30",
@@ -56,7 +61,7 @@ export const productData = [
 ];
 const Home = () => {
   const [isDrawerVisible, setIsDrawerVisible] = React.useState(false);
-  
+
   const list = (anchor) => (
     <Box
       sx={{ width: 550 }}
@@ -112,14 +117,25 @@ const Home = () => {
             elementum lorem. Luctus natoque purus pellentesque proin id Gravida
             vel vel pharetra tortor.
           </Box>
-          <Box>lorem is </Box>
+          <Box className="right-box-section">
+            <Typography sx={{ textAlign: "center" }}> lorem is </Typography>
+            <Box sx={{ textAlign: "center" }}>
+              <RightMoveArrow className="arrow-icon" />
+            </Box>
+          </Box>
+          <Box className="left-box-section">
+            <Box sx={{ textAlign: "center" }}>
+              <LeftMoveArrow className="arrow-icon" />
+            </Box>
+            <Typography sx={{ textAlign: "center" }}> lorem is </Typography>
+          </Box>
         </Box>
       </section>
       <section>
         <Box>
           <Container>
             <Box>
-              <Typography sx={{ fontSize: "5rem", color: " #b0b0b04f" }}>
+              <Typography className="trending-head-title">
                 <span style={{ borderBottom: "1px solid #EFC80C" }}>
                   TRENDING
                 </span>
@@ -140,20 +156,20 @@ const Home = () => {
                     <Grid item lg={6} md={6} sm={6} xs={12}>
                       <Card className="product-card">
                         <Grid container spacing={2}>
-                          <Grid item lg={6} sm={6} xs={6}>
+                          <Grid item lg={6} sm={6} xs={5}>
                             <Box className="img-box">
                               <img src={imgdata} alt={imgalt} />
                             </Box>
                           </Grid>
-                          <Grid item lg={6} sm={6} xs={6}>
+                          <Grid item lg={6} sm={6} xs={7}>
                             <Box className="card-contain">
                               <Box className="head-section">
                                 <Typography className="rating-box">
-                                  <Yellowfillstar />
+                                  <StarIcon />
                                   <span className="rating-text"> {Rating}</span>
                                 </Typography>
-                                <Typography className="rating-box">
-                                  <Yellowfillstar />
+                                <Typography className="rating-box rating-star">
+                                  <StarIcon />
                                 </Typography>
                               </Box>
                               <Box className="card-details-box">

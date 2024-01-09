@@ -1,15 +1,6 @@
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import React from "react";
-import yellowfillstar from "../../assets/img/icon/yellowfillstar.svg";
-// import Navbar from '../Navbar/Navbar'
-import { useTheme } from "@mui/material/styles";
+import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
 import CustomInput from "../../layout/CustomInput";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import { Link } from "react-router-dom";
@@ -23,8 +14,7 @@ const Login = () => {
           <Grid item lg={6}>
             <Grid container>
               <Grid item lg={1}>
-                {" "}
-                <img src={yellowfillstar} alt="star" />
+                <StarIcon />
               </Grid>
               <Grid item lg={11}>
                 <Typography> LOG IN TO YOUR ACCOUNT</Typography>
@@ -78,10 +68,10 @@ const Login = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item lg={4}>
+          <Grid item lg={5}>
             <Grid container>
               <Grid item lg={1} xs={1}>
-                <img src={yellowfillstar} alt="star" />
+                <StarIcon />
               </Grid>
               <Grid item lg={5} xs={11}>
                 <Box>NEED AN ACCOUNT?</Box>
