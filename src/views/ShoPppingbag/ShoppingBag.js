@@ -16,6 +16,7 @@ import { ReactComponent as CloseIcon } from "../../assets/img/icon/closeicon.svg
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import ContinueProFooter from "../../layout/ContinueProFooter";
 import Favorite from "../favorite/Favorite";
+import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
 
 const ShoppingBag = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -24,7 +25,7 @@ const ShoppingBag = () => {
     setActiveTab(tabNumber);
   };
   return (
-    <Box>
+    <Box sx={{mt:20}}>
       <SearchBox />
       <Container>
         <Box>
@@ -47,12 +48,15 @@ const ShoppingBag = () => {
                 borderBottom: activeTab === 2 ? "1px solid #EFC80C" : "none",
               }}
             >
-              <NavLink> Favorite </NavLink>
+              <NavLink> Favorite <StarIcon/> </NavLink>
             </Typography>
           </Box>
+          </Box>
+          </Container>
           <Box>
             {activeTab === 1 && (
               <Box sx={{ mt: 5 }}>
+              <Container>
                 <Grid container spacing={2}>
                   {ShopData.filter(
                     (item) => item.id === "0" || item.id === "1"
@@ -60,10 +64,10 @@ const ShoppingBag = () => {
                     const { ShopImg, ImgAlt, MainText, Price } = cureEle;
                     return (
                       <Grid item lg={4} md={4} sm={6} xs={12}>
-                        <Card sx={{ borderRadius: "0px" }}>
+                        <Card sx={{ borderRadius: "0px" ,boxShadow:"none"}}>
                           <Box
                             sx={{
-                              height: "350px",
+                              height: "450px",
                               width: "min(100% - 0px, 100%)",
                               marginInline: "auto",
                             }}
@@ -73,6 +77,7 @@ const ShoppingBag = () => {
                               height="100%"
                               image={ShopImg}
                               alt={ImgAlt}
+                              sx={{objectFit:"contain"}}
                             />
                           </Box>
                           <CardContent
@@ -101,13 +106,12 @@ const ShoppingBag = () => {
                     );
                   })}
                 </Grid>
+              </Container>
+                <ContinueProFooter BtnText="Continue" to="/address" />
               </Box>
             )}
             {activeTab === 2 && <Favorite />}
-          </Box>
-        </Box>
-      </Container>
-      <ContinueProFooter BtnText="Continue" />
+          </Box>      
     </Box>
   );
 };

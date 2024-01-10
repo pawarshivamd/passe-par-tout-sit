@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Container,
   Grid,
   Typography,
 } from "@mui/material";
@@ -13,13 +14,14 @@ import { ReactComponent as CloseIcon } from "../../assets/img/icon/closeicon.svg
 
 const Favorite = () => {
   return (
-    <Box sx={{ mt: 5 }}>
+    <Box sx={{ mt: 5 ,mb:5 }}>
+    <Container>
       <Grid container spacing={2}>
         {ShopData.filter((item) => item.id === "0").map((cureEle, index) => {
           const { ShopImg, ImgAlt, MainText, Price } = cureEle;
           return (
             <Grid item lg={4} md={4} sm={6} xs={12}>
-              <Card sx={{ borderRadius: "0px" }}>
+              <Card sx={{ borderRadius: "0px",boxShadow:"none" }}>
                 <Box
                   sx={{
                     height: "350px",
@@ -60,6 +62,7 @@ const Favorite = () => {
           );
         })}
       </Grid>
+      </Container>
     </Box>
   );
 };

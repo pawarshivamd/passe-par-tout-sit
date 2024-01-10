@@ -9,7 +9,7 @@ const CustomDrawer = ({ onClose, state, children }) => {
           sx={{ zIndex: "99999999999" }}
           anchor={"right"}
           open={state}
-          onClose={() => onClose("jHi I am shivam tewzting trext")}
+          onClose={() => onClose("")}
           PaperProps={{
             sx: {
               color: "#ffffff",

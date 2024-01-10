@@ -20,6 +20,7 @@ import { ReactComponent as Logo } from "../../assets/img/logo.svg";
 import CustomDrawer from "../../layout/CustomDrawer";
 import { ReactComponent as RightMoveArrow } from "../../assets/img/icon/reightmovearrow.svg";
 import { ReactComponent as LeftMoveArrow } from "../../assets/img/icon/leftmovearrow.svg";
+import { Link } from "react-router-dom";
 
 export const productData = [
   {
@@ -64,19 +65,19 @@ const Home = () => {
 
   const list = (anchor) => (
     <Box
-      sx={{ width: 550 }}
+      className="drawer-open-section"
       role="presentation"
       onClick={() => setIsDrawerVisible(false)}
       onKeyDown={() => setIsDrawerVisible(false)}
     >
       <Box>
         <Grid container spacing={2}>
-          <Grid item lg={5}>
+          <Grid item lg={5} sm={5} xs={12}>
             <Box>
               <img src={productimg} width={"100%"} alt="" />
             </Box>
           </Grid>
-          <Grid item lg={7}>
+          <Grid item lg={7} sm={7} xs={12}>
             <Box sx={{ display: "flex", justifyContent: "end" }}>
               <CloseIcon color="primary" />
             </Box>
@@ -85,6 +86,8 @@ const Home = () => {
             <Typography>COLOR / SIZE</Typography>
             <Box sx={{ mt: 3 }}>
               <Button
+              component={Link}
+              to="/shopping-bag"
                 variant="outlined"
                 className="custom-button"
                 sx={{ padding: "7px 40px" }}
@@ -106,7 +109,7 @@ const Home = () => {
             <Logo className="logo-banner" />
           </Box>
           <Box>
-            <Typography sx={{ color: "#fff" }}>A vous, pour tout</Typography>
+            <Typography sx={{ color: "#EFC80C",ml:2 }}>A' vous, pour tout</Typography>
           </Box>
         </Box>
       </Box>
@@ -156,16 +159,18 @@ const Home = () => {
                     <Grid item lg={6} md={6} sm={6} xs={12}>
                       <Card className="product-card">
                         <Grid container spacing={2}>
-                          <Grid item lg={6} sm={6} xs={5}>
+                          <Grid item lg={6} md={5} sm={5}  xs={5}>
+                          <Link to="/shop/new">
                             <Box className="img-box">
                               <img src={imgdata} alt={imgalt} />
                             </Box>
+                          </Link>
                           </Grid>
-                          <Grid item lg={6} sm={6} xs={7}>
+                          <Grid item lg={6} md={7} sm={7} xs={7}>
                             <Box className="card-contain">
                               <Box className="head-section">
-                                <Typography className="rating-box">
-                                  <StarIcon />
+                                <Typography className="rating-box rating-text-box">
+                                  <StarIcon  />
                                   <span className="rating-text"> {Rating}</span>
                                 </Typography>
                                 <Typography className="rating-box rating-star">
@@ -174,7 +179,9 @@ const Home = () => {
                               </Box>
                               <Box className="card-details-box">
                                 <Typography className="main-text">
+                                <Link to="/shop/new">
                                   {mainText}
+                                </Link>
                                 </Typography>
                                 <Box className="price-box">
                                   <Typography className="main-price-text">
@@ -199,6 +206,9 @@ const Home = () => {
                                     sx={{
                                       background: "#000000",
                                       color: "#ffffff",
+                                      width:"100%",
+                                      borderRadius:"0",
+                                      py:1
                                     }}
                                     color="secondary"
                                   >

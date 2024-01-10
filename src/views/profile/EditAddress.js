@@ -6,13 +6,13 @@ import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar
 const EditAddress = ({ saveButton }) => {
   return (
     <Box>
-      <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box sx={{ display: "flex", alignItems: "center" , mt:5}}>
         <StarIcon />
         <Typography sx={{ ml: 2 }}>EDIT ADDRESS</Typography>
       </Box>
       <Box>
-        <Grid container spacing={2} lg={6} xs={12} alignItems="end">
-          <Grid item lg={6} xs={12}>
+        <Grid container spacing={2} lg={6} sm={5} md={5} xs={12} alignItems="end">
+          <Grid item lg={6}  xs={12}>
             <CustomInput
               type="text"
               id="name"
@@ -44,20 +44,22 @@ const EditAddress = ({ saveButton }) => {
           </Grid>
           <Grid item lg={6} xs={12}>
             <Grid container spacing={1}>
-              <Grid item lg={2}>
+              <Grid item lg={2} md={2} sm={2} xs={2}>
                 <CustomInput
                   placeholder="+961"
                   value="+961"
                   color="primary"
                   variant="standard"
+                  label="PREFIX"
                 />
               </Grid>
-              <Grid item lg={10}>
+              <Grid item lg={10} md={10} sm={10} xs={10}>
                 <CustomInput
                   placeholder="00 000 000"
                   color="primary"
                   variant="standard"
                   type="number"
+                  label="TELEPHONE"
                 />
               </Grid>
             </Grid>
@@ -65,20 +67,20 @@ const EditAddress = ({ saveButton }) => {
           <Grid item lg={6} xs={12}>
             <CustomInput
               type="text"
-              id="lebanon"
-              name="lebanon"
-              label="LEBANON"
+              id="REGION"
+              name="REGION"
+              label="REGION"
               color="primary"
               variant="standard"
             />
           </Grid>
-          <Grid item lg={12} xs={12}>
+          <Grid item lg={6} xs={12}>
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                mt: 3,
+                mb: "4px",
               }}
             >
               <Button
@@ -86,6 +88,7 @@ const EditAddress = ({ saveButton }) => {
                 variant="outlined"
                 className="custom-button"
                 onClick={() => saveButton()}
+                sx={{paddingInline:"50px"}}
               >
                 SAVE
               </Button>

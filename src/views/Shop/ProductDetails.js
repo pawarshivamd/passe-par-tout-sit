@@ -1,6 +1,7 @@
 import { Box, Button, Card, Container, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { ReactComponent as CartIcon } from "../../assets/img/icon/cart.svg";
+import { ReactComponent as CartIconStroke } from "../../assets/img/icon/cartstroke.svg";
 import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -22,6 +23,7 @@ import { productData } from "../Home/Home";
 import Footer from "../footer/Footer";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import CustomDrawer from "../../layout/CustomDrawer";
+import { Link } from "react-router-dom";
 
 const ProductDetails = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
@@ -51,6 +53,9 @@ const ProductDetails = () => {
             <Typography>COLOR / SIZE</Typography>
             <Box sx={{ mt: 3 }}>
               <Button
+              
+              component={Link}
+              to="/shopping-bag"
                 variant="outlined"
                 className="custom-button"
                 sx={{ padding: "7px 40px" }}
@@ -64,7 +69,7 @@ const ProductDetails = () => {
     </Box>
   );
   return (
-    <Box>
+    <Box sx={{mt:20}}>
       <SearchBox />
       <Container>
         <Grid container spacing={2}>
@@ -171,11 +176,11 @@ const ProductDetails = () => {
                     margin: "20px 0px",
                   }}
                 >
-                  <span>S-</span>
-                  <span>M-</span>
-                  <span>L-</span>
-                  <span>XL-</span>
-                  <span>XXL</span>
+                  <span className="size-text">S-</span>
+                  <span className="size-text">M-</span>
+                  <span className="size-text">L-</span>
+                  <span className="size-text">XL-</span>
+                  <span className="size-text">XXL</span>
                 </Typography>
               </Box>
               <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
@@ -195,9 +200,14 @@ const ProductDetails = () => {
                   <StarIcon width={23} height={23} stroke="#919191" />
                 </Box>
               </Box>
-              <Button variant="outlined">
+              <Button onClick={() =>
+                                  setIsDrawerVisible(!isDrawerVisible)
+                                } variant="outlined"
+                                className="custom-button"
+                                sx={{paddingInline:"35px"}}
+                                >
                 <span style={{ marginRight: "7px" }}>ADD TO BAG </span>{" "}
-                <CartIcon width={18} height={18} />
+                <CartIconStroke width={18} height={18}  />
               </Button>
             </Box>
           </Grid>
@@ -214,24 +224,26 @@ const ProductDetails = () => {
                   <Card className="product-card">
                     <Grid container spacing={2}>
                       <Grid item lg={6} sm={6} xs={5}>
-                        <Box className="img-box">
-                          <img src={imgdata} alt={imgalt} />
-                        </Box>
+                        <Link to="/shop/new">
+                          <Box className="img-box">
+                            <img src={imgdata} alt={imgalt} />
+                          </Box>
+                        </Link>
                       </Grid>
                       <Grid item lg={6} sm={6} xs={7}>
                         <Box className="card-contain">
                           <Box className="head-section">
-                            <Typography className="rating-box">
+                            <Typography className="rating-box rating-text-box">
                               <StarIcon />
                               <span className="rating-text"> {Rating}</span>
                             </Typography>
-                            <Typography className="rating-box">
-                              <StarIcon />
+                            <Typography className="rating-box rating-star">
+                            <StarIcon />
                             </Typography>
                           </Box>
                           <Box className="card-details-box">
                             <Typography className="main-text">
-                              {mainText}
+                              <Link to="/shop/new">{mainText}</Link>
                             </Typography>
                             <Box className="price-box">
                               <Typography className="main-price-text">
@@ -256,11 +268,15 @@ const ProductDetails = () => {
                                 sx={{
                                   background: "#000000",
                                   color: "#ffffff",
+                                  width: "100%",
+                                  borderRadius: "0",
+                                  py: 1,
                                 }}
                                 color="secondary"
                               >
-                                <CartIcon height={18} width={18} />
+                                <CartIcon height={18} width={18} />{" "}
                                 <span style={{ marginLeft: "7px" }}>
+                                  {" "}
                                   Add To Bag
                                 </span>
                               </Button>

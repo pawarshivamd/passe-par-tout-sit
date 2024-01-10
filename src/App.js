@@ -25,6 +25,9 @@ export const theme = createTheme({
       main: "#FFFFFF",
     },
   },
+  typography: {
+    fontFamily: ["PT Mono"].join(","),
+  },
 });
 function App() {
   return (

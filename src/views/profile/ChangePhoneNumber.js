@@ -7,24 +7,24 @@ import { Sd } from "@mui/icons-material";
 const ChangePhoneNumber = ({ SaveButton }) => {
   return (
     <Box>
-      <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box sx={{ display: "flex", alignItems: "center",mt:4 ,mb:4 }}>
         <StarIcon />
-        <Typography sx={{ ml: 2 }}>EDIT ADDRESS</Typography>
+        <Typography sx={{ ml: 2 }}>CHANGE PHONE NUMBER</Typography>
       </Box>
       <Box>
-        <Grid container spacing={2} lg={6} xs={12} alignItems="end">
-          <Grid item lg={6} xs={12}>
+        <Grid container spacing={2} lg={3} md={4} sm={4} xs={12} alignItems="end">
+          <Grid item lg={12} xs={12}>
             <Grid container spacing={1}>
-              <Grid item lg={2}>
+              <Grid item lg={2} md={2} sm={2} xs={2}>
                 <CustomInput
                   placeholder="+961"
                   lable="PREFIX"
-                  value="+961"
+                  // value="+961"
                   color="primary"
                   variant="standard"
                 />
               </Grid>
-              <Grid item lg={10}>
+              <Grid item lg={10} md={10} sm={10} xs={10}>
                 <CustomInput
                   lable="NEW PHONE NUMBER"
                   placeholder="00 000 000"
@@ -50,6 +50,7 @@ const ChangePhoneNumber = ({ SaveButton }) => {
                 variant="outlined"
                 className="custom-button"
                 onClick={() => SaveButton()}
+                fullWidth
               >
                 UPDATE PHONE NUMBER
               </Button>

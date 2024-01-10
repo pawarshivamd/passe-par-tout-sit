@@ -8,21 +8,21 @@ import SearchBox from "../../layout/searchcontainer/SearchBox";
 
 const SelectAddress = () => {
   return (
-    <Box>
+    <Box sx={{mt:20}}>
       <SearchBox />
       <Container>
-        <Grid container spacing={2} lg={6}>
-          <Grid item lg={12}>
+        <Grid container spacing={2} lg={6} md={6} sm={8}  xs={12}>
+          <Grid item lg={12} xs={12}>
             <Box className="select-address-head-section">
               <Typography className="main-text">
                 Select Delivery Address
               </Typography>
-              <Typography className="add-addres-text" component={Link}>
+              <Typography className="add-addres-text" component={Link} to="/address">
                 <AddIcon /> Add New Address
               </Typography>
             </Box>
           </Grid>
-          <Grid item lg={12}>
+          <Grid item lg={12} >
             <Box className="select-address-box">
               <Typography className="main-title-box">
                 {" "}

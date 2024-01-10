@@ -30,29 +30,30 @@ const Signout = ({ saveButton }) => {
   return (
     <>
       {!showConfirmDeletBox && (
-        <Box>
-          <Grid container spacing={2} lg={6} xs={12}>
+        <Box sx={{mt:4}}>
+          <Grid container spacing={2} lg={6} md={6} sm={6}  xs={12}>
             <Grid item lg={12} xs={12}>
               <Typography>DELETE YOUR ACCOUNT</Typography>
-              <Typography>
+              <Typography variant="body2" sx={{mt:1}} >
                 You are about to begin the process to delete your account.
               </Typography>
             </Grid>
             <Grid item lg={12}>
               <Typography>REMEMBER:</Typography>
-              <Typography>
+              <Typography variant="body2">
                 You will not be able to track any purchase, return
                 and/orexchange online.
               </Typography>
             </Grid>
             <Grid item lg={12} xs={12} sx={{ mt: 5 }}>
-              <Box>
+              <Box sx={{display:"flex",justifyContent:"center"}}>
                 <Button
                   onClick={handleContinue}
                   component={Link}
                   to=""
                   className="custom-button"
                   variant="outlined"
+                  sx={{paddingInline:"50px"}}
                 >
                   CONTINUE
                 </Button>
@@ -63,11 +64,11 @@ const Signout = ({ saveButton }) => {
       )}
 
       {showConfirmDeletBox && (
-        <Box>
-          <Grid container spacing={2} lg={6} xs={12}>
+        <Box sx={{mt:4,mb:4}}>
+          <Grid container spacing={2} lg={6} sm={6} md={6} xs={12}>
             <Grid item lg={12} xs={12}>
               <Typography>CONFIRM THE DELETION OF YOUR ACCOUNT</Typography>
-              <Typography>Enter your login details to continue</Typography>
+              <Typography variant="body2" sx={{mt:1}}>Enter your login details to continue</Typography>
             </Grid>
             <Grid container spacing={2}>
               <Grid item lg={6} xs={12}>
@@ -75,9 +76,10 @@ const Signout = ({ saveButton }) => {
                   type="email"
                   id="Email"
                   name="Email"
-                  label="NEW EMAIL ADDRESS"
+                  label="EMAIL"
                   color="primary"
                   variant="standard"
+                  
                 />
               </Grid>
             </Grid>
@@ -88,7 +90,7 @@ const Signout = ({ saveButton }) => {
                     htmlFor="standard-adornment-password"
                     className="textFieldcustomLable"
                   >
-                    Password
+                    PASSWORD
                   </InputLabel>
                   <Input
                     id="standard-adornment-password"
@@ -123,7 +125,8 @@ const Signout = ({ saveButton }) => {
                   }}
                 >
                   <Button
-                    onClick={() => saveButton()}
+                  component={Link}
+                  to="/"
                     variant="outlined"
                     className="custom-button"
                   >

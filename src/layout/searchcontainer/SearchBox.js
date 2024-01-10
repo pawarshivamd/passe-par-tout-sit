@@ -26,7 +26,7 @@ const SearchBox = () => {
             <img src={smile} alt="" width="50px" className="smile-img" />
           </Box>
         </Grid>
-        <Grid item lg={3} xs={6}>
+        <Grid item lg={3} md={4} sm={4} xs={6}>
           <CustomInput
             type="search"
             placeholder="SEARCH"

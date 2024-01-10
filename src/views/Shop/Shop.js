@@ -79,21 +79,30 @@ export const ShopData = [
   },
 ];
 const Shop = () => {
-  const navigaet = useNavigate();
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/shop/new");
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   return (
-    <Box>
+    <Box sx={{mt:20}}>
       <SearchBox />
       <Container>
+      <Box className="product-grid-section">
         <Grid container spacing={2}>
           {ShopData.map((cureEle, index) => {
             const { ShopImg, ImgAlt, MainText, Price } = cureEle;
             return (
               <Grid item lg={4} md={4} sm={6} xs={12}>
-                <Card sx={{ borderRadius: "0px" }}>
-                  <CardActionArea onClick={() => navigaet("/shop/new")}>
+                <Card  className="product-card-">
+                  <CardActionArea onClick={handleNavigate}>
                     <Box
                       sx={{
-                        height: "350px",
+                        height: "450px",
                         width: "min(100% - 0px, 100%)",
                         marginInline: "auto",
                       }}
@@ -103,6 +112,7 @@ const Shop = () => {
                         height="100%"
                         image={ShopImg}
                         alt={ImgAlt}
+                        sx={{objectFit:"contain"}}
                       />
                     </Box>
                   </CardActionArea>
@@ -121,9 +131,11 @@ const Shop = () => {
                       }}
                     >
                       <Typography variant="subtitle1" component="div">
-                        <Link>{MainText}</Link>
+                        <Link to="/shop/new">{MainText}</Link>
                       </Typography>
+                      <Box className="pro-rating-star">
                       <StarIcon />
+                      </Box>
                     </Box>
                     <Typography variant="body2">{Price}</Typography>
                   </CardContent>
@@ -132,6 +144,7 @@ const Shop = () => {
             );
           })}
         </Grid>
+        </Box>
       </Container>
       <section style={{ marginTop: "50px" }}>
         <Footer />

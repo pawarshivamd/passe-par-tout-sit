@@ -18,7 +18,7 @@ const ProfileMain = () => {
   return (
     <Box>
       <Container>
-        <Box sx={{ mt: 2 }}>
+        <Box sx={{ mt: 2,mb:5 }}>
           {!showbox && (
             <Box>
               <Grid container spacing={2}>
@@ -27,7 +27,7 @@ const ProfileMain = () => {
                 </Grid>
               </Grid>
               <Grid container spacing={2} sx={{ mt: 1 }}>
-                <Grid item lg={4} xs={8}>
+                <Grid item lg={4} sm={5}  xs={8}>
                   <Box sx={{ display: "flex" }}>
                     <StarIcon />
                     <Box sx={{ ml: 2 }}>
@@ -46,7 +46,7 @@ const ProfileMain = () => {
                 </Grid>
               </Grid>
               <Grid container spacing={2} sx={{ mt: 1 }}>
-                <Grid item lg={4} xs={8}>
+                <Grid item lg={4} sm={5} xs={8}>
                   <Box sx={{ display: "flex" }}>
                     <StarIcon />
                     <Box sx={{ ml: 2 }}>
@@ -66,7 +66,7 @@ const ProfileMain = () => {
                 </Grid>
               </Grid>
               <Grid container spacing={2} sx={{ mt: 1 }}>
-                <Grid item lg={4} xs={8}>
+                <Grid item lg={4} sm={5} xs={8}>
                   <Box sx={{ display: "flex" }}>
                     <StarIcon />
                     <Box sx={{ ml: 2 }}>
@@ -84,7 +84,7 @@ const ProfileMain = () => {
                 </Grid>
               </Grid>
               <Grid container spacing={2} sx={{ mt: 1 }}>
-                <Grid item lg={4} xs={8}>
+                <Grid item lg={4} sm={5} xs={8}>
                   <Box sx={{ display: "flex" }}>
                     <StarIcon />
                     <Box sx={{ ml: 2 }}>
@@ -104,11 +104,13 @@ const ProfileMain = () => {
                 </Grid>
               </Grid>
               <Grid container spacing={2}>
-                <Grid item lg={4} xs={12}>
+                <Grid item lg={4} sm={10} xs={12}>
                   <Box sx={{ display: "flex", alignItems: "center" }}>
                     <Box sx={{ mt: 5, mr: 3 }}>
                       <Button
-                        onClick={() => handleClick("signout")}
+                        component={Link}
+                        to="/"
+                       
                         className="custom-button"
                         variant="outlined"
                       >
@@ -117,8 +119,7 @@ const ProfileMain = () => {
                     </Box>
                     <Box sx={{ mt: 5 }}>
                       <Button
-                        component={Link}
-                        to="/"
+                       onClick={() => handleClick("signout")}
                         className="custom-button"
                         variant="outlined"
                       >

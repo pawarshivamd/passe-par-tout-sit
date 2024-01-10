@@ -25,15 +25,15 @@ const ChangeEmial = ({ SaveButton }) => {
   };
   return (
     <Box>
-      <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box sx={{ display: "flex", alignItems: "center",mt:4 }}>
         <StarIcon />
         <Typography sx={{ ml: 2 }}>CHANGE EMAIL</Typography>
       </Box>
-      <Typography sx={{ ml: 2 }}>
+      <Typography sx={{ ml: 2 ,mt:2}} variant="body2" >
         Your current email address is:<span>loremipsum@gmail.com</span>
       </Typography>
       <Box>
-        <Grid container spacing={2} lg={4} xs={12}>
+        <Grid container spacing={2} lg={4} sm={5} md={5} xs={12}>
           <Grid item lg={12} xs={12}>
             <CustomInput
               type="email"
@@ -88,6 +88,7 @@ const ChangeEmial = ({ SaveButton }) => {
                 variant="outlined"
                 className="custom-button"
                 onClick={() => SaveButton()}
+                fullWidth
               >
                 UPDATE EMAIL
               </Button>

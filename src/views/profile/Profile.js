@@ -21,7 +21,7 @@ const Profile = () => {
     setActiveTab(tabNumber);
   };
   return (
-    <Box>
+    <Box sx={{mt:20}}>
       <SearchBox />
       <Container>
         <Box>
@@ -57,10 +57,10 @@ const Profile = () => {
                     const { ShopImg, ImgAlt, MainText, Price } = cureEle;
                     return (
                       <Grid item lg={4} md={4} sm={6} xs={12}>
-                        <Card sx={{ borderRadius: "0px" }}>
+                        <Card sx={{ borderRadius: "0px" ,boxShadow:"none"}}>
                           <Box
                             sx={{
-                              height: "350px",
+                              height: "450px",
                               width: "min(100% - 0px, 100%)",
                               marginInline: "auto",
                             }}
@@ -68,8 +68,10 @@ const Profile = () => {
                             <CardMedia
                               component="img"
                               height="100%"
+                              
                               image={ShopImg}
                               alt={ImgAlt}
+                              sx={{objectFit:"contain"}}
                             />
                           </Box>
                           <CardContent
@@ -89,7 +91,7 @@ const Profile = () => {
                               <Typography variant="subtitle1" component="div">
                                 <Link>{MainText}</Link>
                               </Typography>
-                              <CloseIcon />
+                              {/* <CloseIcon /> */}
                             </Box>
                             <Typography variant="body2">{Price}</Typography>
                           </CardContent>

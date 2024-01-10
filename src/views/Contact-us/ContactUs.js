@@ -31,42 +31,44 @@ const InputCustom = styled(TextField)`
 
     &:hover {
       border-color: #efc80c;
-      outlined: ##efc80c; /* Border color on hover, if needed */
+      outline: #efc80c; /* Border color on hover, if needed */
     }
   }
   & fieldset {
+    border-radius:0;
     border-color: #efc80c;
     &:hover .MuiOutlinedInput-notchedOutline {
       border-color: #efc80c;
-      outlined: ##efc80c;
+      outline: #efc80c;
     }
   }
   .MuiInputBase-root:hover fieldset {
     border-color: #efc80c;
   }
+  
 `;
 const CustomTextarea = styled(TextareaAutosize)`
   background: transparent;
   width: 100%;
   padding: 7px 10px;
-  color: ##ffffff;
+  color: #ffffff;
   border-color: #efc80c;
   &:focus {
-    border-color: #EFC80C80c;
-    outlined: ##efc80c;
+    border-color: #efc80c;
   }
   &:focus-visible {
     border-color: #efc80c;
+    outline: #efc80c;
   }
 `;
 const ContactUs = () => {
   return (
-    <Box>
+    <Box sx={{mt:20}}>
       <SearchBox />
       <Container>
         <Box className="contact-main-text">Contact Way</Box>
-        <Grid container spacing={2} lg={11} md={12} sx={{ mt: 4 }}>
-          <Grid item lg={3}>
+        <Grid container spacing={2} lg={11} sm={12} md={12} xs={12} sx={{ mt: 4 }}>
+          <Grid item lg={3} md={3}  sm={6}  xs={12}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Box sx={{ mr: 2 }}>
                 <PhoneIcon width={17} />
@@ -82,7 +84,7 @@ const ContactUs = () => {
               </Box>
             </Box>
           </Grid>
-          <Grid item lg={3}>
+          <Grid item lg={3} md={3}  sm={6}  xs={12}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Box sx={{ mr: 2 }}>
                 <LocationIcon width={17} fill="none " />
@@ -93,7 +95,7 @@ const ContactUs = () => {
               </Box>
             </Box>
           </Grid>
-          <Grid item lg={3}>
+          <Grid item lg={3} md={3}  sm={6}  xs={12}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Box sx={{ mr: 2 }}>
                 <ContactSupportIcon width={17} />
@@ -104,7 +106,7 @@ const ContactUs = () => {
               </Box>
             </Box>
           </Grid>
-          <Grid item lg={3}>
+          <Grid item lg={3} md={3}  sm={6}  xs={12}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Box sx={{ mr: 2 }}>
                 <TagIcon width={17} />
@@ -118,7 +120,7 @@ const ContactUs = () => {
         </Grid>
         <Box sx={{ mt: 5, mb: 5 }}>
           <Typography>Get In Touch</Typography>
-          <Grid container spacing={2} lg={9}>
+          <Grid container spacing={2} lg={9} sm={10}>
             <Grid item lg={10} sx={{ mt: 3 }}>
               <Typography>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mattis
@@ -126,7 +128,7 @@ const ContactUs = () => {
                 lobortis quis bibendum quam.
               </Typography>
             </Grid>
-            <Grid item lg={4}>
+            <Grid item lg={4} sm={5} xs={12}>
               <InputCustom
                 id="Your-Name"
                 placeholder="Your Name*"
@@ -135,7 +137,7 @@ const ContactUs = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6} sm={7} xs={12}>
               <InputCustom
                 id="Your-Name"
                 placeholder="Contact Number"
@@ -144,7 +146,7 @@ const ContactUs = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item lg={4}>
+            <Grid item lg={4} sm={5} xs={12}>
               <InputCustom
                 id="Your-Name"
                 placeholder="Your E-mail"
@@ -153,7 +155,7 @@ const ContactUs = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6} sm={7} xs={12}>
               <InputCustom
                 id="Your-Name"
                 placeholder="Subject*"
@@ -162,7 +164,7 @@ const ContactUs = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item lg={7}>
+            <Grid item lg={7} sm={7} xs={12}>
               <CustomTextarea
                 id="messege"
                 placeholder="Type Your Messege*"

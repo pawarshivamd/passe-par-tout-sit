@@ -24,12 +24,12 @@ const ChangePassword = ({ SaveButton }) => {
 
   return (
     <Box>
-      <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box sx={{ display: "flex", alignItems: "center" ,mt:4,mb:4 }}>
         <StarIcon />
         <Typography sx={{ ml: 2 }}>CHANGE PASSWORD</Typography>
       </Box>
       <Box>
-        <Grid container spacing={2} lg={4} xs={12}>
+        <Grid container spacing={2} lg={3} sm={4} md={4} xs={12}>
           <Grid item lg={12} xs={12}>
             <FormControl variant="standard" fullWidth>
               <InputLabel
@@ -93,7 +93,7 @@ const ChangePassword = ({ SaveButton }) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                mt: 3,
+                mt: 5,
               }}
             >
               <Button
@@ -101,6 +101,7 @@ const ChangePassword = ({ SaveButton }) => {
                 variant="outlined"
                 className="custom-button"
                 onClick={() => SaveButton()}
+                fullWidth
               >
                 SAVE
               </Button>
