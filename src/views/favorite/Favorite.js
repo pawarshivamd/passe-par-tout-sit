@@ -21,19 +21,17 @@ const Favorite = () => {
           const { ShopImg, ImgAlt, MainText, Price } = cureEle;
           return (
             <Grid item lg={4} md={4} sm={6} xs={12}>
-              <Card sx={{ borderRadius: "0px",boxShadow:"none" }}>
+            <Box sx={{paddingInline:"20px"}}>
+              <Card className="product-card-" >
                 <Box
-                  sx={{
-                    height: "350px",
-                    width: "min(100% - 0px, 100%)",
-                    marginInline: "auto",
-                  }}
+                   className="product-img"
                 >
                   <CardMedia
                     component="img"
                     height="100%"
                     image={ShopImg}
                     alt={ImgAlt}
+                    sx={{objectFit:"contain"}}
                   />
                 </Box>
                 <CardContent
@@ -58,6 +56,7 @@ const Favorite = () => {
                   <Typography variant="body2">{Price}</Typography>
                 </CardContent>
               </Card>
+              </Box>
             </Grid>
           );
         })}

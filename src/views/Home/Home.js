@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   Container,
-  Drawer,
   Grid,
   Typography,
 } from "@mui/material";
@@ -72,12 +71,12 @@ const Home = () => {
     >
       <Box>
         <Grid container spacing={2}>
-          <Grid item lg={5} sm={5} xs={12}>
+          <Grid item lg={5} md={5} sm={12} xs={12}>
             <Box>
-              <img src={productimg} width={"100%"} alt="" />
+              <img src={productimg} width={"100%"} alt="" style={{objectFit:"contain"}} />
             </Box>
           </Grid>
-          <Grid item lg={7} sm={7} xs={12}>
+          <Grid item lg={7} md={7} sm={12} xs={12}>
             <Box sx={{ display: "flex", justifyContent: "end" }}>
               <CloseIcon color="primary" />
             </Box>

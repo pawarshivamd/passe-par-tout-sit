@@ -1,7 +1,7 @@
 import { Box, Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { ReactComponent as Logo } from "../../assets/img/logo.svg";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 const Navbar = () => {
@@ -36,8 +36,7 @@ const Navbar = () => {
       <Container>
         <Box className="navbar-section">
           <Box>
-            {/* <img src={logo} alt="logo" /> */}
-            <Logo width={70} />
+           <Link to="/"> <Logo width={70} /></Link>
           </Box>
           <Box sx={{ ml: "auto" }}>
             <Box

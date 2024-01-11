@@ -74,7 +74,7 @@ const Login = () => {
               <Grid item lg={1} xs={1}>
                 <StarIcon />
               </Grid>
-              <Grid item lg={4} md={5} sm={6} xs={11}>
+              <Grid item lg={4} md={6} sm={8} xs={11}>
                 <Box>NEED AN ACCOUNT?</Box>
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
                   <Button

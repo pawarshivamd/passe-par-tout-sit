@@ -11,6 +11,7 @@ const SelectAddress = () => {
     <Box sx={{mt:20}}>
       <SearchBox />
       <Container>
+      <Box sx={{mb:5}}>
         <Grid container spacing={2} lg={6} md={6} sm={8}  xs={12}>
           <Grid item lg={12} xs={12}>
             <Box className="select-address-head-section">
@@ -25,7 +26,6 @@ const SelectAddress = () => {
           <Grid item lg={12} >
             <Box className="select-address-box">
               <Typography className="main-title-box">
-                {" "}
                 Rami adolf H<span className="select-opption-text">Home</span>
               </Typography>
               <Typography className="select-address-here">
@@ -71,6 +71,7 @@ const SelectAddress = () => {
             </Box>
           </Grid>
         </Grid>
+        </Box>
       </Container>
       <ContinueProFooter BtnText="Continue" />
     </Box>

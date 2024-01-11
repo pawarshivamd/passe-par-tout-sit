@@ -435,6 +435,12 @@ input[ type="number"] {
 .product-details-right-section {
   .size-text{
     margin-right: 5px;
+    .text-color{
+      cursor: pointer;
+      &:hover{
+        color: #EFC80C;
+      }
+    }
   }
   .white-sroke-icon {
     .star-icon-fill {
@@ -527,7 +533,8 @@ input[ type="number"] {
 }
 
 .select-address-box {
-  margin-bottom: 20px;
+  margin-top: 20px;
+  /* margin-bottom: 20px; */
 
   .main-title-box {
     display: inline-block;
@@ -551,10 +558,15 @@ input[ type="number"] {
   }
 }
 
-.product-grid-section{
+
   .product-card-{
     border-radius: 0 !important;
     box-shadow: none !important;
+    .product-img{
+      height: "350px";
+      width: "min(100% - 0px, 100%)";
+      margin-inline: "auto";
+    }
     .pro-rating-star{
       .star-icon-fill {
         fill: #FFFFFF;
@@ -565,7 +577,7 @@ input[ type="number"] {
 
     }
   }
-}
+
 .contact-main-text {
   position: relative;
   font-size: 22px;
@@ -584,8 +596,18 @@ input[ type="number"] {
 }
 
 @media (max-width:768px) {
+
+    .product-card-{
+      /* padding-inline:20px ; */
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      .product-img{
+        height: 280px !important;
+      }
+    }
+
   .drawer-open-section{
-    width: 250px;
+    width: 250px ;
   }
   .select-address-head-section
 .main-text {
@@ -607,7 +629,8 @@ input[ type="number"] {
       width: min(100% - 0px, 95%);
       text-align: center;
       margin: 0px auto;
-      padding: 50px 0px;
+      padding: 20px 0px;
+      font-size: 12px;
     }
 
     .arrow-icon {
@@ -618,7 +641,7 @@ input[ type="number"] {
 
   .product-zoom-left-setion {
     .ss {
-      height: auto;
+      /* height: auto; */
     }
 
     .next {
@@ -643,7 +666,10 @@ input[ type="number"] {
       padding: 0;
     }
   }
-
+  .product-zoom-left-setion
+  .swiper-slide {
+    height: 70px;
+  }
   .trending-head-title {
     font-size: 3rem !important;
   }
@@ -701,7 +727,21 @@ input[ type="number"] {
   }
 }
 
-
+@media (max-width:820px) and (min-width:820px) {
+  .product-zoom-left-setion .swiper-slide {
+    height: 70px !important;
+  }
+  .product-zoom-left-setion
+.ss{
+  height: auto;
+}
+}
+@media (max-width:769px) and (min-width:769px) {
+  .product-zoom-left-setion
+  .ss{
+    height: auto;
+  }
+}
 @media (max-width:991px) {
   .product-card {
     height: 298px;
@@ -769,5 +809,11 @@ input[ type="number"] {
       width: min(100% - 0px, 90%);
       height: auto;
     }
+  }
+}
+@media (max-width:600px) {
+  .product-zoom-left-setion
+  .ss{
+    height: auto;
   }
 }

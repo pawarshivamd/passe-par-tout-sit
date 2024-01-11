@@ -14,10 +14,12 @@ const EditAddress = ({ saveButton }) => {
         <Grid container spacing={2} lg={6} sm={5} md={5} xs={12} alignItems="end">
           <Grid item lg={6}  xs={12}>
             <CustomInput
+            
               type="text"
               id="name"
               name="name"
               label="NAME"
+              value="NAME"
               color="primary"
               variant="standard"
             />
@@ -28,6 +30,7 @@ const EditAddress = ({ saveButton }) => {
               id="surname"
               name="surname"
               label="SURNAME"
+              value="SURNAME"
               color="primary"
               variant="standard"
             />

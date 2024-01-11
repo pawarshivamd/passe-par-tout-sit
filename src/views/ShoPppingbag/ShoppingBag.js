@@ -5,8 +5,6 @@ import {
   CardMedia,
   Container,
   Grid,
-  Tab,
-  Tabs,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
@@ -64,13 +62,10 @@ const ShoppingBag = () => {
                     const { ShopImg, ImgAlt, MainText, Price } = cureEle;
                     return (
                       <Grid item lg={4} md={4} sm={6} xs={12}>
-                        <Card sx={{ borderRadius: "0px" ,boxShadow:"none"}}>
+                      <Box sx={{paddingInline:"20px"}}>
+                        <Card className="product-card-" sx={{ borderRadius: "0px" ,boxShadow:"none"}}>
                           <Box
-                            sx={{
-                              height: "450px",
-                              width: "min(100% - 0px, 100%)",
-                              marginInline: "auto",
-                            }}
+                             className="product-img"
                           >
                             <CardMedia
                               component="img"
@@ -102,6 +97,7 @@ const ShoppingBag = () => {
                             <Typography variant="body2">{Price}</Typography>
                           </CardContent>
                         </Card>
+                      </Box>
                       </Grid>
                     );
                   })}

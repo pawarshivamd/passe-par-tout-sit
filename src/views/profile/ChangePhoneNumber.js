@@ -2,7 +2,6 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import React from "react";
 import CustomInput from "../../layout/CustomInput";
 import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
-import { Sd } from "@mui/icons-material";
 
 const ChangePhoneNumber = ({ SaveButton }) => {
   return (
@@ -18,7 +17,7 @@ const ChangePhoneNumber = ({ SaveButton }) => {
               <Grid item lg={2} md={2} sm={2} xs={2}>
                 <CustomInput
                   placeholder="+961"
-                  lable="PREFIX"
+                  label="PREFIX"
                   // value="+961"
                   color="primary"
                   variant="standard"
@@ -26,7 +25,7 @@ const ChangePhoneNumber = ({ SaveButton }) => {
               </Grid>
               <Grid item lg={10} md={10} sm={10} xs={10}>
                 <CustomInput
-                  lable="NEW PHONE NUMBER"
+                  label="NEW PHONE NUMBER"
                   placeholder="00 000 000"
                   color="primary"
                   variant="standard"

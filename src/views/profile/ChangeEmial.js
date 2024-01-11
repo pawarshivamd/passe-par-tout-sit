@@ -36,6 +36,7 @@ const ChangeEmial = ({ SaveButton }) => {
         <Grid container spacing={2} lg={4} sm={5} md={5} xs={12}>
           <Grid item lg={12} xs={12}>
             <CustomInput
+             autoComplete="off"
               type="email"
               id="Email"
               name="Email"
@@ -53,6 +54,7 @@ const ChangeEmial = ({ SaveButton }) => {
                 Password
               </InputLabel>
               <Input
+               autoComplete="off"
                 id="standard-adornment-password"
                 type={showPassword ? "text" : "password"}
                 className="customInput "

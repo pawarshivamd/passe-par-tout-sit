@@ -27,7 +27,7 @@ const ProfileMain = () => {
                 </Grid>
               </Grid>
               <Grid container spacing={2} sx={{ mt: 1 }}>
-                <Grid item lg={4} sm={5}  xs={8}>
+                <Grid item lg={4} sm={5}  xs={10}>
                   <Box sx={{ display: "flex" }}>
                     <StarIcon />
                     <Box sx={{ ml: 2 }}>
@@ -46,7 +46,7 @@ const ProfileMain = () => {
                 </Grid>
               </Grid>
               <Grid container spacing={2} sx={{ mt: 1 }}>
-                <Grid item lg={4} sm={5} xs={8}>
+                <Grid item lg={4} sm={5} xs={10}>
                   <Box sx={{ display: "flex" }}>
                     <StarIcon />
                     <Box sx={{ ml: 2 }}>
@@ -66,7 +66,7 @@ const ProfileMain = () => {
                 </Grid>
               </Grid>
               <Grid container spacing={2} sx={{ mt: 1 }}>
-                <Grid item lg={4} sm={5} xs={8}>
+                <Grid item lg={4} sm={5} xs={10}>
                   <Box sx={{ display: "flex" }}>
                     <StarIcon />
                     <Box sx={{ ml: 2 }}>
@@ -84,7 +84,7 @@ const ProfileMain = () => {
                 </Grid>
               </Grid>
               <Grid container spacing={2} sx={{ mt: 1 }}>
-                <Grid item lg={4} sm={5} xs={8}>
+                <Grid item lg={4} sm={5} xs={10}>
                   <Box sx={{ display: "flex" }}>
                     <StarIcon />
                     <Box sx={{ ml: 2 }}>
@@ -105,7 +105,7 @@ const ProfileMain = () => {
               </Grid>
               <Grid container spacing={2}>
                 <Grid item lg={4} sm={10} xs={12}>
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Box sx={{ display: "flex", alignItems: "center",flexWrap:"wrap" }}>
                     <Box sx={{ mt: 5, mr: 3 }}>
                       <Button
                         component={Link}
