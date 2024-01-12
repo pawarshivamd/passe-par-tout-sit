@@ -78,7 +78,7 @@ const Home = () => {
           </Grid>
           <Grid item lg={7} md={7} sm={12} xs={12}>
             <Box sx={{ display: "flex", justifyContent: "end" }}>
-              <CloseIcon color="primary" />
+              <CloseIcon color="primary" sx={{cursor:"pointer"}} />
             </Box>
             <Typography sx={{ mt: 2 }}>ADDED TO YOUR SHOPPING BAG</Typography>
             <Typography sx={{ mt: 1 }}>Lorem ipsum dolo</Typography>
@@ -102,17 +102,20 @@ const Home = () => {
 
   return (
     <Box>
+    <Box className="banner-container">
       <Box className="banner-section">
         <Box className="banner-box">
           <Box>
-            <Logo className="logo-banner" />
+            {/* <Logo className="logo-banner" /> */}
           </Box>
           <Box>
-            <Typography sx={{ color: "#EFC80C",ml:2 }}>A' vous, pour tout</Typography>
+            {/* <Typography sx={{ color: "#EFC80C",ml:2 }}>A' vous, pour tout</Typography> */}
           </Box>
         </Box>
       </Box>
+      </Box>
       <section>
+      <Box className="banner-container">
         <Box className="passe-banner-section">
           <Box className="banner-box">
             Lorem ipsum dolor sit amet consectetur. Ipsum erat velit iaculis
@@ -132,6 +135,7 @@ const Home = () => {
             <Typography sx={{ textAlign: "center" }}> lorem is </Typography>
           </Box>
         </Box>
+      </Box>
       </section>
       <section>
         <Box>
@@ -230,8 +234,9 @@ const Home = () => {
             </Box>
           </Container>
         </Box>
+        
       </section>
-      <section style={{ marginTop: "50px" }}>
+      <section style={{marginTop:"50px"}}>
         <Footer />
       </section>
       <Box>

@@ -147,6 +147,7 @@ input[ type="number"] {
       line-height: normal;
       position: relative;
       overflow: hidden;
+      display: inline;
 
       &::before {
         position: absolute;
@@ -154,16 +155,21 @@ input[ type="number"] {
         content: '';
         bottom: 0;
         left: -100%;
-        width: 100%;
+        width: 50% !important;
         height: 1px;
         transition: 0.4s;
         background-color: #EFC80C;
+        margin-inline:auto ;
       }
     }
 
     .active {
+      color: #D9D9D9;
       &::before {
         left: 0%;
+        right: 0;
+        width: 50% !important;
+        margin-inline: auto;
       }
     }
   }
@@ -176,12 +182,11 @@ input[ type="number"] {
   }
 }
 .banner-section {
-  background-image: url(./assets/img/banner.png);
+  background-image: url(./assets/img/bannerdemo.png);
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  min-height: 100vh;
+  min-height: 662px;
   position: relative;
-  /* top: -150px; */
   z-index: 0;
 
   .banner-box {
@@ -243,7 +248,7 @@ input[ type="number"] {
 }
 
 .product-card {
-  height: 50vh;
+  height: 340px;
   padding: 5px;
   display: flex;
   align-items: center;
@@ -251,7 +256,7 @@ input[ type="number"] {
 
   .img-box {
     width: min(100% - 0px, 90%);
-    height: 45vh;
+    height: 300px;
     margin-inline: auto;
     padding: 20px 0px;
     & img {
@@ -376,13 +381,18 @@ input[ type="number"] {
 
   .slider-section {
     /* border: 1px solid red; */
-    height: 400px;
+    width: 100%;
+    height: 380px;
     display: flex;
     justify-content: center;
     align-items: center;
     /* background-color: rgb(231, 231, 231); */
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
-
+    & img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: left;
+    }
   }
 
   .star-box {
@@ -397,7 +407,6 @@ input[ type="number"] {
     position: absolute;
     z-index: -1;
     right: 7px;
-
   }
 
   .zoom-section img {
@@ -613,10 +622,12 @@ input[ type="number"] {
 .main-text {
     width: 173px;
 }
+.banner-section{
+  min-height: 400px;
+}
   .banner-section .banner-box .logo-banner {
     width: 200px;
     height: 200px;
-    
   }
 
   .footer-icon-box {
@@ -675,11 +686,11 @@ input[ type="number"] {
   }
 
   .product-card {
-    height: 30vh !important;
+    height: 250px !important;
 
     .img-box {
-      width: min(100% - 0px, 100%);
-      height: 26vh !important;
+      width: min(100% - 0px, 100%) !important;
+      height: 230px !important;
       margin-inline: auto;
 
       & img {
@@ -748,13 +759,13 @@ input[ type="number"] {
 
     .img-box {
       width: min(100% - 0px, 90%);
-      height: 20vh;
+      height: 250px;
     }
   }
 
-  .banner-section {
+  /* .banner-section {
     min-height: 40vh;
-  }
+  } */
 
   .passe-banner-section {
     min-height: 40vh;
@@ -812,8 +823,28 @@ input[ type="number"] {
   }
 }
 @media (max-width:600px) {
+  .banner-section{
+    min-height: 300px;
+    background-position: center;
+    background-size: 100% 100%;
+  }
   .product-zoom-left-setion
   .ss{
     height: auto;
+  }
+}
+/* @media (min-width: 1400px){
+  .banner-container {
+      max-width: 1200px;
+      margin-inline:auto ;
+  }
+
+} */
+@media (min-width:1400px) {
+  .banner-section{
+    min-height: 100vh;
+  }
+  .passe-banner-section {
+    min-height: 100vh;
   }
 }

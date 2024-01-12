@@ -48,7 +48,7 @@ const Login = () => {
                       >
                         <Button
                         component={Link}
-                        to="/home"
+                        to="/"
                           variant="outlined"
                           className="custom-button"
                           sx={{ minWidth: "200px", padding: "10px 20px" }}

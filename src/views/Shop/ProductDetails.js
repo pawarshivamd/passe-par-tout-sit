@@ -44,7 +44,7 @@ const ProductDetails = () => {
           </Grid>
           <Grid item lg={7} md={7} sm={12} xs={12}>
             <Box sx={{ display: "flex", justifyContent: "end" }}>
-              <CloseIcon color="primary" />
+              <CloseIcon color="primary" sx={{cursor:"pointer"}} />
             </Box>
             <Typography sx={{ mt: 2 }}>ADDED TO YOUR SHOPPING BAG</Typography>
             <Typography sx={{ mt: 1 }}>Lorem ipsum dolo</Typography>
@@ -85,17 +85,19 @@ const ProductDetails = () => {
                       display: "flex",
                       height: "100%",
                       justifyContent: "space-around",
+                      width:"95%",
                     }}
                   >
                     <div className="slider-section">
-                      <ReactImageMagnify
+                      {/* <ReactImageMagnify
+                      className="zoom-img-box"
                         style={{ zIndex: "9" }}
                         {...{
                           smallImage: {
                             alt: "",
                             isFluidWidth: true,
                             src: activeimg,
-                            width: 500, // set the desired width
+                            width: 500, 
                             height: 600,
                           },
                           largeImage: {
@@ -104,7 +106,8 @@ const ProductDetails = () => {
                             height: 1200,
                           },
                         }}
-                      />
+                      /> */}
+                      <img src={activeimg} alt="img" />
                     </div>
                     <Box className="star-box">
                       <StarIcon />

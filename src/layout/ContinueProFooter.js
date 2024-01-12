@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const ContinueProFooter = (props) => {
   return (
+    <Box className="banner-container">
     <section style={{ position: "relative", bottom: "0px" }}>
       <Box sx={{ borderTop: "2px solid #EFC80C", marginTop: "auto" }}>
         <Container>
@@ -45,6 +46,7 @@ const ContinueProFooter = (props) => {
         </Container>
       </Box>
     </section>
+    </Box>
   );
 };
 

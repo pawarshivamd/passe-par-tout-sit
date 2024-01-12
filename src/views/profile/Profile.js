@@ -57,7 +57,6 @@ const Profile = () => {
                     const { ShopImg, ImgAlt, MainText, Price } = cureEle;
                     return (
                       <Grid item lg={4} md={4} sm={6} xs={12}>
-                      <Box sx={{paddingInline:"20px"}}>
                         <Card className="product-card-">
                           <Box
                             className="product-img"
@@ -93,7 +92,6 @@ const Profile = () => {
                             <Typography variant="body2">{Price}</Typography>
                           </CardContent>
                         </Card>
-                      </Box>
                       </Grid>
                     );
                   })}

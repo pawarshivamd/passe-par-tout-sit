@@ -36,9 +36,9 @@ function App() {
         <Navbar />
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<SingUp />} />
-            <Route path="/home" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/shop/new" element={<ProductDetails />} />
             <Route path="/shopping-bag" element={<ShoppingBag />} />

@@ -49,7 +49,7 @@ const Navbar = () => {
                   onClick={handleNavLinkClick}
                   className="nav-list"
                   color="primary"
-                  to="/home"
+                  to="/"
                 >
                   Home
                 </NavLink>
@@ -70,7 +70,7 @@ const Navbar = () => {
                 <NavLink
                   onClick={handleNavLinkClick}
                   className="nav-list"
-                  to="/"
+                  to="/login"
                 >
                   LOG IN
                 </NavLink>

@@ -7,6 +7,7 @@ import { ReactComponent as EmailIcon } from "../../assets/img/icon/email.svg";
 import { ReactComponent as LocationIcon } from "../../assets/img/icon/loction.svg";
 const Footer = () => {
   return (
+    <Box className="banner-container">
     <Box sx={{ background: "#000000", padding: "50px 0px" }}>
       <Container>
         <Grid container spaceing={2} justifyContent="space-between">
@@ -50,6 +51,7 @@ const Footer = () => {
           </Grid>
         </Grid>
       </Container>
+    </Box>
     </Box>
   );
 };
