@@ -1,17 +1,19 @@
 import { Box, Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { ReactComponent as Logo } from "../../assets/img/logo.svg";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 const Navbar = () => {
+  const [showLogo, setShowLogo] = useState(false);
+  const location = useLocation();
   const [open, setOpen] = useState(false);
   const [FixedNavbar, setFixedNavbar] = useState();
   const handleNavLinkClick = () => {
     if (open) {
       setOpen(false);
     }
-
+    
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -21,8 +23,10 @@ const Navbar = () => {
     const handleScroll = () => {
       if (window.scrollY > 2) {
         setFixedNavbar(true);
+        setShowLogo(true);
       } else {
         setFixedNavbar(false);
+        setShowLogo(false);
       }
     };
 
@@ -30,13 +34,16 @@ const Navbar = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [location.pathname]);
+  const isHomepage = location.pathname === '/';
   return (
-    <nav className={`navbar ${FixedNavbar ? "fixed-navbar" : ""}`}>
+    <nav className={`navbar ${FixedNavbar ? "fixed-navbar" : ""} `}>
       <Container>
         <Box className="navbar-section">
           <Box>
-           <Link to="/"> <Logo width={70} /></Link>
+           <Link to="/"> 
+           {(!isHomepage || showLogo) && <Logo width={70} />}
+          </Link>
           </Box>
           <Box sx={{ ml: "auto" }}>
             <Box
@@ -73,6 +80,13 @@ const Navbar = () => {
                   to="/login"
                 >
                   LOG IN
+                </NavLink>
+                <NavLink
+                  onClick={handleNavLinkClick}
+                  className="nav-list"
+                  to="/profile"
+                >
+                  My Account
                 </NavLink>
               </Box>
             </Box>
