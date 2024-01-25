@@ -1,12 +1,33 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import CustomInput from "../../layout/CustomInput";
 import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../features/auth/api";
 const SingUp = () => {
+  const data = useSelector((state) => state.auth.user);
+  const [userData, setUserData] = useState(data);
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
+  const error = useSelector((state) => state.auth.error);
+
+  const handleChange = (e) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    dispatch(loginUser(userData));
+  };
+
+  console.log(userData, data);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
-    <Box sx={{mt:20}} className="sing-up-section">
+    <Box sx={{ mt: 20 }} className="sing-up-section">
       <SearchBox />
       <Container>
         <Grid container lg={12} spacing={2}>
@@ -22,37 +43,42 @@ const SingUp = () => {
                     <Grid item lg={12} xs={12}>
                       <CustomInput
                         id="E-MAIL"
-                        name="E-MAIL"
+                        name="email"
                         label="E-MAIL"
                         color="primary"
                         variant="standard"
+                        value={userData?.email}
+                        onChange={handleChange}
                       />
                     </Grid>
                     <Grid item lg={12} xs={12}>
                       <CustomInput
                         id="PASSWORD"
-                        name="PASSWORD"
+                        name="password"
                         label="PASSWORD"
                         color="primary"
                         variant="standard"
+                        onChange={handleChange}
                       />
                     </Grid>
                     <Grid item lg={12} xs={12}>
                       <CustomInput
                         id="NAME"
-                        name="NAME"
+                        name="name"
                         label="NAME"
                         color="primary"
                         variant="standard"
+                        onChange={handleChange}
                       />
                     </Grid>
                     <Grid item lg={12} xs={12}>
                       <CustomInput
                         id="SURNAME"
-                        name="SURNAME"
+                        name="surname"
                         label="SURNAME"
                         color="primary"
                         variant="standard"
+                        onChange={handleChange}
                       />
                     </Grid>
                     <Grid item lg={12} xs={12}>
@@ -63,14 +89,17 @@ const SingUp = () => {
                             value="+961"
                             color="primary"
                             variant="standard"
+                            onChange={handleChange}
                           />
                         </Grid>
                         <Grid item lg={10} xs={10}>
                           <CustomInput
                             placeholder="00 000 000"
                             color="primary"
+                            name="phoneno"
                             variant="standard"
                             type="number"
+                            onChange={handleChange}
                           />
                         </Grid>
                       </Grid>
@@ -86,9 +115,9 @@ const SingUp = () => {
                       sx={{ display: "flex ", alignItems: "center" }}
                     >
                       <Box sx={{ mr: 1 }} className="star-icon">
-                        <StarIcon  stroke="#EFC80C" />
+                        <StarIcon stroke="#EFC80C" />
                       </Box>
-                      <Typography variant="body2" >
+                      <Typography variant="body2">
                         I have read and understand the Privacy and Cookies
                         Policy
                       </Typography>
@@ -103,6 +132,7 @@ const SingUp = () => {
                       >
                         <Button
                           component={Link}
+                          onClick={handleSubmit}
                           to="/"
                           variant="outlined"
                           className="custom-button"
