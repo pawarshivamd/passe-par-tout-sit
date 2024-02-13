@@ -51,6 +51,12 @@ const ProductDetails = () => {
     }
   }, [product]);
 
+  useEffect(() => {
+    if (isDrawerVisible) {
+     
+    }
+  }, [isDrawerVisible]);
+
   const [activeimg, setActiveimg] = useState("");
   const list = (anchor) => (
     <Box

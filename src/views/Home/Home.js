@@ -17,56 +17,40 @@ import { useDispatch, useSelector } from "react-redux";
 
 // actions
 import { fetchHomeProducts } from "../../Redux/Thunks/homeThunk";
+import { addToCart, fetchCartDetails } from "../../Redux/Thunks/cartThunk";
 
-export const productData = [
-  {
-    id: "0",
-    Rating: "4.5",
-    imgdata: productimg,
-    imgalt: "cloth",
-    mainText: "Lorem ipsum",
-    MainPrice: "30",
-    SubPrice: "45",
-  },
-  {
-    id: "1",
-    Rating: "4.5",
-    imgdata: productimg2,
-    imgalt: "cloth",
-    mainText: "Lorem ipsum",
-    MainPrice: "30",
-    SubPrice: "45",
-  },
-  {
-    id: "2",
-    Rating: "4.5",
-    imgdata: productimg3,
-    imgalt: "cloth",
-    mainText: "Lorem ipsum",
-    MainPrice: "30",
-    SubPrice: "45",
-  },
-  {
-    id: "3",
-    Rating: "4.5",
-    imgdata: productimg4,
-    imgalt: "cloth",
-    mainText: "Lorem ipsum",
-    MainPrice: "30",
-    SubPrice: "45",
-  },
-];
 const Home = () => {
   const dispatch = useDispatch();
   const [isDrawerVisible, setIsDrawerVisible] = React.useState(false);
 
   const { products, isLoading, isError } = useSelector((state) => state.home);
 
-  console.log(products, isLoading, isError);
+  const {
+    cartData,
+    isLoading: cartIsLoading,
+    isError: cartIsError,
+  } = useSelector((state) => state.cart);
+
+  const handleAddToCart = () => {
+    // Static values for productId, productColor, and productSize
+    console.log("add to cart clicked");
+    const productId = "2";
+    const productColor = "white";
+    const productSize = "XL";
+
+    // Dispatch the addToCart action with static values
+    dispatch(addToCart({ productId, productColor, productSize }));
+  };
 
   useEffect(() => {
     dispatch(fetchHomeProducts());
-  }, []);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isDrawerVisible) {
+      dispatch(fetchCartDetails());
+    }
+  }, [isDrawerVisible]);
 
   const list = (anchor) => (
     <Box
@@ -76,7 +60,7 @@ const Home = () => {
       onKeyDown={() => setIsDrawerVisible(false)}
     >
       <Box>
-        <Grid container spacing={2}>
+        {/* <Grid container spacing={2}>
           <Grid item lg={5} md={5} sm={12} xs={12}>
             <Box>
               <img
@@ -106,7 +90,50 @@ const Home = () => {
               </Button>
             </Box>
           </Grid>
-        </Grid>
+        </Grid> */}
+
+        <Box sx={{ display: "flex", justifyContent: "end" }}>
+          <CloseIcon
+            color="primary"
+            sx={{ cursor: "pointer" }}
+            onClick={() => setIsDrawerVisible(false)}
+          />
+        </Box>
+
+        {cartData?.cart_items?.map((item, index) => (
+          <Grid container spacing={2} key={index}>
+            <Grid item lg={5} md={5} sm={12} xs={12}>
+              <Box>
+                <img
+                  src={item?.product?.main_image}
+                  width={"100%"}
+                  alt=""
+                  style={{ objectFit: "contain" }}
+                />
+              </Box>
+            </Grid>
+            <Grid item lg={7} md={7} sm={12} xs={12}>
+              <Typography sx={{ mt: 2 }}>ADDED TO YOUR SHOPPING BAG</Typography>
+              <Typography sx={{ mt: 1 }}>
+                {item?.product?.product_name}
+              </Typography>
+              <Typography>
+                {item?.product_color}/{item?.product_size}
+              </Typography>
+              <Box sx={{ mt: 3 }}>
+                <Button
+                  component={Link}
+                  to="/shopping-bag"
+                  variant="outlined"
+                  className="custom-button"
+                  sx={{ padding: "7px 40px" }}
+                >
+                  SEE SHOPPING BAG
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
+        ))}
       </Box>
     </Box>
   );
@@ -212,9 +239,10 @@ const Home = () => {
                                     }}
                                   >
                                     <Button
-                                      onClick={() =>
-                                        setIsDrawerVisible(!isDrawerVisible)
-                                      }
+                                      onClick={() => [
+                                        setIsDrawerVisible(!isDrawerVisible),
+                                        // handleAddToCart(),
+                                      ]}
                                       variant="contained"
                                       sx={{
                                         background: "#000000",

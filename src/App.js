@@ -15,6 +15,7 @@ import SelectAddress from "./views/address/SelectAddress";
 import ContactUs from "./views/Contact-us/ContactUs";
 import Profile from "./views/profile/Profile";
 import { store } from "./Redux/Store/Store";
+import { NotificationContainer } from "react-notifications";
 
 // import Product from './layout/productModel/Product';
 
@@ -34,6 +35,7 @@ export const theme = createTheme({
 function App() {
   return (
     <Provider store={store}>
+      <NotificationContainer />
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <Navbar />

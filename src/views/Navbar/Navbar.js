@@ -4,16 +4,22 @@ import { ReactComponent as Logo } from "../../assets/img/logo.svg";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useSelector } from "react-redux";
 const Navbar = () => {
   const [showLogo, setShowLogo] = useState(false);
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [FixedNavbar, setFixedNavbar] = useState();
+
+  const data = useSelector((state) => state.cart);
+
+  console.log(data);
+
   const handleNavLinkClick = () => {
     if (open) {
       setOpen(false);
     }
-    
+
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -35,15 +41,15 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [location.pathname]);
-  const isHomepage = location.pathname === '/';
+  const isHomepage = location.pathname === "/";
   return (
     <nav className={`navbar ${FixedNavbar ? "fixed-navbar" : ""} `}>
       <Container>
         <Box className="navbar-section">
           <Box>
-           <Link to="/"> 
-           {(!isHomepage || showLogo) && <Logo width={70} />}
-          </Link>
+            <Link to="/">
+              {(!isHomepage || showLogo) && <Logo width={70} />}
+            </Link>
           </Box>
           <Box sx={{ ml: "auto" }}>
             <Box

@@ -10,7 +10,7 @@ export const fetchHomeProducts = createAsyncThunk(
         status,
       } = await API.get("/home");
 
-      console.log(status, trending_products);
+      // console.log(status, trending_products);  
 
       if (status === 200) {
         return trending_products;
