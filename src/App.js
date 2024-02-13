@@ -14,7 +14,7 @@ import AddressMain from "./views/address/AddressMain";
 import SelectAddress from "./views/address/SelectAddress";
 import ContactUs from "./views/Contact-us/ContactUs";
 import Profile from "./views/profile/Profile";
-import { store } from "./app/store";
+import { store } from "./Redux/Store/Store";
 
 // import Product from './layout/productModel/Product';
 

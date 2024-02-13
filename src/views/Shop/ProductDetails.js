@@ -1,5 +1,5 @@
 import { Box, Button, Card, Container, Grid, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ReactComponent as CartIcon } from "../../assets/img/icon/cart.svg";
 import { ReactComponent as CartIconStroke } from "../../assets/img/icon/cartstroke.svg";
 import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
@@ -7,13 +7,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
-import img1 from "../../assets/img/products/product2.png";
-import img2 from "../../assets/img/products/product3.png";
-import img3 from "../../assets/img/products/product4.png";
-import img4 from "../../assets/img/products/product1.png";
-import img5 from "../../assets/img/products/product2.png";
-import img6 from "../../assets/img/products/product3.png";
-import img7 from "../../assets/img/products/product4.png";
 import CloseIcon from "@mui/icons-material/Close";
 import productimg from "../../assets/img/products/product1.png";
 import ReactImageMagnify from "react-image-magnify";
@@ -22,12 +15,43 @@ import Footer from "../footer/Footer";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import CustomDrawer from "../../layout/CustomDrawer";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "../../utils/Loader";
 
+// actions
+import { fetchProductDetails } from "../../Redux/Thunks/productDetailsThunk";
 const ProductDetails = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
-  const slides = [img1, img2, img3, img4, img5, img6, img7];
-  const [activeimg, setActiveimg] = useState(img1);
+  const {
+    product,
+    productSize,
+    productColor,
+    productImage,
+    relatedProducts,
+    isLoading,
+    error,
+  } = useSelector((state) => state.product);
+
+  console.log("Product", product);
+  console.log("productSize", productSize);
+  console.log("productColor", productColor);
+  console.log("productImage", productImage);
+  console.log("relatedProducts", relatedProducts);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProductDetails());
+  }, []);
+
+  useEffect(() => {
+    if (product && product.main_image) {
+      setActiveimg(product.main_image);
+    }
+  }, [product]);
+
+  const [activeimg, setActiveimg] = useState("");
   const list = (anchor) => (
     <Box
       className="drawer-open-section"
@@ -39,34 +63,43 @@ const ProductDetails = () => {
         <Grid container spacing={2}>
           <Grid item lg={5} md={5} sm={12} xs={12}>
             <Box>
-              <img src={productimg} width={"100%"} alt="" style={{objectFit:"contain"}} />
+              <img
+                src={productimg}
+                width={"100%"}
+                alt=""
+                style={{ objectFit: "contain" }}
+              />
             </Box>
           </Grid>
           <Grid item lg={7} md={7} sm={12} xs={12}>
             <Box sx={{ display: "flex", justifyContent: "end" }}>
-              <CloseIcon color="primary" sx={{cursor:"pointer"}} />
+              <CloseIcon color="primary" sx={{ cursor: "pointer" }} />
             </Box>
             <Typography sx={{ mt: 2 }}>ADDED TO YOUR SHOPPING BAG</Typography>
             <Typography sx={{ mt: 1 }}>Lorem ipsum dolo</Typography>
             <Typography>COLOR / SIZE</Typography>
           </Grid>
-            <Box sx={{ mt: 3 ,width:"80%" }}>
-              <Button
+          <Box sx={{ mt: 3, width: "80%" }}>
+            <Button
               component={Link}
               to="/shopping-bag"
-                variant="outlined"
-                className="custom-button"
-                sx={{ padding: "7px 20px" ,width:"100%"}}
-              >
-                SEE SHOPPING BAG
-              </Button>
-            </Box>
+              variant="outlined"
+              className="custom-button"
+              sx={{ padding: "7px 20px", width: "100%" }}
+            >
+              SEE SHOPPING BAG
+            </Button>
+          </Box>
         </Grid>
       </Box>
     </Box>
   );
+
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
-    <Box sx={{mt:20}}>
+    <Box sx={{ mt: 20 }}>
       <SearchBox />
       <Container>
         <Grid container spacing={2}>
@@ -85,7 +118,7 @@ const ProductDetails = () => {
                       display: "flex",
                       height: "100%",
                       justifyContent: "space-around",
-                      width:"95%",
+                      width: "95%",
                     }}
                   >
                     <div className="slider-section">
@@ -107,7 +140,7 @@ const ProductDetails = () => {
                           },
                         }}
                       /> */}
-                      <img src={activeimg} alt="img" />
+                      <img src={activeimg} alt={activeimg} />
                     </div>
                     <Box className="star-box">
                       <StarIcon />
@@ -127,7 +160,7 @@ const ProductDetails = () => {
                     direction={
                       window.innerWidth <= 600 ? "horizontal" : "vertical"
                     }
-                    slidesPerView={window.innerWidth <= 767 ? 4 : 6 }
+                    slidesPerView={window.innerWidth <= 767 ? 4 : 6}
                     spaceBetween={10}
                     mousewheel={true}
                     pagination={{
@@ -135,14 +168,20 @@ const ProductDetails = () => {
                     }}
                     navigation={{
                       clickable: true,
-                        nextEl: "swiper-button-next  next",
-                        prevEl: "swiper-button-prev prev",}}
+                      nextEl: "swiper-button-next  next",
+                      prevEl: "swiper-button-prev prev",
+                    }}
                     modules={[Navigation]}
-
                   >
-                    {slides.map((slide, i) => (
-                      <SwiperSlide key={i} onClick={() => setActiveimg(slide)}>
-                        <img src={slide} alt="" />
+                    {productImage?.map((slide, i) => (
+                      <SwiperSlide
+                        key={i}
+                        onClick={() => setActiveimg(slide?.other_images)}
+                      >
+                        <img
+                          src={slide?.other_images}
+                          alt={slide?.other_images}
+                        />
                       </SwiperSlide>
                     ))}
                   </Swiper>
@@ -157,12 +196,13 @@ const ProductDetails = () => {
               className="product-details-right-section"
             >
               <Typography sx={{ fontWeight: "400", fontSize: "22px" }}>
-                Lorem ipsum dolor sit
+                {product && product?.product_name}
               </Typography>
-              <Typography sx={{ fontSize: "14px" }}>00.000</Typography>
+              <Typography sx={{ fontSize: "14px" }}>
+                {product && parseInt(product?.product_price) + "$"}
+              </Typography>
               <Typography sx={{ mt: 2 }}>
-                Lorem ipsum dolor sit amet consectetur. Aenean eget nec sed
-                pharetra quis diam lobortis placerat. Eget cras felis nec{" "}
+                {product && product?.description}
               </Typography>
               <Box>
                 <Typography
@@ -173,14 +213,28 @@ const ProductDetails = () => {
                     margin: "20px 0px",
                   }}
                 >
-                  <span className="size-text"><span className="text-color">S</span> -</span>
-                  <span className="size-text"><span className="text-color">M</span> -</span>
-                  <span className="size-text"><span className="text-color">L</span> -</span>
-                  <span className="size-text"><span className="text-color">XL</span> -</span>
-                  <span className="size-text"><span className="text-color">XXL</span></span>
+                  {productSize &&
+                    productSize.length > 0 &&
+                    productSize.map((currentElem, index) => (
+                      <span className="size-text">
+                        <span className="text-color">
+                          {currentElem?.product_size}
+                          {index !== productSize.length - 1 && " -"}
+                        </span>
+                      </span>
+                    ))}
                 </Typography>
               </Box>
+
               <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
+                {/* {productColor &&
+                  productColor.length > 0 &&
+                  productColor.map((customElements, index) => (
+                    <Box sx={{ mr: 2 }} className="white-sroke-icon">
+                      <StarIcon width={23} height={23} stroke="#fff" />
+                    </Box>
+                  ))} */}
+
                 <Box sx={{ mr: 2 }} className="white-sroke-icon">
                   <StarIcon width={23} height={23} stroke="#fff" />
                 </Box>
@@ -197,14 +251,14 @@ const ProductDetails = () => {
                   <StarIcon width={23} height={23} stroke="#919191" />
                 </Box>
               </Box>
-              <Button onClick={() =>
-                                  setIsDrawerVisible(!isDrawerVisible)
-                                } variant="outlined"
-                                className="custom-button"
-                                sx={{paddingInline:"35px"}}
-                                >
+              <Button
+                onClick={() => setIsDrawerVisible(!isDrawerVisible)}
+                variant="outlined"
+                className="custom-button"
+                sx={{ paddingInline: "35px" }}
+              >
                 <span style={{ marginRight: "7px" }}>ADD TO BAG </span>{" "}
-                <CartIconStroke width={18} height={18}  />
+                <CartIconStroke width={18} height={18} />
               </Button>
             </Box>
           </Grid>
@@ -213,79 +267,83 @@ const ProductDetails = () => {
       <section style={{ margin: "50px 0" }}>
         <Container>
           <Grid container spacing={5}>
-            {productData.map((cureEle, index) => {
-              const { Rating, imgdata, imgalt, mainText, MainPrice, SubPrice } =
-                cureEle;
+            {relatedProducts.map((cureEle, index) => {
+              const {
+                Rating,
+                main_image,
+                imgalt,
+                product_name,
+                product_price,
+                discount_price,
+              } = cureEle;
               return (
-                <Grid item lg={6} md={6} sm={6} xs={12}>
-                      <Card className="product-card">
-                        <Grid container spacing={2}>
-                          <Grid item lg={6} md={5} sm={5}  xs={5}>
-                          <Link to="/shop/new">
-                            <Box className="img-box">
-                              <img src={imgdata} alt={imgalt} />
+                <Grid item lg={6} md={6} sm={6} xs={12} key={index}>
+                  <Card className="product-card">
+                    <Grid container spacing={2}>
+                      <Grid item lg={6} md={5} sm={5} xs={5}>
+                        <Link to="/shop/new">
+                          <Box className="img-box">
+                            <img src={main_image} alt={main_image} />
+                          </Box>
+                        </Link>
+                      </Grid>
+                      <Grid item lg={6} md={7} sm={7} xs={7}>
+                        <Box className="card-contain">
+                          <Box className="head-section">
+                            <Typography className="rating-box rating-text-box">
+                              <StarIcon />
+                              <span className="rating-text"> {Rating}</span>
+                            </Typography>
+                            <Typography className="rating-box rating-star">
+                              <StarIcon />
+                            </Typography>
+                          </Box>
+                          <Box className="card-details-box">
+                            <Typography className="main-text">
+                              <Link to="/shop/new">{product_name}</Link>
+                            </Typography>
+                            <Box className="price-box">
+                              <Typography className="main-price-text">
+                                {parseInt(product_price)}$
+                              </Typography>
+                              <Typography className="sub-rpice">
+                                DISCOUNT :
+                                <del> {parseInt(discount_price)}$</del>
+                              </Typography>
                             </Box>
-                          </Link>
-                          </Grid>
-                          <Grid item lg={6} md={7} sm={7} xs={7}>
-                            <Box className="card-contain">
-                              <Box className="head-section">
-                                <Typography className="rating-box rating-text-box">
-                                  <StarIcon  />
-                                  <span className="rating-text"> {Rating}</span>
-                                </Typography>
-                                <Typography className="rating-box rating-star">
-                                  <StarIcon />
-                                </Typography>
-                              </Box>
-                              <Box className="card-details-box">
-                                <Typography className="main-text">
-                                <Link to="/shop/new">
-                                  {mainText}
-                                </Link>
-                                </Typography>
-                                <Box className="price-box">
-                                  <Typography className="main-price-text">
-                                    {MainPrice}$
-                                  </Typography>
-                                  <Typography className="sub-rpice">
-                                    DISCOUNT :<del> {SubPrice}$</del>
-                                  </Typography>
-                                </Box>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    mt: 2,
-                                  }}
-                                >
-                                  <Button
-                                    onClick={() =>
-                                      setIsDrawerVisible(!isDrawerVisible)
-                                    }
-                                    variant="contained"
-                                    sx={{
-                                      background: "#000000",
-                                      color: "#ffffff",
-                                      width:"100%",
-                                      borderRadius:"0",
-                                      py:1
-                                    }}
-                                    color="secondary"
-                                  >
-                                    <CartIcon height={18} width={18} />{" "}
-                                    <span style={{ marginLeft: "7px" }}>
-                                      {" "}
-                                      Add To Bag
-                                    </span>
-                                  </Button>
-                                </Box>
-                              </Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                mt: 2,
+                              }}
+                            >
+                              <Button
+                                onClick={() =>
+                                  setIsDrawerVisible(!isDrawerVisible)
+                                }
+                                variant="contained"
+                                sx={{
+                                  background: "#000000",
+                                  color: "#ffffff",
+                                  width: "100%",
+                                  borderRadius: "0",
+                                  py: 1,
+                                }}
+                                color="secondary"
+                              >
+                                <CartIcon height={18} width={18} />{" "}
+                                <span style={{ marginLeft: "7px" }}>
+                                  Add To Bag
+                                </span>
+                              </Button>
                             </Box>
-                          </Grid>
-                        </Grid>
-                      </Card>
+                          </Box>
+                        </Box>
+                      </Grid>
                     </Grid>
+                  </Card>
+                </Grid>
               );
             })}
           </Grid>

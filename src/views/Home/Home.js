@@ -1,12 +1,5 @@
-import {
-  Box,
-  Button,
-  Card,
-  Container,
-  Grid,
-  Typography,
-} from "@mui/material";
-import React from "react";
+import { Box, Button, Card, Container, Grid, Typography } from "@mui/material";
+import React, { useEffect } from "react";
 import productimg from "../../assets/img/products/product1.png";
 import productimg2 from "../../assets/img/products/product2.png";
 import productimg3 from "../../assets/img/products/product3.png";
@@ -20,6 +13,10 @@ import CustomDrawer from "../../layout/CustomDrawer";
 import { ReactComponent as RightMoveArrow } from "../../assets/img/icon/reightmovearrow.svg";
 import { ReactComponent as LeftMoveArrow } from "../../assets/img/icon/leftmovearrow.svg";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+// actions
+import { fetchHomeProducts } from "../../Redux/Thunks/homeThunk";
 
 export const productData = [
   {
@@ -60,7 +57,16 @@ export const productData = [
   },
 ];
 const Home = () => {
+  const dispatch = useDispatch();
   const [isDrawerVisible, setIsDrawerVisible] = React.useState(false);
+
+  const { products, isLoading, isError } = useSelector((state) => state.home);
+
+  console.log(products, isLoading, isError);
+
+  useEffect(() => {
+    dispatch(fetchHomeProducts());
+  }, []);
 
   const list = (anchor) => (
     <Box
@@ -73,20 +79,25 @@ const Home = () => {
         <Grid container spacing={2}>
           <Grid item lg={5} md={5} sm={12} xs={12}>
             <Box>
-              <img src={productimg} width={"100%"} alt="" style={{objectFit:"contain"}} />
+              <img
+                src={productimg}
+                width={"100%"}
+                alt=""
+                style={{ objectFit: "contain" }}
+              />
             </Box>
           </Grid>
           <Grid item lg={7} md={7} sm={12} xs={12}>
             <Box sx={{ display: "flex", justifyContent: "end" }}>
-              <CloseIcon color="primary" sx={{cursor:"pointer"}} />
+              <CloseIcon color="primary" sx={{ cursor: "pointer" }} />
             </Box>
             <Typography sx={{ mt: 2 }}>ADDED TO YOUR SHOPPING BAG</Typography>
             <Typography sx={{ mt: 1 }}>Lorem ipsum dolo</Typography>
             <Typography>COLOR / SIZE</Typography>
             <Box sx={{ mt: 3 }}>
               <Button
-              component={Link}
-              to="/shopping-bag"
+                component={Link}
+                to="/shopping-bag"
                 variant="outlined"
                 className="custom-button"
                 sx={{ padding: "7px 40px" }}
@@ -102,40 +113,38 @@ const Home = () => {
 
   return (
     <Box>
-    <Box className="banner-container">
-      <Box className="banner-section">
-        <Box className="banner-box">
-          <Box>
-            {/* <Logo className="logo-banner" /> */}
-          </Box>
-          <Box>
-            {/* <Typography sx={{ color: "#EFC80C",ml:2 }}>A' vous, pour tout</Typography> */}
+      <Box className="banner-container">
+        <Box className="banner-section">
+          <Box className="banner-box">
+            <Box>{/* <Logo className="logo-banner" /> */}</Box>
+            <Box>
+              {/* <Typography sx={{ color: "#EFC80C",ml:2 }}>A' vous, pour tout</Typography> */}
+            </Box>
           </Box>
         </Box>
-      </Box>
       </Box>
       <section>
-      <Box className="banner-container">
-        <Box className="passe-banner-section">
-          <Box className="banner-box">
-            Lorem ipsum dolor sit amet consectetur. Ipsum erat velit iaculis
-            elementum lorem. Luctus natoque purus pellentesque proin id Gravida
-            vel vel pharetra tortor.
-          </Box>
-          <Box className="right-box-section">
-            <Typography sx={{ textAlign: "center" }}> lorem is </Typography>
-            <Box sx={{ textAlign: "center" }}>
-              <RightMoveArrow className="arrow-icon" />
+        <Box className="banner-container">
+          <Box className="passe-banner-section">
+            <Box className="banner-box">
+              Lorem ipsum dolor sit amet consectetur. Ipsum erat velit iaculis
+              elementum lorem. Luctus natoque purus pellentesque proin id
+              Gravida vel vel pharetra tortor.
             </Box>
-          </Box>
-          <Box className="left-box-section">
-            <Box sx={{ textAlign: "center" }}>
-              <LeftMoveArrow className="arrow-icon" />
+            <Box className="right-box-section">
+              <Typography sx={{ textAlign: "center" }}> lorem is </Typography>
+              <Box sx={{ textAlign: "center" }}>
+                <RightMoveArrow className="arrow-icon" />
+              </Box>
             </Box>
-            <Typography sx={{ textAlign: "center" }}> lorem is </Typography>
+            <Box className="left-box-section">
+              <Box sx={{ textAlign: "center" }}>
+                <LeftMoveArrow className="arrow-icon" />
+              </Box>
+              <Typography sx={{ textAlign: "center" }}> lorem is </Typography>
+            </Box>
           </Box>
         </Box>
-      </Box>
       </section>
       <section>
         <Box>
@@ -148,95 +157,101 @@ const Home = () => {
               </Typography>
             </Box>
             <Box>
-              <Grid container spacing={5}>
-                {productData.map((cureEle, index) => {
-                  const {
-                    Rating,
-                    imgdata,
-                    imgalt,
-                    mainText,
-                    MainPrice,
-                    SubPrice,
-                  } = cureEle;
-                  return (
-                    <Grid item lg={6} md={6} sm={6} xs={12}>
-                      <Card className="product-card">
-                        <Grid container spacing={2}>
-                          <Grid item lg={6} md={5} sm={5}  xs={5}>
-                          <Link to="/shop/new">
-                            <Box className="img-box">
-                              <img src={imgdata} alt={imgalt} />
-                            </Box>
-                          </Link>
-                          </Grid>
-                          <Grid item lg={6} md={7} sm={7} xs={7}>
-                            <Box className="card-contain">
-                              <Box className="head-section">
-                                <Typography className="rating-box rating-text-box">
-                                  <StarIcon  />
-                                  <span className="rating-text"> {Rating}</span>
-                                </Typography>
-                                <Typography className="rating-box rating-star">
-                                  <StarIcon />
-                                </Typography>
-                              </Box>
-                              <Box className="card-details-box">
-                                <Typography className="main-text">
-                                <Link to="/shop/new">
-                                  {mainText}
-                                </Link>
-                                </Typography>
-                                <Box className="price-box">
-                                  <Typography className="main-price-text">
-                                    {MainPrice}$
-                                  </Typography>
-                                  <Typography className="sub-rpice">
-                                    DISCOUNT :<del> {SubPrice}$</del>
-                                  </Typography>
+              {!isLoading ? (
+                <Grid container spacing={5}>
+                  {products.map((cureEle, index) => {
+                    const {
+                      average_rating,
+                      main_image,
+                      product_name,
+                      product_price,
+                      discount_price,
+                    } = cureEle;
+                    return (
+                      <Grid item lg={6} md={6} sm={6} xs={12} key={index}>
+                        <Card className="product-card">
+                          <Grid container spacing={2}>
+                            <Grid item lg={6} md={5} sm={5} xs={5}>
+                              <Link to="/shop/new">
+                                <Box className="img-box">
+                                  <img src={main_image} alt={product_name} />
                                 </Box>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    mt: 2,
-                                  }}
-                                >
-                                  <Button
-                                    onClick={() =>
-                                      setIsDrawerVisible(!isDrawerVisible)
-                                    }
-                                    variant="contained"
-                                    sx={{
-                                      background: "#000000",
-                                      color: "#ffffff",
-                                      width:"100%",
-                                      borderRadius:"0",
-                                      py:1
-                                    }}
-                                    color="secondary"
-                                  >
-                                    <CartIcon height={18} width={18} />{" "}
-                                    <span style={{ marginLeft: "7px" }}>
-                                      {" "}
-                                      Add To Bag
+                              </Link>
+                            </Grid>
+                            <Grid item lg={6} md={7} sm={7} xs={7}>
+                              <Box className="card-contain">
+                                <Box className="head-section">
+                                  <Typography className="rating-box rating-text-box">
+                                    <StarIcon />
+                                    <span className="rating-text">
+                                      {average_rating}
                                     </span>
-                                  </Button>
+                                  </Typography>
+                                  <Typography className="rating-box rating-star">
+                                    <StarIcon />
+                                  </Typography>
+                                </Box>
+                                <Box className="card-details-box">
+                                  <Typography className="main-text">
+                                    <Link to="/shop/new">{product_name}</Link>
+                                  </Typography>
+                                  <Box className="price-box">
+                                    <Typography className="main-price-text">
+                                      {parseInt(product_price)}$
+                                    </Typography>
+                                    <Typography className="sub-rpice">
+                                      DISCOUNT :
+                                      <del> {parseInt(discount_price)}$</del>
+                                    </Typography>
+                                  </Box>
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      mt: 2,
+                                    }}
+                                  >
+                                    <Button
+                                      onClick={() =>
+                                        setIsDrawerVisible(!isDrawerVisible)
+                                      }
+                                      variant="contained"
+                                      sx={{
+                                        background: "#000000",
+                                        color: "#ffffff",
+                                        width: "100%",
+                                        borderRadius: "0",
+                                        py: 1,
+                                      }}
+                                      color="secondary"
+                                    >
+                                      <CartIcon height={18} width={18} />{" "}
+                                      <span style={{ marginLeft: "7px" }}>
+                                        Add To Bag
+                                      </span>
+                                    </Button>
+                                  </Box>
                                 </Box>
                               </Box>
-                            </Box>
+                            </Grid>
                           </Grid>
-                        </Grid>
-                      </Card>
-                    </Grid>
-                  );
-                })}
-              </Grid>
+                        </Card>
+                      </Grid>
+                    );
+                  })}
+                </Grid>
+              ) : (
+                <Typography className="trending-head-title">
+                  <span style={{ borderBottom: "1px solid #EFC80C" }}>
+                    Loading
+                  </span>
+                </Typography>
+              )}
             </Box>
           </Container>
         </Box>
-        
       </section>
-      <section style={{marginTop:"50px"}}>
+      <section style={{ marginTop: "50px" }}>
         <Footer />
       </section>
       <Box>
