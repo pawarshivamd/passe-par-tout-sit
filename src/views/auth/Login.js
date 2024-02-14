@@ -1,44 +1,83 @@
+import React, { useState } from "react";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import React from "react";
 import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
 import CustomInput from "../../layout/CustomInput";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchUserDetails } from "../../Redux/Thunks/userThunk";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  console.log(values);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("btn clicked");
+    dispatch(fetchUserDetails({ values, navigate }));
+  };
+
   return (
-    <Box sx={{mt:20,mb:20}}>
+    <Box sx={{ mt: 20, mb: 20 }}>
       <SearchBox />
       <Container>
-        <Grid container  spacing={2}>
+        <Grid container spacing={2}>
           <Grid item lg={6} sm={6} md={6}>
             <Grid container>
-              <Grid item lg={1} xs={1}>
+              <Grid item xs={1} lg={1}>
                 <StarIcon />
               </Grid>
-              <Grid item lg={11} xs={11}>
-                <Typography> LOG IN TO YOUR ACCOUNT</Typography>
+              <Grid item xs={11} lg={11}>
+                <Typography>LOG IN TO YOUR ACCOUNT</Typography>
                 <Box>
-                  <Grid container lg={9} sm={7} md={7} spacing={2} mt={2}>
-                    <Grid item lg={12} xs={12}>
+                  <Grid
+                    container
+                    spacing={2}
+                    mt={2}
+                    lg={9}
+                    md={7}
+                    sm={7}
+                    component="form"
+                    onSubmit={handleSubmit}
+                  >
+                    <Grid item xs={12} lg={12}>
                       <CustomInput
                         id="Email"
-                        name="Email"
+                        name="email"
                         label="E-MAIL"
                         color="primary"
                         variant="standard"
+                        onChange={handleChange}
+                        value={values.email}
                       />
                     </Grid>
-                    <Grid item lg={12} xs={12}>
+                    <Grid item xs={12} lg={12}>
                       <CustomInput
                         id="Password"
-                        name="Password"
+                        name="password"
                         label="PASSWORD"
                         color="primary"
                         variant="standard"
+                        onChange={handleChange}
+                        value={values.password}
                       />
                     </Grid>
-                    <Grid item lg={12} xs={12}>
+                    <Grid item xs={12} lg={12}>
                       <Box
                         sx={{
                           display: "flex",
@@ -47,8 +86,9 @@ const Login = () => {
                         }}
                       >
                         <Button
-                        component={Link}
-                        to="/"
+                          // component={Link}
+                          // to="/"
+                          type="submit"
                           variant="outlined"
                           className="custom-button"
                           sx={{ minWidth: "200px", padding: "10px 20px" }}
@@ -60,7 +100,7 @@ const Login = () => {
                   </Grid>
                 </Box>
               </Grid>
-              <Grid item lg={12} xs={12}>
+              <Grid item xs={12} lg={12}>
                 <Box sx={{ mt: 5 }}>
                   <Typography component={Link} variant="body2">
                     HAVE YOU FORGOTTEN YOUR PASSWORD?
@@ -69,12 +109,12 @@ const Login = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item lg={5} sm={5} md={5} xs={12}>
+          <Grid item xs={12} lg={5} sm={5} md={5}>
             <Grid container>
-              <Grid item lg={1} xs={1}>
+              <Grid item xs={1} lg={1}>
                 <StarIcon />
               </Grid>
-              <Grid item lg={4} md={6} sm={8} xs={11}>
+              <Grid item xs={11} lg={4} md={6} sm={8}>
                 <Box>NEED AN ACCOUNT?</Box>
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
                   <Button

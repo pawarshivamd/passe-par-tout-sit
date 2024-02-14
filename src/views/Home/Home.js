@@ -1,14 +1,10 @@
 import { Box, Button, Card, Container, Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
-import productimg from "../../assets/img/products/product1.png";
-import productimg2 from "../../assets/img/products/product2.png";
-import productimg3 from "../../assets/img/products/product3.png";
-import productimg4 from "../../assets/img/products/product4.png";
+
 import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
 import { ReactComponent as CartIcon } from "../../assets/img/icon/cart.svg";
 import Footer from "../footer/Footer";
 import CloseIcon from "@mui/icons-material/Close";
-import { ReactComponent as Logo } from "../../assets/img/logo.svg";
 import CustomDrawer from "../../layout/CustomDrawer";
 import { ReactComponent as RightMoveArrow } from "../../assets/img/icon/reightmovearrow.svg";
 import { ReactComponent as LeftMoveArrow } from "../../assets/img/icon/leftmovearrow.svg";
@@ -18,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 // actions
 import { fetchHomeProducts } from "../../Redux/Thunks/homeThunk";
 import { addToCart, fetchCartDetails } from "../../Redux/Thunks/cartThunk";
+import Loader from "../../utils/Loader";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -33,13 +30,15 @@ const Home = () => {
 
   const handleAddToCart = () => {
     // Static values for productId, productColor, and productSize
-    console.log("add to cart clicked");
-    const productId = "2";
-    const productColor = "white";
+    const productId = 1;
+    const productColor = "red";
     const productSize = "XL";
+    const product_price = "1000";
 
     // Dispatch the addToCart action with static values
-    dispatch(addToCart({ productId, productColor, productSize }));
+    dispatch(
+      addToCart({ productId, productColor, productSize, product_price })
+    );
   };
 
   useEffect(() => {
@@ -47,10 +46,11 @@ const Home = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    // Fetch cart details only if the drawer is visible
     if (isDrawerVisible) {
       dispatch(fetchCartDetails());
     }
-  }, [isDrawerVisible]);
+  }, [isDrawerVisible, dispatch]);
 
   const list = (anchor) => (
     <Box
@@ -100,6 +100,10 @@ const Home = () => {
           />
         </Box>
 
+        <Typography sx={{ mt: 2, textAlign: "right" }}>
+          ADDED TO YOUR SHOPPING BAG
+        </Typography>
+
         {cartData?.cart_items?.map((item, index) => (
           <Grid container spacing={2} key={index}>
             <Grid item lg={5} md={5} sm={12} xs={12}>
@@ -107,13 +111,12 @@ const Home = () => {
                 <img
                   src={item?.product?.main_image}
                   width={"100%"}
-                  alt=""
+                  alt={item?.product?.main_image}
                   style={{ objectFit: "contain" }}
                 />
               </Box>
             </Grid>
             <Grid item lg={7} md={7} sm={12} xs={12}>
-              <Typography sx={{ mt: 2 }}>ADDED TO YOUR SHOPPING BAG</Typography>
               <Typography sx={{ mt: 1 }}>
                 {item?.product?.product_name}
               </Typography>
@@ -137,6 +140,10 @@ const Home = () => {
       </Box>
     </Box>
   );
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Box>
@@ -241,7 +248,7 @@ const Home = () => {
                                     <Button
                                       onClick={() => [
                                         setIsDrawerVisible(!isDrawerVisible),
-                                        // handleAddToCart(),
+                                        handleAddToCart(),
                                       ]}
                                       variant="contained"
                                       sx={{

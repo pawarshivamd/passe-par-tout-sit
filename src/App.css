@@ -729,6 +729,15 @@ input[type="number"] {
     }
   }
 }
+/* ================== */
+.close-icon {
+  cursor: pointer;
+}
+
+.selected {
+  color: #efc80c !important;
+  /* Add any additional styling for the selected size here */
+}
 
 @media (max-width: 820px) and (min-width: 820px) {
   .product-zoom-left-setion .swiper-slide {

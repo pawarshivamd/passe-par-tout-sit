@@ -2,14 +2,22 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { NotificationContainer } from "react-notifications";
+import { ToastContainer } from "react-toastify";
 import "react-notifications/lib/notifications.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
-    <NotificationContainer />
+    <>
+      <ToastContainer
+        autoClose={3000}
+        position="top-left"
+        unmountOnClose
+        theme="colored"
+        style={{ zIndex: "999999999999" }}
+      />
+      <App />
+    </>
   </React.StrictMode>
 );
 

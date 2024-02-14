@@ -4,16 +4,21 @@ import { ReactComponent as Logo } from "../../assets/img/logo.svg";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCartDetails } from "../../Redux/Thunks/cartThunk";
 const Navbar = () => {
   const [showLogo, setShowLogo] = useState(false);
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [FixedNavbar, setFixedNavbar] = useState();
 
-  const data = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
-  console.log(data);
+  const { cartData = {} } = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    dispatch(fetchCartDetails());
+  }, [dispatch]);
 
   const handleNavLinkClick = () => {
     if (open) {
@@ -78,7 +83,11 @@ const Navbar = () => {
                   className="nav-list"
                   to="shopping-bag"
                 >
-                  Shopping Bag (0)
+                  Shopping Bag (
+                  {cartData && cartData.cart_items
+                    ? cartData.cart_items.length
+                    : "0"}
+                  )
                 </NavLink>
                 <NavLink
                   onClick={handleNavLinkClick}

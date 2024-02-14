@@ -20,8 +20,10 @@ import Loader from "../../utils/Loader";
 
 // actions
 import { fetchProductDetails } from "../../Redux/Thunks/productDetailsThunk";
+import { fetchCartDetails } from "../../Redux/Thunks/cartThunk";
 const ProductDetails = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  const [selectedSize, setSelectedSize] = useState(null);
 
   const {
     product,
@@ -33,11 +35,23 @@ const ProductDetails = () => {
     error,
   } = useSelector((state) => state.product);
 
-  console.log("Product", product);
-  console.log("productSize", productSize);
-  console.log("productColor", productColor);
-  console.log("productImage", productImage);
-  console.log("relatedProducts", relatedProducts);
+  const {
+    cartData,
+    isLoading: cartIsLoading,
+    isError: cartIsError,
+  } = useSelector((state) => state.cart);
+
+  console.log(cartData, "cartData");
+
+  const addToCart = ({ productId, productSize, productColor }) => {
+    console.log(productId, productSize, productColor);
+  };
+
+  // console.log("Product", product?.id);
+  // console.log("productSize", productSize);
+  // console.log("productColor", productColor);
+  // console.log("productImage", productImage);
+  // console.log("relatedProducts", relatedProducts);
 
   const dispatch = useDispatch();
 
@@ -53,9 +67,13 @@ const ProductDetails = () => {
 
   useEffect(() => {
     if (isDrawerVisible) {
-     
+      dispatch(fetchCartDetails());
     }
   }, [isDrawerVisible]);
+
+  const handleSelectedSize = (size) => {
+    setSelectedSize(size);
+  };
 
   const [activeimg, setActiveimg] = useState("");
   const list = (anchor) => (
@@ -66,7 +84,7 @@ const ProductDetails = () => {
       onKeyDown={() => setIsDrawerVisible(false)}
     >
       <Box>
-        <Grid container spacing={2}>
+        {/* <Grid container spacing={2}>
           <Grid item lg={5} md={5} sm={12} xs={12}>
             <Box>
               <img
@@ -84,19 +102,67 @@ const ProductDetails = () => {
             <Typography sx={{ mt: 2 }}>ADDED TO YOUR SHOPPING BAG</Typography>
             <Typography sx={{ mt: 1 }}>Lorem ipsum dolo</Typography>
             <Typography>COLOR / SIZE</Typography>
+            <Box sx={{ mt: 3 }}>
+              <Button
+                component={Link}
+                to="/shopping-bag"
+                variant="outlined"
+                className="custom-button"
+                sx={{ padding: "7px 40px" }}
+              >
+                SEE SHOPPING BAG
+              </Button>
+            </Box>
           </Grid>
-          <Box sx={{ mt: 3, width: "80%" }}>
-            <Button
-              component={Link}
-              to="/shopping-bag"
-              variant="outlined"
-              className="custom-button"
-              sx={{ padding: "7px 20px", width: "100%" }}
-            >
-              SEE SHOPPING BAG
-            </Button>
-          </Box>
-        </Grid>
+        </Grid> */}
+
+        <Box sx={{ display: "flex", justifyContent: "end" }}>
+          <CloseIcon
+            color="primary"
+            sx={{ cursor: "pointer" }}
+            onClick={() => setIsDrawerVisible(false)}
+          />
+        </Box>
+
+        <Typography sx={{ mt: 2, textAlign: "right" }}>
+          ADDED TO YOUR SHOPPING BAG
+        </Typography>
+
+        {/* {cartData?.cart_items
+          ? cartData.cart_items.map((item, index) => (
+              <Grid container spacing={2} key={index}>
+                <Grid item lg={5} md={5} sm={12} xs={12}>
+                  <Box>
+                    <img
+                      src={item?.product?.main_image}
+                      width={"100%"}
+                      alt={item?.product?.main_image}
+                      style={{ objectFit: "contain" }}
+                    />
+                  </Box>
+                </Grid>
+                <Grid item lg={7} md={7} sm={12} xs={12}>
+                  <Typography sx={{ mt: 1 }}>
+                    {item?.product?.product_name}
+                  </Typography>
+                  <Typography>
+                    {item?.product_color}/{item?.product_size}
+                  </Typography>
+                  <Box sx={{ mt: 3 }}>
+                    <Button
+                      component={Link}
+                      to="/shopping-bag"
+                      variant="outlined"
+                      className="custom-button"
+                      sx={{ padding: "7px 40px" }}
+                    >
+                      SEE SHOPPING BAG
+                    </Button>
+                  </Box>
+                </Grid>
+              </Grid>
+            ))
+          : "No items in your cart. Log in to see items in your cart."} */}
       </Box>
     </Box>
   );
@@ -222,7 +288,18 @@ const ProductDetails = () => {
                   {productSize &&
                     productSize.length > 0 &&
                     productSize.map((currentElem, index) => (
-                      <span className="size-text">
+                      <span
+                        // className="size-text"
+                        className={`size-text ${
+                          currentElem?.product_size === selectedSize
+                            ? "selected"
+                            : ""
+                        }`}
+                        key={index}
+                        onClick={() =>
+                          handleSelectedSize(currentElem?.product_size)
+                        }
+                      >
                         <span className="text-color">
                           {currentElem?.product_size}
                           {index !== productSize.length - 1 && " -"}
@@ -258,7 +335,14 @@ const ProductDetails = () => {
                 </Box>
               </Box>
               <Button
-                onClick={() => setIsDrawerVisible(!isDrawerVisible)}
+                onClick={() => [
+                  setIsDrawerVisible(!isDrawerVisible),
+                  addToCart({
+                    productId: product?.id,
+                    productSize: selectedSize,
+                    productColor: "red",
+                  }),
+                ]}
                 variant="outlined"
                 className="custom-button"
                 sx={{ paddingInline: "35px" }}

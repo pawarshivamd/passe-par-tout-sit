@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addToCart, fetchCartDetails } from "../Thunks/cartThunk";
+import {
+  addToCart,
+  fetchCartDetails,
+  removeCartItem,
+} from "../Thunks/cartThunk";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -27,11 +31,26 @@ const cartSlice = createSlice({
       state.isError = null;
     });
     builder.addCase(fetchCartDetails.fulfilled, (state, action) => {
-      console.log(action.payload, "payload");
       state.isLoading = false;
       state.cartData = action.payload;
     });
     builder.addCase(fetchCartDetails.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = action.payload;
+    });
+    builder.addCase(removeCartItem.pending, (state) => {
+      state.isLoading = true;
+      state.isError = null;
+    });
+    builder.addCase(removeCartItem.fulfilled, (state, action) => {
+      console.log("action.payload", action.payload);
+      state.isLoading = false;
+      // Remove the item from state.cartData based on action.payload
+      state.cartData.cart_items = state.cartData.cart_items.filter(
+        (item) => item.id !== action.payload
+      );
+    });
+    builder.addCase(removeCartItem.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = action.payload;
     });
