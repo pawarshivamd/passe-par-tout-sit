@@ -19,6 +19,11 @@ import Loader from "../../utils/Loader";
 const Home = () => {
   const dispatch = useDispatch();
   const [isDrawerVisible, setIsDrawerVisible] = React.useState(false);
+  const userData = useSelector((state) => state.user);
+
+  const token = localStorage.getItem("auth_token");
+
+  // console.log(userData);
 
   const { products, isLoading, isError } = useSelector((state) => state.home);
 
@@ -30,27 +35,26 @@ const Home = () => {
 
   const handleAddToCart = () => {
     // Static values for productId, productColor, and productSize
-    const productId = 1;
-    const productColor = "red";
-    const productSize = "XL";
-    const product_price = "1000";
+    const product_id = 3;
+    const product_color = "red";
+    const product_size = "XL";
 
     // Dispatch the addToCart action with static values
-    dispatch(
-      addToCart({ productId, productColor, productSize, product_price })
-    );
+    dispatch(addToCart({ product_id, product_color, product_size }));
   };
 
   useEffect(() => {
     dispatch(fetchHomeProducts());
-  }, [dispatch]);
-
-  useEffect(() => {
-    // Fetch cart details only if the drawer is visible
-    if (isDrawerVisible) {
+    if (token) {
       dispatch(fetchCartDetails());
     }
-  }, [isDrawerVisible, dispatch]);
+  }, [dispatch]);
+
+  // useEffect(() => {
+  //   if (isDrawerVisible) {
+  //     dispatch(fetchCartDetails());
+  //   }
+  // }, [isDrawerVisible, dispatch]);
 
   const list = (anchor) => (
     <Box
@@ -60,38 +64,6 @@ const Home = () => {
       onKeyDown={() => setIsDrawerVisible(false)}
     >
       <Box>
-        {/* <Grid container spacing={2}>
-          <Grid item lg={5} md={5} sm={12} xs={12}>
-            <Box>
-              <img
-                src={productimg}
-                width={"100%"}
-                alt=""
-                style={{ objectFit: "contain" }}
-              />
-            </Box>
-          </Grid>
-          <Grid item lg={7} md={7} sm={12} xs={12}>
-            <Box sx={{ display: "flex", justifyContent: "end" }}>
-              <CloseIcon color="primary" sx={{ cursor: "pointer" }} />
-            </Box>
-            <Typography sx={{ mt: 2 }}>ADDED TO YOUR SHOPPING BAG</Typography>
-            <Typography sx={{ mt: 1 }}>Lorem ipsum dolo</Typography>
-            <Typography>COLOR / SIZE</Typography>
-            <Box sx={{ mt: 3 }}>
-              <Button
-                component={Link}
-                to="/shopping-bag"
-                variant="outlined"
-                className="custom-button"
-                sx={{ padding: "7px 40px" }}
-              >
-                SEE SHOPPING BAG
-              </Button>
-            </Box>
-          </Grid>
-        </Grid> */}
-
         <Box sx={{ display: "flex", justifyContent: "end" }}>
           <CloseIcon
             color="primary"
@@ -104,39 +76,44 @@ const Home = () => {
           ADDED TO YOUR SHOPPING BAG
         </Typography>
 
-        {cartData?.cart_items?.map((item, index) => (
-          <Grid container spacing={2} key={index}>
-            <Grid item lg={5} md={5} sm={12} xs={12}>
-              <Box>
-                <img
-                  src={item?.product?.main_image}
-                  width={"100%"}
-                  alt={item?.product?.main_image}
-                  style={{ objectFit: "contain" }}
-                />
-              </Box>
-            </Grid>
-            <Grid item lg={7} md={7} sm={12} xs={12}>
-              <Typography sx={{ mt: 1 }}>
-                {item?.product?.product_name}
-              </Typography>
-              <Typography>
-                {item?.product_color}/{item?.product_size}
-              </Typography>
-              <Box sx={{ mt: 3 }}>
-                <Button
-                  component={Link}
-                  to="/shopping-bag"
-                  variant="outlined"
-                  className="custom-button"
-                  sx={{ padding: "7px 40px" }}
-                >
-                  SEE SHOPPING BAG
-                </Button>
-              </Box>
-            </Grid>
-          </Grid>
-        ))}
+        {cartData?.cart_items?.map(
+          (item, index) => (
+            console.log(item),
+            (
+              <Grid container spacing={2} key={index}>
+                <Grid item lg={5} md={5} sm={12} xs={12}>
+                  <Box>
+                    <img
+                      src={item?.product?.main_image}
+                      width={"100%"}
+                      alt={item?.product?.main_image}
+                      style={{ objectFit: "contain" }}
+                    />
+                  </Box>
+                </Grid>
+                <Grid item lg={7} md={7} sm={12} xs={12}>
+                  <Typography sx={{ mt: 1 }}>
+                    {item?.product?.product_name}
+                  </Typography>
+                  <Typography>
+                    {item?.product_color}/{item?.product_size}
+                  </Typography>
+                  <Box sx={{ mt: 3 }}>
+                    <Button
+                      component={Link}
+                      to="/shopping-bag"
+                      variant="outlined"
+                      className="custom-button"
+                      sx={{ padding: "7px 40px" }}
+                    >
+                      SEE SHOPPING BAG
+                    </Button>
+                  </Box>
+                </Grid>
+              </Grid>
+            )
+          )
+        )}
       </Box>
     </Box>
   );
@@ -195,6 +172,7 @@ const Home = () => {
                 <Grid container spacing={5}>
                   {products.map((cureEle, index) => {
                     const {
+                      id,
                       average_rating,
                       main_image,
                       product_name,
@@ -206,7 +184,7 @@ const Home = () => {
                         <Card className="product-card">
                           <Grid container spacing={2}>
                             <Grid item lg={6} md={5} sm={5} xs={5}>
-                              <Link to="/shop/new">
+                              <Link to={`/shop/new/${id}`}>
                                 <Box className="img-box">
                                   <img src={main_image} alt={product_name} />
                                 </Box>
@@ -227,7 +205,9 @@ const Home = () => {
                                 </Box>
                                 <Box className="card-details-box">
                                   <Typography className="main-text">
-                                    <Link to="/shop/new">{product_name}</Link>
+                                    <Link to={`/shop/new/${id}`}>
+                                      {product_name}
+                                    </Link>
                                   </Typography>
                                   <Box className="price-box">
                                     <Typography className="main-price-text">

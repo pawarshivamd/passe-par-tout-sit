@@ -1,24 +1,77 @@
+// import axios from "axios";
+
+// // const baseURL = process.env.REACT_APP_BASE_URL;
+// const baseURL = "https://ppt.thebizzbuddy.com/public/api";
+// const token = localStorage.getItem("auth_token");
+
+// console.log(token, "token");
+
+// export default axios.create({
+//   baseURL: baseURL,
+//   timeout: 30000,
+//   headers: {
+//     "Content-Type": "application/json",
+//     "Access-Control-Allow-Origin": "*",
+//     Authorization: `Bearer ${token}`,
+//   },
+// });
+
+// Authorization: `Bearer ${token}`,
+
+// export default axios.create({
+//   baseURL: baseURL,
+//   timeout: 30000, // 30 secs
+//   headers: {
+//     Authorization: `Bearer ${token}`,
+//     // "ngrok-skip-browser-warning": "69420",
+//   },
+//   validateStatus: (status) => status,
+// });
+
+// import axios from "axios";
+
+// const api = axios.create({
+//   baseURL: "https://ppt.thebizzbuddy.com/public/api ",
+//   headers: {
+//     "Content-Type": "application/json",
+//     "Access-Control-Allow-Origin": "*",
+//   },
+// });
+
+// api.interceptors.request.use((config) => {
+//   const token = localStorage.getItem("auth_token");
+//   if (token) {
+//     config.headers.Authorization = `Bearer ${token}`;
+//   }
+//   return config;
+// });
+
+// export default api;
+
 import axios from "axios";
 
-// const baseURL = process.env.REACT_APP_BASE_URL;
 const baseURL = "https://ppt.thebizzbuddy.com/public/api";
 
-export default axios.create({
+const API = axios.create({
   baseURL: baseURL,
   timeout: 30000,
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
-    // 'Content-Type': 'multipart/form-data',
-    // Authorization : `Bearer ${localStorage.getItem('auth_token')}`
-    Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BwdC50aGViaXp6YnVkZHkuY29tL3B1YmxpYy9hcGkvdXNlcl9sb2dpbiIsImlhdCI6MTcwNzkxMDcwNiwiZXhwIjoxNzA3OTE0MzA2LCJuYmYiOjE3MDc5MTA3MDYsImp0aSI6IlRqU1pWc1ZDMzNxcG5wT0IiLCJzdWIiOiI1IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.8YRX291Dc6d71RjNkN6znz1xAEnC9VugHhhkMS3pJEg`,
-  },
-
-  validateStatus: (status) => {
-    if (status === 401) {
-      // window.location.href = "/";
-      localStorage.clear();
-    }
-    return status;
   },
 });
+
+API.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("auth_token");
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+export default API;

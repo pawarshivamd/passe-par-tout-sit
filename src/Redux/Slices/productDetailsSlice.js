@@ -9,6 +9,7 @@ const productDetailsSlice = createSlice({
     productColor: [],
     productImage: [],
     relatedProducts: [],
+    main_image_path: null,
     isLoading: false,
     error: null,
   },
@@ -26,6 +27,7 @@ const productDetailsSlice = createSlice({
         state.productColor = action.payload.product_color;
         state.productImage = action.payload.product_image;
         state.relatedProducts = action.payload.related_products;
+        state.main_image_path = action.payload.main_image_path;
       })
       .addCase(fetchProductDetails.rejected, (state, action) => {
         state.isLoading = false;

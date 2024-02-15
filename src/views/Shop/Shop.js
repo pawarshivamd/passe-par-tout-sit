@@ -82,7 +82,7 @@ const Shop = () => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate("/shop/new");
+    navigate("/shop/new/1");
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -128,7 +128,7 @@ const Shop = () => {
                       }}
                     >
                       <Typography variant="subtitle1" component="div">
-                        <Link to="/shop/new">{MainText}</Link>
+                        <Link to="/shop/new/1">{MainText}</Link>
                       </Typography>
                       <Box className="pro-rating-star">
                       <StarIcon />

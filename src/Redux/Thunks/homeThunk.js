@@ -14,7 +14,7 @@ export const fetchHomeProducts = createAsyncThunk(
       // console.log(status, trending_products);
 
       if (status === 200) {
-        Notification("success", "Products fetched successfully");
+        // Notification("success", "Products fetched successfully");
         return trending_products;
       } else {
         return rejectWithValue("Failed to fetch data");

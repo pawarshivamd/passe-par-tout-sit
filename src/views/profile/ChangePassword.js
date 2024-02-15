@@ -42,7 +42,7 @@ const ChangePassword = ({ SaveButton }) => {
                 id="current-password"
                 type={showcurentpassword ? "text" : "password"}
                 className="customInput"
-                endAdornment={
+                endadornment={
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
@@ -69,7 +69,7 @@ const ChangePassword = ({ SaveButton }) => {
                 id="password"
                 type={showPassword ? "text" : "password"}
                 className="customInput"
-                endAdornment={
+                endadornment={
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"

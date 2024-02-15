@@ -19,7 +19,7 @@ const CustomInput = (props) => {
         select={props.select}
         helperText={props.helperText}
         placeholder={props.placeholder}
-        endAdornment={<div>{props.endadornment}</div>}
+        endadornment={<div>{props.endadornment}</div>}
         {...props}
         InputLabelProps={{ className: "textFieldcustomLable" }}
         InputProps={{

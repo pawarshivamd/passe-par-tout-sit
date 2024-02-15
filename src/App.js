@@ -45,7 +45,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<SingUp />} />
               <Route path="/shop" element={<Shop />} />
-              <Route path="/shop/new" element={<ProductDetails />} />
+              <Route path="/shop/new/:productId" element={<ProductDetails />} />
               <Route path="/shopping-bag" element={<ShoppingBag />} />
               <Route path="/address" element={<AddressMain />} />
               <Route path="/select-address" element={<SelectAddress />} />

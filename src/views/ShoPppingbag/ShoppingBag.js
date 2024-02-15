@@ -22,7 +22,7 @@ import Loader from "../../utils/Loader";
 const ShoppingBag = () => {
   const [activeTab, setActiveTab] = useState(1);
   const dispatch = useDispatch();
-
+  const token = localStorage.getItem("auth_token");
   const { cartData, isLoading, isError } = useSelector((state) => state.cart);
 
   const handleTabChange = (tabNumber) => {
@@ -30,18 +30,19 @@ const ShoppingBag = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchCartDetails());
+    if (token) {
+      dispatch(fetchCartDetails());
+    }
   }, [dispatch]);
 
   const handleProductRemove = (product_id) => {
     if (product_id) {
+      console.log("called");
       dispatch(removeCartItem({ product_id }))
         .then(() => {
-          // This block will execute after the removal action has been completed
           dispatch(fetchCartDetails());
         })
         .catch((error) => {
-          // Handle any errors that occur during the removal process
           console.error("Error removing item:", error);
         });
     }
@@ -67,7 +68,9 @@ const ShoppingBag = () => {
                 borderBottom: activeTab === 1 ? "1px solid #EFC80C" : "none",
               }}
             >
-              <NavLink>Shopping Bag ({cartData?.cart_items?.length})</NavLink>
+              <NavLink>
+                Shopping Bag ({cartData?.cart_items?.length || 0})
+              </NavLink>
             </Typography>
             <Typography
               onClick={() => handleTabChange(2)}
@@ -88,54 +91,71 @@ const ShoppingBag = () => {
           <Box sx={{ mt: 5 }}>
             <Container>
               <Grid container spacing={2}>
-                {cartData?.cart_items?.map((item, index) => {
-                  return (
-                    <Grid item lg={4} md={4} sm={6} xs={12} key={item.id}>
-                      <Card
-                        className="product-card-"
-                        sx={{ borderRadius: "0px", boxShadow: "none" }}
-                      >
-                        <Box className="product-img">
-                          <CardMedia
-                            component="img"
-                            height="100%"
-                            image={item?.product?.main_image}
-                            // alt={item?.product?.product_name}
-                            sx={{ objectFit: "contain" }}
-                          />
-                        </Box>
-                        <CardContent
-                          sx={{
-                            background: "#191919",
-                            color: "#D9D9D9",
-                            paddingInline: "0px",
-                          }}
+                {cartData?.cart_items && cartData.cart_items.length > 0 ? (
+                  cartData?.cart_items?.map((item, index) => {
+                    console.log("item", item);
+                    return (
+                      <Grid item lg={4} md={4} sm={6} xs={12} key={item.id}>
+                        <Card
+                          className="product-card-"
+                          sx={{ borderRadius: "0px", boxShadow: "none" }}
                         >
-                          <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                            }}
-                          >
-                            <Typography variant="subtitle1" component="div">
-                              <Link>{item?.product?.product_name}</Link>
-                            </Typography>
-                            <CloseIcon
-                              onClick={() =>
-                                handleProductRemove(item?.product?.id)
-                              }
-                              className="close-icon"
+                          <Box className="product-img">
+                            <CardMedia
+                              component="img"
+                              height="100%"
+                              image={item?.product?.main_image}
+                              // alt={item?.product?.product_name}
+                              sx={{ objectFit: "contain", minHeight: "300px" }}
                             />
                           </Box>
-                          <Typography variant="body2">
-                            {item?.product?.product_price}
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  );
-                })}
+                          <CardContent
+                            sx={{
+                              background: "#191919",
+                              color: "#D9D9D9",
+                              paddingInline: "0px",
+                            }}
+                          >
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                              }}
+                            >
+                              <Typography variant="subtitle1" component="div">
+                                <Link>{item?.product?.product_name}</Link>
+                              </Typography>
+                              <CloseIcon
+                                onClick={() =>
+                                  handleProductRemove(item?.product?.id)
+                                }
+                                className="close-icon"
+                              />
+                            </Box>
+                            <Typography variant="body2">
+                              {item?.product?.product_price}
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    );
+                  })
+                ) : (
+                  <Box
+                    sx={{
+                      minHeight: "40vh",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      mb: 3,
+                    }}
+                  >
+                    <Typography sx={{ textAlign: "center" }}>
+                      No items in shopping bag !!
+                    </Typography>
+                  </Box>
+                )}
               </Grid>
 
               {/* <Grid container spacing={2}>

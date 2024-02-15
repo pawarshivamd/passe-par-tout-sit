@@ -16,6 +16,7 @@ root.render(
         theme="colored"
         style={{ zIndex: "999999999999" }}
       />
+
       <App />
     </>
   </React.StrictMode>

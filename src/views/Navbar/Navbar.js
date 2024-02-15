@@ -15,9 +15,12 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const { cartData = {} } = useSelector((state) => state.cart);
+  const token = localStorage.getItem("auth_token");
 
   useEffect(() => {
-    dispatch(fetchCartDetails());
+    if (token) {
+      dispatch(fetchCartDetails());
+    }
   }, [dispatch]);
 
   const handleNavLinkClick = () => {

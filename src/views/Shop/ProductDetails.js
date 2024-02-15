@@ -14,18 +14,23 @@ import { productData } from "../Home/Home";
 import Footer from "../footer/Footer";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import CustomDrawer from "../../layout/CustomDrawer";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../utils/Loader";
 
 // actions
 import { fetchProductDetails } from "../../Redux/Thunks/productDetailsThunk";
-import { fetchCartDetails } from "../../Redux/Thunks/cartThunk";
+import { addToCart, fetchCartDetails } from "../../Redux/Thunks/cartThunk";
 const ProductDetails = () => {
+  const { productId } = useParams();
+
+
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [selectedSize, setSelectedSize] = useState(null);
+  const token = localStorage.getItem("auth_token");
 
   const {
+    main_image_path,
     product,
     productSize,
     productColor,
@@ -35,17 +40,19 @@ const ProductDetails = () => {
     error,
   } = useSelector((state) => state.product);
 
+  // console.log(main_image_path);
+
+  console.log(productImage, "productImage....");
+
   const {
     cartData,
     isLoading: cartIsLoading,
     isError: cartIsError,
   } = useSelector((state) => state.cart);
 
-  console.log(cartData, "cartData");
-
-  const addToCart = ({ productId, productSize, productColor }) => {
-    console.log(productId, productSize, productColor);
-  };
+  // const addToCart = ({ productId, productSize, productColor }) => {
+  //   console.log(productId, productSize, productColor);
+  // };
 
   // console.log("Product", product?.id);
   // console.log("productSize", productSize);
@@ -56,20 +63,21 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProductDetails());
-  }, []);
+    console.log("called");
+    dispatch(fetchProductDetails(productId));
+  }, [dispatch]);
 
   useEffect(() => {
-    if (product && product.main_image) {
-      setActiveimg(product.main_image);
+    if (product && main_image_path) {
+      setActiveimg(main_image_path);
     }
   }, [product]);
 
   useEffect(() => {
-    if (isDrawerVisible) {
+    if (token) {
       dispatch(fetchCartDetails());
     }
-  }, [isDrawerVisible]);
+  }, [dispatch]);
 
   const handleSelectedSize = (size) => {
     setSelectedSize(size);
@@ -246,14 +254,8 @@ const ProductDetails = () => {
                     modules={[Navigation]}
                   >
                     {productImage?.map((slide, i) => (
-                      <SwiperSlide
-                        key={i}
-                        onClick={() => setActiveimg(slide?.other_images)}
-                      >
-                        <img
-                          src={slide?.other_images}
-                          alt={slide?.other_images}
-                        />
+                      <SwiperSlide key={i} onClick={() => setActiveimg(slide)}>
+                        <img src={slide} alt={slide} />
                       </SwiperSlide>
                     ))}
                   </Swiper>
@@ -371,7 +373,7 @@ const ProductDetails = () => {
                   <Card className="product-card">
                     <Grid container spacing={2}>
                       <Grid item lg={6} md={5} sm={5} xs={5}>
-                        <Link to="/shop/new">
+                        <Link to="/shop/new/1">
                           <Box className="img-box">
                             <img src={main_image} alt={main_image} />
                           </Box>
@@ -390,7 +392,7 @@ const ProductDetails = () => {
                           </Box>
                           <Box className="card-details-box">
                             <Typography className="main-text">
-                              <Link to="/shop/new">{product_name}</Link>
+                              <Link to="/shop/new/1">{product_name}</Link>
                             </Typography>
                             <Box className="price-box">
                               <Typography className="main-price-text">

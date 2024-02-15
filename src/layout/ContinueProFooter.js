@@ -7,6 +7,7 @@ import { fetchCartDetails } from "../Redux/Thunks/cartThunk";
 const ContinueProFooter = (props) => {
   const dispatch = useDispatch();
 
+
   const {
     cartData: { delivery_charge, item_total, payable_amount } = {},
     isLoading,

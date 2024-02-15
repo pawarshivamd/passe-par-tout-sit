@@ -5,9 +5,8 @@ export const fetchProductDetails = createAsyncThunk(
   "fetchProductDetails",
   async (arg, { rejectWithValue }) => {
     try {
-      const { data, status } = await API.get("/product_details/1");
+      const { data, status } = await API.get(`/product_details/${arg}`);
 
-      console.log(data);
 
       if (status === 200) {
         return data;

@@ -96,7 +96,7 @@ const Signout = ({ saveButton }) => {
                     id="standard-adornment-password"
                     type={showPassword ? "text" : "password"}
                     className="customInput "
-                    endAdornment={
+                    endadornment={
                       <InputAdornment position="end">
                         <IconButton
                           aria-label="toggle password visibility"

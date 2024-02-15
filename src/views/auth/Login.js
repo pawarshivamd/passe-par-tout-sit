@@ -38,7 +38,7 @@ const Login = () => {
       <Container>
         <Grid container spacing={2}>
           <Grid item lg={6} sm={6} md={6}>
-            <Grid container>
+            <Grid container spacing={2}>
               <Grid item xs={1} lg={1}>
                 <StarIcon />
               </Grid>
@@ -46,8 +46,8 @@ const Login = () => {
                 <Typography>LOG IN TO YOUR ACCOUNT</Typography>
                 <Box>
                   <Grid
-                    container
-                    spacing={2}
+                    item
+                    // spacing={2}
                     mt={2}
                     lg={9}
                     md={7}
@@ -66,7 +66,7 @@ const Login = () => {
                         value={values.email}
                       />
                     </Grid>
-                    <Grid item xs={12} lg={12}>
+                    <Grid item xs={12} lg={12} sx={{ mt: 2 }}>
                       <CustomInput
                         id="Password"
                         name="password"
@@ -75,6 +75,7 @@ const Login = () => {
                         variant="standard"
                         onChange={handleChange}
                         value={values.password}
+                        type="password"
                       />
                     </Grid>
                     <Grid item xs={12} lg={12}>

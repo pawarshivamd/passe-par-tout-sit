@@ -7,11 +7,11 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../features/auth/api";
 const SingUp = () => {
-  const data = useSelector((state) => state.auth.user);
-  const [userData, setUserData] = useState(data);
+  // const data = useSelector((state) => state.auth.user);
+  const [userData, setUserData] = useState();
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.auth.loading);
-  const error = useSelector((state) => state.auth.error);
+  // const loading = useSelector((state) => state.auth.loading);
+  // const error = useSelector((state) => state.auth.error);
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -21,10 +21,10 @@ const SingUp = () => {
     dispatch(loginUser(userData));
   };
 
-  console.log(userData, data);
+  // console.log(userData, data);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  // if (loading) return <div>Loading...</div>;
+  // if (error) return <div>Error: {error}</div>;
 
   return (
     <Box sx={{ mt: 20 }} className="sing-up-section">
@@ -47,7 +47,7 @@ const SingUp = () => {
                         label="E-MAIL"
                         color="primary"
                         variant="standard"
-                        value={userData?.email}
+                        // value={userData?.email}
                         onChange={handleChange}
                       />
                     </Grid>
@@ -98,7 +98,7 @@ const SingUp = () => {
                             color="primary"
                             name="phoneno"
                             variant="standard"
-                            type="number"
+                            type="tel"
                             onChange={handleChange}
                           />
                         </Grid>

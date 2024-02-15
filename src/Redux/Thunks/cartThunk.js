@@ -2,33 +2,62 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import API from "../../API";
 import Notification from "../../utils/Notification";
 
+// export const addToCart = createAsyncThunk(
+//   "addToCart",
+//   async (
+//     { productId, productColor, productSize, product_price },
+//     { rejectWithValue }
+//   ) => {
+//     try {
+//       const formData = new FormData();
+//       formData.append("product_id", productId);
+//       formData.append("product_color", productColor);
+//       formData.append("product_size", productSize);
+//       formData.append("product_price", product_price);
+
+//       const {
+//         data: { status, message },
+//         status: statusCode,
+//       } = await API.post("/cart/add", formData);
+
+//       if (status === "success") {
+//         Notification("success", message);
+//         console.log("SUccess");
+//         // return response.;
+//       } else if (statusCode === 200) {
+//         Notification("error", message);
+//       } else {
+//         // Notification("error", message);
+//         console.log("errro");
+//       }
+
+//       console.log(status, message);
+//     } catch (error) {
+//       return rejectWithValue(error.response.data);
+//     }
+//   }
+// );
+
 export const addToCart = createAsyncThunk(
   "addToCart",
-  async (
-    { productId, productColor, productSize, product_price },
-    { rejectWithValue }
-  ) => {
+  async ({ product_id, product_color, product_size }, { rejectWithValue }) => {
     try {
-      const formData = new FormData();
-      formData.append("product_id", productId);
-      formData.append("product_color", productColor);
-      formData.append("product_size", productSize);
-      formData.append("product_price", product_price);
+      const requestData = { product_id, product_color, product_size };
 
-      const {
-        data: { status, message },
-        status: statusCode,
-      } = await API.post("/cart/add", formData);
+      const response = await API.post("/cart/add", requestData);
+
+      const { status, message } = response.data;
+      const statusCode = response.status;
 
       if (status === "success") {
         Notification("success", message);
-        console.log("SUccess");
+        console.log("Success");
         // return response.;
       } else if (statusCode === 200) {
         Notification("error", message);
       } else {
         // Notification("error", message);
-        console.log("errro");
+        console.log("error");
       }
 
       console.log(status, message);
@@ -44,7 +73,7 @@ export const fetchCartDetails = createAsyncThunk(
     try {
       const { data, status } = await API.get("/cart");
 
-      console.log(data);
+      // console.log(data);
 
       if (status === 200) {
         return data;
@@ -59,12 +88,9 @@ export const fetchCartDetails = createAsyncThunk(
 
 export const removeCartItem = createAsyncThunk(
   "removeCartItem",
-  async ({ product_id }, { rejectWithValue }) => {
+  async (product_id, { rejectWithValue }) => {
     try {
-      const formData = new FormData();
-      formData.append("product_id", product_id);
-
-      const data = await API.post("/cart/remove", formData);
+      const data = await API.post("/cart/remove", product_id);
 
       return product_id;
     } catch (error) {
