@@ -1,11 +1,15 @@
 import { Box, Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { ReactComponent as Logo } from "../../assets/img/logo.svg";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCartDetails } from "../../Redux/Thunks/cartThunk";
+import { fetchUserDetails } from "../../Redux/Thunks/userThunk";
+import { jwtDecode as jwt_decode } from "jwt-decode";
+import { handleLogout } from "../../utils/constants";
+
 const Navbar = () => {
   const [showLogo, setShowLogo] = useState(false);
   const location = useLocation();
@@ -13,13 +17,17 @@ const Navbar = () => {
   const [FixedNavbar, setFixedNavbar] = useState();
 
   const dispatch = useDispatch();
+  const naviagte = useNavigate();
 
   const { cartData = {} } = useSelector((state) => state.cart);
+  // const userData = useSelector((state) => state.user);
+
   const token = localStorage.getItem("auth_token");
 
   useEffect(() => {
     if (token) {
       dispatch(fetchCartDetails());
+      dispatch(fetchUserDetails());
     }
   }, [dispatch]);
 
@@ -49,6 +57,18 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken.exp < currentTime) {
+        handleLogout(naviagte);
+        window.location.reload();
+      }
+    }
+  }, [token]);
+
   const isHomepage = location.pathname === "/";
   return (
     <nav className={`navbar ${FixedNavbar ? "fixed-navbar" : ""} `}>
@@ -92,20 +112,24 @@ const Navbar = () => {
                     : "0"}
                   )
                 </NavLink>
-                <NavLink
-                  onClick={handleNavLinkClick}
-                  className="nav-list"
-                  to="/login"
-                >
-                  LOG IN
-                </NavLink>
-                <NavLink
-                  onClick={handleNavLinkClick}
-                  className="nav-list"
-                  to="/profile"
-                >
-                  My Account
-                </NavLink>
+
+                {token ? (
+                  <NavLink
+                    onClick={handleNavLinkClick}
+                    className="nav-list"
+                    to="/profile"
+                  >
+                    My Account
+                  </NavLink>
+                ) : (
+                  <NavLink
+                    onClick={handleNavLinkClick}
+                    className="nav-list"
+                    to="/login"
+                  >
+                    LOG IN
+                  </NavLink>
+                )}
               </Box>
             </Box>
             <Box onClick={() => setOpen(!open)} className="icon-box">

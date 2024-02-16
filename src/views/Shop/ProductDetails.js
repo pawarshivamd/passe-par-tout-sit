@@ -24,9 +24,16 @@ import { addToCart, fetchCartDetails } from "../../Redux/Thunks/cartThunk";
 const ProductDetails = () => {
   const { productId } = useParams();
 
-
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
+
+  console.log(selectedColor);
+
+  const handleSelectColor = (color) => {
+    setSelectedColor(color);
+  };
+
   const token = localStorage.getItem("auth_token");
 
   const {
@@ -42,8 +49,6 @@ const ProductDetails = () => {
 
   // console.log(main_image_path);
 
-  console.log(productImage, "productImage....");
-
   const {
     cartData,
     isLoading: cartIsLoading,
@@ -56,7 +61,7 @@ const ProductDetails = () => {
 
   // console.log("Product", product?.id);
   // console.log("productSize", productSize);
-  // console.log("productColor", productColor);
+  console.log("productColor", productColor);
   // console.log("productImage", productImage);
   // console.log("relatedProducts", relatedProducts);
 
@@ -312,15 +317,29 @@ const ProductDetails = () => {
               </Box>
 
               <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
-                {/* {productColor &&
+                {productColor &&
                   productColor.length > 0 &&
                   productColor.map((customElements, index) => (
-                    <Box sx={{ mr: 2 }} className="white-sroke-icon">
-                      <StarIcon width={23} height={23} stroke="#fff" />
+                    <Box
+                      sx={{ mr: 2 }}
+                      className={`${
+                        customElements?.product_color
+                      } === selectedcolor ?   ${(customElements?.product_color).toLowerCase()}-sroke-icon : ""`}
+                      onClick={() =>
+                        handleSelectColor(
+                          (customElements?.product_color).toLowerCase()
+                        )
+                      }
+                    >
+                      <StarIcon
+                        width={23}
+                        height={23}
+                        stroke={customElements?.product_color}
+                      />
                     </Box>
-                  ))} */}
+                  ))}
 
-                <Box sx={{ mr: 2 }} className="white-sroke-icon">
+                {/* <Box sx={{ mr: 2 }} className="white-sroke-icon">
                   <StarIcon width={23} height={23} stroke="#fff" />
                 </Box>
                 <Box sx={{ mr: 2 }} className="black-sroke-icon">
@@ -334,7 +353,7 @@ const ProductDetails = () => {
                 </Box>
                 <Box sx={{ mr: 2 }} className="gray-sroke-icon">
                   <StarIcon width={23} height={23} stroke="#919191" />
-                </Box>
+                </Box> */}
               </Box>
               <Button
                 onClick={() => [

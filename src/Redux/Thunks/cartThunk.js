@@ -59,8 +59,6 @@ export const addToCart = createAsyncThunk(
         // Notification("error", message);
         console.log("error");
       }
-
-      console.log(status, message);
     } catch (error) {
       return rejectWithValue(error.response.data);
     }

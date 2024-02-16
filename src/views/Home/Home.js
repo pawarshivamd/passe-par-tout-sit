@@ -8,7 +8,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CustomDrawer from "../../layout/CustomDrawer";
 import { ReactComponent as RightMoveArrow } from "../../assets/img/icon/reightmovearrow.svg";
 import { ReactComponent as LeftMoveArrow } from "../../assets/img/icon/leftmovearrow.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // actions
@@ -19,7 +19,8 @@ import Loader from "../../utils/Loader";
 const Home = () => {
   const dispatch = useDispatch();
   const [isDrawerVisible, setIsDrawerVisible] = React.useState(false);
-  const userData = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  // const userData = useSelector((state) => state.user);
 
   const token = localStorage.getItem("auth_token");
 
@@ -33,14 +34,20 @@ const Home = () => {
     isError: cartIsError,
   } = useSelector((state) => state.cart);
 
+  console.log(cartData, "cart data product details ");
+
   const handleAddToCart = () => {
-    // Static values for productId, productColor, and productSize
-    const product_id = 3;
+    const product_id = 2;
     const product_color = "red";
     const product_size = "XL";
 
-    // Dispatch the addToCart action with static values
-    dispatch(addToCart({ product_id, product_color, product_size }));
+    dispatch(addToCart({ product_id, product_color, product_size }))
+      .then(() => {
+        dispatch(fetchCartDetails());
+      })
+      .catch((error) => {
+        console.error("Error adding item to cart:", error);
+      });
   };
 
   useEffect(() => {
@@ -49,12 +56,6 @@ const Home = () => {
       dispatch(fetchCartDetails());
     }
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (isDrawerVisible) {
-  //     dispatch(fetchCartDetails());
-  //   }
-  // }, [isDrawerVisible, dispatch]);
 
   const list = (anchor) => (
     <Box
@@ -78,25 +79,26 @@ const Home = () => {
 
         {cartData?.cart_items?.map(
           (item, index) => (
-            console.log(item),
+            console.log(item, "cartData in productDetails.."),
             (
               <Grid container spacing={2} key={index}>
                 <Grid item lg={5} md={5} sm={12} xs={12}>
                   <Box>
                     <img
-                      src={item?.product?.main_image}
+                      src={item?.main_image_path}
                       width={"100%"}
-                      alt={item?.product?.main_image}
+                      alt={item?.main_image_path}
                       style={{ objectFit: "contain" }}
                     />
                   </Box>
                 </Grid>
                 <Grid item lg={7} md={7} sm={12} xs={12}>
                   <Typography sx={{ mt: 1 }}>
-                    {item?.product?.product_name}
+                    {item?.product_details?.product_name}
                   </Typography>
                   <Typography>
-                    {item?.product_color}/{item?.product_size}
+                    {item?.product_details?.product_name}/
+                    {item?.product_details?.product_name}
                   </Typography>
                   <Box sx={{ mt: 3 }}>
                     <Button
@@ -227,8 +229,9 @@ const Home = () => {
                                   >
                                     <Button
                                       onClick={() => [
-                                        setIsDrawerVisible(!isDrawerVisible),
-                                        handleAddToCart(),
+                                        // setIsDrawerVisible(!isDrawerVisible),
+                                        // handleAddToCart(),
+                                        navigate(`/shop/new/${id}`),
                                       ]}
                                       variant="contained"
                                       sx={{

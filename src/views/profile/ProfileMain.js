@@ -2,23 +2,30 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ChangeEmial from "./ChangeEmial";
 import ChangePassword from "./ChangePassword";
 import EditAddress from "./EditAddress";
 import Signout from "./Signout";
 import ChangePhoneNumber from "./ChangePhoneNumber";
+import { handleLogout } from "../../utils/constants";
 const ProfileMain = () => {
   const [activeLink, setActiveLink] = useState(null);
   const [showbox, setshowBox] = useState(false);
+  const navigate = useNavigate();
   const handleClick = (link) => {
     setActiveLink(link);
     setshowBox(true);
   };
+
+  const handleSignOut = () => {
+    handleLogout(navigate);
+  };
+
   return (
     <Box>
       <Container>
-        <Box sx={{ mt: 2,mb:5 }}>
+        <Box sx={{ mt: 2, mb: 5 }}>
           {!showbox && (
             <Box>
               <Grid container spacing={2}>
@@ -27,7 +34,7 @@ const ProfileMain = () => {
                 </Grid>
               </Grid>
               <Grid container spacing={2} sx={{ mt: 1 }}>
-                <Grid item lg={4} sm={5}  xs={10}>
+                <Grid item lg={4} sm={5} xs={10}>
                   <Box sx={{ display: "flex" }}>
                     <StarIcon />
                     <Box sx={{ ml: 2 }}>
@@ -105,12 +112,16 @@ const ProfileMain = () => {
               </Grid>
               <Grid container spacing={2}>
                 <Grid item lg={4} sm={10} xs={12}>
-                  <Box sx={{ display: "flex", alignItems: "center",flexWrap:"wrap" }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      flexWrap: "wrap",
+                    }}
+                  >
                     <Box sx={{ mt: 5, mr: 3 }}>
                       <Button
-                        component={Link}
-                        to="/"
-                       
+                        onClick={handleSignOut}
                         className="custom-button"
                         variant="outlined"
                       >
@@ -119,7 +130,7 @@ const ProfileMain = () => {
                     </Box>
                     <Box sx={{ mt: 5 }}>
                       <Button
-                       onClick={() => handleClick("signout")}
+                        onClick={() => handleClick("signout")}
                         className="custom-button"
                         variant="outlined"
                       >
