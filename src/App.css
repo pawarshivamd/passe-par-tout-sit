@@ -460,6 +460,12 @@ input[type="number"] {
     }
   }
 
+  .white-set-icon {
+    .star-icon-fill {
+      fill: #ffffff;
+    }
+  }
+
   .black-sroke-icon {
     .star-icon-fill {
       fill: #000000;
@@ -467,6 +473,12 @@ input[type="number"] {
       &:hover {
         stroke: #ffffff;
       }
+    }
+  }
+
+  .black-set-icon {
+    .star-icon-fill {
+      stroke: #ffffff;
     }
   }
 
@@ -480,6 +492,12 @@ input[type="number"] {
     }
   }
 
+  .red-set-icon {
+    .star-icon-fill {
+      fill: #ef0c0c;
+    }
+  }
+
   .purple-sroke-icon {
     .star-icon-fill {
       fill: none;
@@ -490,13 +508,25 @@ input[type="number"] {
     }
   }
 
-  .gray-sroke-icon {
+  .purple-set-icon {
+    .star-icon-fill {
+      fill: #9747ff;
+    }
+  }
+
+  .grey-sroke-icon {
     .star-icon-fill {
       fill: none;
 
       &:hover {
         fill: #919191;
       }
+    }
+  }
+
+  .grey-set-icon {
+    .star-icon-fill {
+      fill: #919191;
     }
   }
 }

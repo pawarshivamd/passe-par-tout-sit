@@ -6,9 +6,8 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCartDetails } from "../../Redux/Thunks/cartThunk";
-import { fetchUserDetails } from "../../Redux/Thunks/userThunk";
+import { fetchUserDetails, userLogout } from "../../Redux/Thunks/userThunk";
 import { jwtDecode as jwt_decode } from "jwt-decode";
-import { handleLogout } from "../../utils/constants";
 
 const Navbar = () => {
   const [showLogo, setShowLogo] = useState(false);
@@ -23,6 +22,7 @@ const Navbar = () => {
   // const userData = useSelector((state) => state.user);
 
   const token = localStorage.getItem("auth_token");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
@@ -63,7 +63,7 @@ const Navbar = () => {
       const decodedToken = jwt_decode(token);
       const currentTime = Date.now() / 1000;
       if (decodedToken.exp < currentTime) {
-        handleLogout(naviagte);
+        dispatch(userLogout(navigate));
         window.location.reload();
       }
     }

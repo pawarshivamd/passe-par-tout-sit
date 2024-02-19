@@ -14,17 +14,16 @@ import { useDispatch, useSelector } from "react-redux";
 // actions
 import { fetchHomeProducts } from "../../Redux/Thunks/homeThunk";
 import { addToCart, fetchCartDetails } from "../../Redux/Thunks/cartThunk";
+import { fetchWishList } from "../../Redux/Thunks/wishListThunk";
 import Loader from "../../utils/Loader";
+import Notification from "../../utils/Notification";
 
 const Home = () => {
   const dispatch = useDispatch();
   const [isDrawerVisible, setIsDrawerVisible] = React.useState(false);
   const navigate = useNavigate();
-  // const userData = useSelector((state) => state.user);
 
   const token = localStorage.getItem("auth_token");
-
-  // console.log(userData);
 
   const { products, isLoading, isError } = useSelector((state) => state.home);
 
@@ -33,8 +32,6 @@ const Home = () => {
     isLoading: cartIsLoading,
     isError: cartIsError,
   } = useSelector((state) => state.cart);
-
-  console.log(cartData, "cart data product details ");
 
   const handleAddToCart = () => {
     const product_id = 2;
@@ -77,45 +74,40 @@ const Home = () => {
           ADDED TO YOUR SHOPPING BAG
         </Typography>
 
-        {cartData?.cart_items?.map(
-          (item, index) => (
-            console.log(item, "cartData in productDetails.."),
-            (
-              <Grid container spacing={2} key={index}>
-                <Grid item lg={5} md={5} sm={12} xs={12}>
-                  <Box>
-                    <img
-                      src={item?.main_image_path}
-                      width={"100%"}
-                      alt={item?.main_image_path}
-                      style={{ objectFit: "contain" }}
-                    />
-                  </Box>
-                </Grid>
-                <Grid item lg={7} md={7} sm={12} xs={12}>
-                  <Typography sx={{ mt: 1 }}>
-                    {item?.product_details?.product_name}
-                  </Typography>
-                  <Typography>
-                    {item?.product_details?.product_name}/
-                    {item?.product_details?.product_name}
-                  </Typography>
-                  <Box sx={{ mt: 3 }}>
-                    <Button
-                      component={Link}
-                      to="/shopping-bag"
-                      variant="outlined"
-                      className="custom-button"
-                      sx={{ padding: "7px 40px" }}
-                    >
-                      SEE SHOPPING BAG
-                    </Button>
-                  </Box>
-                </Grid>
-              </Grid>
-            )
-          )
-        )}
+        {cartData?.cart_items?.map((item, index) => (
+          <Grid container spacing={2} key={index}>
+            <Grid item lg={5} md={5} sm={12} xs={12}>
+              <Box>
+                <img
+                  src={item?.main_image_path}
+                  width={"100%"}
+                  alt={item?.main_image_path}
+                  style={{ objectFit: "contain" }}
+                />
+              </Box>
+            </Grid>
+            <Grid item lg={7} md={7} sm={12} xs={12}>
+              <Typography sx={{ mt: 1 }}>
+                {item?.product_details?.product_name}
+              </Typography>
+              <Typography>
+                {item?.product_details?.product_name}/
+                {item?.product_details?.product_name}
+              </Typography>
+              <Box sx={{ mt: 3 }}>
+                <Button
+                  component={Link}
+                  to="/shopping-bag"
+                  variant="outlined"
+                  className="custom-button"
+                  sx={{ padding: "7px 40px" }}
+                >
+                  SEE SHOPPING BAG
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
+        ))}
       </Box>
     </Box>
   );
@@ -186,7 +178,17 @@ const Home = () => {
                         <Card className="product-card">
                           <Grid container spacing={2}>
                             <Grid item lg={6} md={5} sm={5} xs={5}>
-                              <Link to={`/shop/new/${id}`}>
+                              <Link
+                                to={token ? `/shop/new/${id}` : "/login"}
+                                onClick={() => {
+                                  if (!token) {
+                                    Notification(
+                                      "error",
+                                      "Please log in to view this page"
+                                    );
+                                  }
+                                }}
+                              >
                                 <Box className="img-box">
                                   <img src={main_image} alt={product_name} />
                                 </Box>
@@ -206,10 +208,11 @@ const Home = () => {
                                   </Typography>
                                 </Box>
                                 <Box className="card-details-box">
-                                  <Typography className="main-text">
-                                    <Link to={`/shop/new/${id}`}>
-                                      {product_name}
-                                    </Link>
+                                  <Typography
+                                    className="main-text"
+                                    sx={{ fontWeight: "bold" }}
+                                  >
+                                    {product_name}
                                   </Typography>
                                   <Box className="price-box">
                                     <Typography className="main-price-text">
@@ -228,11 +231,17 @@ const Home = () => {
                                     }}
                                   >
                                     <Button
-                                      onClick={() => [
-                                        // setIsDrawerVisible(!isDrawerVisible),
-                                        // handleAddToCart(),
-                                        navigate(`/shop/new/${id}`),
-                                      ]}
+                                      onClick={async () => {
+                                        if (token) {
+                                          navigate(`/shop/new/${id}`);
+                                        } else {
+                                          Notification(
+                                            "error",
+                                            "Please log in to add items to your bag"
+                                          );
+                                          navigate("/login");
+                                        }
+                                      }}
                                       variant="contained"
                                       sx={{
                                         background: "#000000",

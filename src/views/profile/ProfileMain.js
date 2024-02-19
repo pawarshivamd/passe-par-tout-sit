@@ -8,10 +8,12 @@ import ChangePassword from "./ChangePassword";
 import EditAddress from "./EditAddress";
 import Signout from "./Signout";
 import ChangePhoneNumber from "./ChangePhoneNumber";
-import { handleLogout } from "../../utils/constants";
+import { userLogout } from "../../Redux/Thunks/userThunk";
+import { useDispatch } from "react-redux";
 const ProfileMain = () => {
   const [activeLink, setActiveLink] = useState(null);
   const [showbox, setshowBox] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleClick = (link) => {
     setActiveLink(link);
@@ -19,7 +21,7 @@ const ProfileMain = () => {
   };
 
   const handleSignOut = () => {
-    handleLogout(navigate);
+    dispatch(userLogout(navigate));
   };
 
   return (

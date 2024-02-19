@@ -21,7 +21,7 @@ const Profile = () => {
     setActiveTab(tabNumber);
   };
   return (
-    <Box sx={{mt:20}}>
+    <Box sx={{ mt: 20 }}>
       <SearchBox />
       <Container>
         <Box>
@@ -56,18 +56,15 @@ const Profile = () => {
                   ).map((cureEle, index) => {
                     const { ShopImg, ImgAlt, MainText, Price } = cureEle;
                     return (
-                      <Grid item lg={4} md={4} sm={6} xs={12}>
+                      <Grid item lg={4} md={4} sm={6} xs={12} key={index}>
                         <Card className="product-card-">
-                          <Box
-                            className="product-img"
-                          >
+                          <Box className="product-img">
                             <CardMedia
                               component="img"
                               height="100%"
-                              
                               image={ShopImg}
                               alt={ImgAlt}
-                              sx={{objectFit:"contain"}}
+                              sx={{ objectFit: "contain" }}
                             />
                           </Box>
                           <CardContent

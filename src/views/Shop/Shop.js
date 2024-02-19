@@ -118,9 +118,8 @@ const Shop = () => {
             {products?.map((cureEle, index) => {
               const { id, main_image, ImgAlt, product_name, product_price } =
                 cureEle;
-              console.log(cureEle);
               return (
-                <Grid item lg={4} md={4} sm={6} xs={12}>
+                <Grid item lg={4} md={4} sm={6} xs={12} key={id}>
                   <Box>
                     <Card className="product-card-">
                       <CardActionArea onClick={() => handleNavigate(id)}>

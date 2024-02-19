@@ -17,7 +17,6 @@ export const fetchShopProducts = createAsyncThunk(
         status,
       } = await API.post("/shop_products", requestedData);
 
-      console.log(products);
 
       if (status === 200) {
         // Notification("success", "Products fetched successfully");

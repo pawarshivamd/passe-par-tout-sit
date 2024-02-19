@@ -43,24 +43,20 @@ export const addToCart = createAsyncThunk(
   async ({ product_id, product_color, product_size }, { rejectWithValue }) => {
     try {
       const requestData = { product_id, product_color, product_size };
-
       const response = await API.post("/cart/add", requestData);
-
       const { status, message } = response.data;
-      const statusCode = response.status;
 
       if (status === "success") {
         Notification("success", message);
         console.log("Success");
         // return response.;
-      } else if (statusCode === 200) {
-        Notification("error", message);
+      } else if (status === "error") {
+        throw new Error(message);
       } else {
-        // Notification("error", message);
-        console.log("error");
+        Notification("error", "Unknown error occurred");
       }
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.message);
     }
   }
 );

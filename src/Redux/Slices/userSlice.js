@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUserDetails } from "../Thunks/userThunk";
+import { fetchUserDetails, userLogout } from "../Thunks/userThunk";
 
 const initialState = {
   userDetails: null,
@@ -26,6 +26,15 @@ const userSlice = createSlice({
     builder.addCase(fetchUserDetails.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
+    });
+    builder.addCase(userLogout.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(userLogout.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+    builder.addCase(userLogout.rejected, (state, action) => {
+      state.loading = false;
     });
   },
 });
