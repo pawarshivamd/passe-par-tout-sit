@@ -24,8 +24,8 @@ import Notification from "../../utils/Notification";
 
 const ShoppingBag = () => {
   const [activeTab, setActiveTab] = useState(1);
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false); // State for confirmation modal
-  const [productToRemove, setProductToRemove] = useState(null); // State to store product ID to remove
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [productToRemove, setProductToRemove] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = localStorage.getItem("auth_token");
@@ -188,7 +188,13 @@ const ShoppingBag = () => {
                 )}
               </Grid>
             </Container>
-            <ContinueProFooter BtnText="Continue" to="/address" />
+            {/* <ContinueProFooter BtnText="Continue" to="/address" /> */}
+            <ContinueProFooter
+              BtnText="Continue"
+              to={`/${
+                cartData?.cart_items?.length > 0 ? "select-address" : "shop"
+              }`}
+            />
           </Box>
         )}
         {activeTab === 2 && <Favorite />}

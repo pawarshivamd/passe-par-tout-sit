@@ -9,7 +9,12 @@ import {
 import React from "react";
 import smile from "../../assets/img/icon/smile.svg";
 import CustomInput from "../CustomInput";
-const SearchBox = () => {
+const SearchBox = (props) => {
+  const handleSearchChange_ = (event) => {
+    const { value } = event.target;
+    props?.handleSearchChange(value);
+  };
+
   return (
     <Container sx={{ mb: 5 }}>
       <Grid
@@ -33,6 +38,7 @@ const SearchBox = () => {
             color="secondary"
             variant="outlined"
             className="search-filed"
+            onChange={handleSearchChange_}
           />
         </Grid>
       </Grid>

@@ -17,7 +17,6 @@ export const fetchShopProducts = createAsyncThunk(
         status,
       } = await API.post("/shop_products", requestedData);
 
-
       if (status === 200) {
         // Notification("success", "Products fetched successfully");
         return products;
@@ -26,6 +25,21 @@ export const fetchShopProducts = createAsyncThunk(
       }
     } catch (error) {
       return rejectWithValue(error);
+    }
+  }
+);
+
+export const productSearch = createAsyncThunk(
+  "productSearch",
+  async (arg, { rejectWithValue }) => {
+    console.log(arg);
+    try {
+      const {
+        data: { products },
+      } = await API.get(`/products/search?search=${arg}`);
+      return products;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
     }
   }
 );

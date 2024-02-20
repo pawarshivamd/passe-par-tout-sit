@@ -1,22 +1,20 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import API from "../../API";
+import Notification from "../../utils/Notification";
 
-export const fetchProductDetails = createAsyncThunk(
-  "fetchProductDetails",
+export const fetchOrderProducts = createAsyncThunk(
+  "fetchOrderProducts",
   async (arg, { rejectWithValue }) => {
     try {
-      const { data, status } = await API.get(`/product_details/${arg}`);
+      const { data, status } = await API.get("/order-history");
+
+      console.log(data);
 
       if (status === 200) {
         return data;
-      } else {
-        return rejectWithValue("Failed to fetch data");
       }
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error);
     }
   }
 );
-
-

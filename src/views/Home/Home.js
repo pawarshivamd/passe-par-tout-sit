@@ -1,5 +1,5 @@
 import { Box, Button, Card, Container, Grid, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { ReactComponent as StarIcon } from "../../assets/img/icon/yellowfillstar.svg";
 import { ReactComponent as CartIcon } from "../../assets/img/icon/cart.svg";
@@ -14,18 +14,26 @@ import { useDispatch, useSelector } from "react-redux";
 // actions
 import { fetchHomeProducts } from "../../Redux/Thunks/homeThunk";
 import { addToCart, fetchCartDetails } from "../../Redux/Thunks/cartThunk";
-import { fetchWishList } from "../../Redux/Thunks/wishListThunk";
+import {
+  addToWishList,
+  fetchWishList,
+  removeFromWishList,
+} from "../../Redux/Thunks/wishListThunk";
 import Loader from "../../utils/Loader";
 import Notification from "../../utils/Notification";
 
 const Home = () => {
   const dispatch = useDispatch();
   const [isDrawerVisible, setIsDrawerVisible] = React.useState(false);
+  const [isChecked, setIsChecked] = useState(true);
   const navigate = useNavigate();
 
   const token = localStorage.getItem("auth_token");
 
   const { products, isLoading, isError } = useSelector((state) => state.home);
+  const { wishList } = useSelector((state) => state.wishList);
+
+  console.log(wishList);
 
   const {
     cartData,
@@ -33,26 +41,36 @@ const Home = () => {
     isError: cartIsError,
   } = useSelector((state) => state.cart);
 
-  const handleAddToCart = () => {
-    const product_id = 2;
-    const product_color = "red";
-    const product_size = "XL";
+  // const handleAddToCart = () => {
+  //   const product_id = 2;
+  //   const product_color = "red";
+  //   const product_size = "XL";
 
-    dispatch(addToCart({ product_id, product_color, product_size }))
-      .then(() => {
-        dispatch(fetchCartDetails());
-      })
-      .catch((error) => {
-        console.error("Error adding item to cart:", error);
-      });
-  };
+  //   dispatch(addToCart({ product_id, product_color, product_size }))
+  //     .then(() => {
+  //       dispatch(fetchCartDetails());
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error adding item to cart:", error);
+  //     });
+  // };
 
   useEffect(() => {
     dispatch(fetchHomeProducts());
     if (token) {
       dispatch(fetchCartDetails());
+      dispatch(fetchWishList());
     }
-  }, [dispatch]);
+  }, [dispatch, token]);
+
+  const handleToggle = (product_id) => {
+    setIsChecked((prevChecked) => !prevChecked);
+    if (isChecked) {
+      dispatch(addToWishList({ product_id }));
+    } else {
+      dispatch(removeFromWishList({ product_id }));
+    }
+  };
 
   const list = (anchor) => (
     <Box
@@ -203,9 +221,19 @@ const Home = () => {
                                       {average_rating}
                                     </span>
                                   </Typography>
-                                  <Typography className="rating-box rating-star">
-                                    <StarIcon />
-                                  </Typography>
+                                  {isChecked ? (
+                                    <Typography className="rating-box rating-star ">
+                                      <StarIcon
+                                        onClick={() => handleToggle(id)}
+                                      />
+                                    </Typography>
+                                  ) : (
+                                    <Typography className="rating-box set-rating-star ">
+                                      <StarIcon
+                                        onClick={() => handleToggle(id)}
+                                      />
+                                    </Typography>
+                                  )}
                                 </Box>
                                 <Box className="card-details-box">
                                   <Typography

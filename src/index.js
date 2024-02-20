@@ -15,6 +15,7 @@ root.render(
         unmountOnClose
         theme="colored"
         style={{ zIndex: "999999999999" }}
+        limit={3}
       />
 
       <App />

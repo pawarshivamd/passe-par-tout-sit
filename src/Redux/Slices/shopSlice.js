@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchShopProducts } from "../Thunks/ShopThunk";
+import { fetchShopProducts, productSearch } from "../Thunks/ShopThunk";
 
 const shopSlice = createSlice({
   name: "shop",
   initialState: {
     products: [],
+    searchedProduct: [],
     isLoading: false,
   },
   reducers: {},
@@ -17,6 +18,16 @@ const shopSlice = createSlice({
       state.products = action.payload;
     });
     builder.addCase(fetchShopProducts.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(productSearch.pending, (state) => {
+      // state.isLoading = true;
+    });
+    builder.addCase(productSearch.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.searchedProduct = action.payload;
+    });
+    builder.addCase(productSearch.rejected, (state) => {
       state.isLoading = false;
     });
   },

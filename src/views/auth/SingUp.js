@@ -1,4 +1,12 @@
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Container,
+  FormHelperText,
+  Grid,
+  Typography,
+} from "@mui/material";
 import React, { useState, useEffect } from "react";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import CustomInput from "../../layout/CustomInput";
@@ -19,6 +27,9 @@ const SingUp = () => {
     country_code: "+961",
     agreedToPolicy: false,
   });
+
+  console.log(userData);
+
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
@@ -64,10 +75,10 @@ const SingUp = () => {
       errors.country_code = "Country Code is required";
     }
 
-    // if (!values.agreedToPolicy) {
-    //   errors.agreedToPolicy =
-    //     "You must agree to the Privacy and Cookies Policy to proceed";
-    // }
+    if (!values.agreedToPolicy) {
+      errors.agreedToPolicy =
+        "You must agree to the Privacy and Cookies Policy to proceed";
+    }
 
     return errors;
   };
@@ -228,10 +239,20 @@ const SingUp = () => {
                     >
                       <Box
                         sx={{ mr: 1 }}
-                        className="star-icon"
-                        checked={userData.agreedToPolicy}
-                        onChange={handleChange}
-                        name="agreedToPolicy"
+                        className={` ${
+                          userData.agreedToPolicy
+                            ? "star-icon-fill"
+                            : "star-icon"
+                        }`}
+                        onClick={() =>
+                          handleChange({
+                            target: {
+                              name: "agreedToPolicy",
+                              type: "checkbox",
+                              checked: !userData.agreedToPolicy,
+                            },
+                          })
+                        }
                       >
                         <StarIcon stroke="#EFC80C" />
                       </Box>
@@ -240,6 +261,18 @@ const SingUp = () => {
                         Policy
                       </Typography>
                     </Grid>
+                    <Grid
+                      item
+                      lg={12}
+                      sx={{ display: "flex ", alignItems: "center" }}
+                    >
+                      {errors.agreedToPolicy && (
+                        <FormHelperText style={{ color: "red" }}>
+                          {errors.agreedToPolicy}
+                        </FormHelperText>
+                      )}
+                    </Grid>
+
                     <Grid item lg={12}>
                       <Box
                         sx={{
@@ -251,7 +284,6 @@ const SingUp = () => {
                         <Button
                           component={Link}
                           onClick={handleSubmit}
-                          // to="/"
                           variant="outlined"
                           className="custom-button"
                           sx={{ minWidth: "200px", padding: "10px 20px" }}

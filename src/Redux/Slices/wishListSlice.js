@@ -1,4 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+  fetchWishList,
+  addToWishList,
+  removeFromWishList,
+} from "../Thunks/wishListThunk";
 
 const wishListSlice = createSlice({
   name: "wishList",
@@ -6,14 +11,21 @@ const wishListSlice = createSlice({
     wishList: [],
     isLoading: false,
   },
-  reducers: {
-    // addToWishList: (state, action) => {
-    //     state.wishList.push(action.payload);
-    // },
-    // removeFromWishList: (state, action) => {
-    //     state.wishList = state.wishList.filter((item) => item.id !== action.payload);
-    // },
-  },
+  reducers: {},
+
+  extraReducers: (builder) => {
+    builder.addCase(fetchWishList.pending, (state) => {
+      state.isLoading = true;
+    })
+    builder.addCase(fetchWishList.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.wishList = action.payload;
+    })
+    builder.addCase(fetchWishList.rejected, (state) => {
+      state.isLoading = false;
+    })
+  }
+
 });
 
 export default wishListSlice.reducer;

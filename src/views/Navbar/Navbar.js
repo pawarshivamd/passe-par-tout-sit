@@ -58,16 +58,16 @@ const Navbar = () => {
     };
   }, [location.pathname]);
 
-  useEffect(() => {
-    if (token) {
-      const decodedToken = jwt_decode(token);
-      const currentTime = Date.now() / 1000;
-      if (decodedToken.exp < currentTime) {
-        dispatch(userLogout(navigate));
-        window.location.reload();
-      }
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (token) {
+  //     const decodedToken = jwt_decode(token);
+  //     const currentTime = Date.now() / 1000;
+  //     if (decodedToken.exp < currentTime) {
+  //       dispatch(userLogout(navigate));
+  //       window.location.reload();
+  //     }
+  //   }
+  // }, [token]);
 
   const isHomepage = location.pathname === "/";
   return (
