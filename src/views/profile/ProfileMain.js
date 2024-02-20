@@ -20,6 +20,8 @@ const ProfileMain = () => {
     setshowBox(true);
   };
 
+  const user_data = JSON.parse(localStorage.getItem("user_data"));
+
   const handleSignOut = () => {
     dispatch(userLogout(navigate));
   };
@@ -63,7 +65,8 @@ const ProfileMain = () => {
                         <Link onClick={() => handleClick("email")}>EMAIL</Link>
                       </Typography>
                       <Typography variant="body2">
-                        loremipsum@gmail.com
+                        {/* loremipsum@gmail.com */}
+                        {user_data.email}
                       </Typography>
                     </Box>
                   </Box>
@@ -82,7 +85,9 @@ const ProfileMain = () => {
                       <Typography>
                         <Link onClick={() => handleClick("phone")}>PHONE</Link>
                       </Typography>
-                      <Typography variant="body2">+961 00 000 000</Typography>
+                      <Typography variant="body2">
+                        {user_data.country_code} {user_data.mobile}
+                      </Typography>
                     </Box>
                   </Box>
                 </Grid>
