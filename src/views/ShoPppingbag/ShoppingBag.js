@@ -38,11 +38,12 @@ const ShoppingBag = () => {
   useEffect(() => {
     if (token) {
       dispatch(fetchCartDetails());
-    } else {
-      navigate("/login");
-      Notification("info", "Please login to Continue");
     }
-  }, [dispatch]);
+    // else {
+    //   navigate("/login");
+    //   Notification("info", "Please login to Continue");
+    // }
+  }, [dispatch, token]);
 
   const handleProductRemove = (product_id) => {
     if (product_id) {
@@ -145,19 +146,17 @@ const ShoppingBag = () => {
                               }}
                             >
                               <Typography variant="subtitle1" component="div">
-                                <Link>
-                                  {item?.product_details?.product_name}
-                                </Link>
+                                <Link>{item?.product?.product_name}</Link>
                               </Typography>
                               <CloseIcon
                                 onClick={() =>
-                                  handleProductRemove(item?.product_details?.id)
+                                  handleProductRemove(item?.product?.id)
                                 }
                                 className="close-icon"
                               />
                             </Box>
                             <Typography variant="body2">
-                              {item?.product_details?.product_price}
+                              {item?.product?.product_price}
                             </Typography>
                           </CardContent>
                         </Card>
@@ -188,7 +187,7 @@ const ShoppingBag = () => {
                 )}
               </Grid>
             </Container>
-            {/* <ContinueProFooter BtnText="Continue" to="/address" /> */}
+            {/* <ContinueProFooter BtnText="Continue" to="/select-address" /> */}
             <ContinueProFooter
               BtnText="Continue"
               to={`/${

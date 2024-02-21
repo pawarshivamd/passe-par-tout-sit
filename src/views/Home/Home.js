@@ -25,7 +25,7 @@ import Notification from "../../utils/Notification";
 const Home = () => {
   const dispatch = useDispatch();
   const [isDrawerVisible, setIsDrawerVisible] = React.useState(false);
-  const [isChecked, setIsChecked] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
   const navigate = useNavigate();
 
   const token = localStorage.getItem("auth_token");
@@ -33,15 +33,12 @@ const Home = () => {
   const { products, isLoading, isError } = useSelector((state) => state.home);
   const { wishList } = useSelector((state) => state.wishList);
 
-  console.log(wishList);
-
   const {
     cartData,
     isLoading: cartIsLoading,
     isError: cartIsError,
   } = useSelector((state) => state.cart);
 
-  // const handleAddToCart = () => {
   //   const product_id = 2;
   //   const product_color = "red";
   //   const product_size = "XL";
@@ -64,13 +61,29 @@ const Home = () => {
   }, [dispatch, token]);
 
   const handleToggle = (product_id) => {
-    setIsChecked((prevChecked) => !prevChecked);
-    if (isChecked) {
-      dispatch(addToWishList({ product_id }));
+    if (token) {
+      setIsChecked((prevChecked) => !prevChecked);
+      if (isChecked) {
+        dispatch(removeFromWishList({ product_id }));
+      } else {
+        dispatch(addToWishList({ product_id }));
+      }
     } else {
-      dispatch(removeFromWishList({ product_id }));
+      Notification("info", "Please login to Continue");
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      const productIds = products.map((product) => String(product.id));
+      const wishListProductIds = wishList?.wishlist?.map(
+        (item) => item.product_id
+      );
+      setIsChecked(
+        wishListProductIds?.some((productId) => productIds.includes(productId))
+      );
+    }
+  }, [products, wishList.wishlist]);
 
   const list = (anchor) => (
     <Box
@@ -197,15 +210,15 @@ const Home = () => {
                           <Grid container spacing={2}>
                             <Grid item lg={6} md={5} sm={5} xs={5}>
                               <Link
-                                to={token ? `/shop/new/${id}` : "/login"}
-                                onClick={() => {
-                                  if (!token) {
-                                    Notification(
-                                      "error",
-                                      "Please log in to view this page"
-                                    );
-                                  }
-                                }}
+                                to={"/shop"}
+                                // onClick={() => {
+                                //   if (!token) {
+                                //     Notification(
+                                //       "error",
+                                //       "Please log in to view this page"
+                                //     );
+                                //   }
+                                // }}
                               >
                                 <Box className="img-box">
                                   <img src={main_image} alt={product_name} />
@@ -221,16 +234,36 @@ const Home = () => {
                                       {average_rating}
                                     </span>
                                   </Typography>
+
                                   {isChecked ? (
-                                    <Typography className="rating-box rating-star ">
+                                    <Typography className="rating-box set-rating-star ">
                                       <StarIcon
-                                        onClick={() => handleToggle(id)}
+                                        // onClick={() => handleToggle(id)}
+                                        onClick={() => {
+                                          if (token) {
+                                            handleToggle(id);
+                                          } else {
+                                            Notification(
+                                              "error",
+                                              "Please log in to add to wishlist"
+                                            );
+                                          }
+                                        }}
                                       />
                                     </Typography>
                                   ) : (
-                                    <Typography className="rating-box set-rating-star ">
+                                    <Typography className="rating-box rating-star ">
                                       <StarIcon
-                                        onClick={() => handleToggle(id)}
+                                        onClick={() => {
+                                          if (token) {
+                                            handleToggle(id);
+                                          } else {
+                                            Notification(
+                                              "error",
+                                              "Please log in to add to wishlist"
+                                            );
+                                          }
+                                        }}
                                       />
                                     </Typography>
                                   )}

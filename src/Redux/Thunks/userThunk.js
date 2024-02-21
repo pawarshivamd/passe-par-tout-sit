@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export const fetchUserDetails = createAsyncThunk(
   "fetchUserDetails",
-  async ({ values, navigate }, { rejectWithValue }) => {
+  async ({ userData, navigate }, { rejectWithValue }) => {
     try {
       const {
         data: {
@@ -14,24 +14,21 @@ export const fetchUserDetails = createAsyncThunk(
           message,
         },
         status,
-      } = await API.post("/user_login", values);
+      } = await API.post("/user_login", userData);
       // console.log(response);
       if (status === 200) {
         localStorage.setItem("auth_token", token); // Store token in local storage
-        // localStorage.setItem("user_data", response);
         localStorage.setItem("user_data", JSON.stringify(response));
-        // localStorage.setItem("user_data", JSON.stringify(response));
         Notification("success", message);
         setTimeout(() => {
           navigate("/");
-          // window.location.href = "/";
         }, 1000);
-        return response;
+        return response; // Return serializable data
       }
     } catch (error) {
       console.log("error fetch userDetails", error);
       Notification("error", error.response.data.message);
-      return rejectWithValue(error);
+      return rejectWithValue(error.response.data.message); // Return serializable error message
     }
   }
 );
@@ -48,6 +45,8 @@ export const userLogout = createAsyncThunk(
 
       if (status === 200) {
         localStorage.removeItem("auth_token");
+        localStorage.removeItem("user_data");
+        localStorage.removeItem("address_id");
         Notification("success", message);
         setTimeout(() => {
           navigate("/login");
@@ -55,6 +54,13 @@ export const userLogout = createAsyncThunk(
         }, 1000);
       }
     } catch (error) {
+      localStorage.removeItem("auth_token");
+      localStorage.removeItem("user_data");
+      localStorage.removeItem("address_id");
+      setTimeout(() => {
+        navigate("/login");
+        window.location.reload();
+      }, 1000);
       return rejectWithValue(error.response.data.message);
     }
   }

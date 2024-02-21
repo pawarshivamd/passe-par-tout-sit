@@ -97,8 +97,6 @@ const Shop = () => {
           <Grid container spacing={2}>
             {searchedProducts && searchedProducts.length > 0 ? (
               searchedProducts?.map((cureEle, index) => {
-                console.log(cureEle, "cureEle");
-
                 const { id, main_image, ImgAlt, product_name, product_price } =
                   cureEle;
                 return (

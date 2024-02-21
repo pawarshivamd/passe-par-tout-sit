@@ -25,23 +25,68 @@ const AddressMain = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setValues({
       ...values,
       [name]: value,
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const isEmpty = Object.values(values).some((val) => val === "");
-    if (isEmpty) {
-      Notification("error", "All fields are required");
-    } else {
-      console.log("called");
-      dispatch(addAddress(values)).then(() => {
-        navigate("/select-address");
-      });
+  const [errors, setErrors] = useState({});
+
+  const validate = (val) => {
+    let errors = {};
+
+    if (!val.firstname) {
+      errors.firstname = "First name is required";
+    }
+
+    if (!val.mobile) {
+      errors.mobile = "Mobile number is required";
+    } else if (val.mobile.length < 8) {
+      // Adjust based on expected format, e.g., including country code
+      errors.mobile = "Mobile number is invalid";
+    }
+
+    if (!val.lastname) {
+      errors.lastname = "Last name is required";
+    }
+
+    if (!val.country_code) {
+      errors.country_code = "Required ";
+    }
+
+    if (!val.district) {
+      errors.district = "District is required";
+    }
+
+    if (!val.locality) {
+      errors.locality = "Locality is required";
+    }
+
+    if (!val.region) {
+      errors.region = "Region is required";
+    }
+
+    if (!val.address) {
+      errors.address = "Address is required";
+    }
+
+    return errors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErros = validate(values);
+    setErrors(validationErros);
+    if (Object.keys(validationErros).length === 0) {
+      dispatch(addAddress(values))
+        .then((res) => {
+          console.log(res);
+          navigate("/select-address");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
@@ -73,6 +118,9 @@ const AddressMain = () => {
               color="primary"
               variant="standard"
               onChange={handleChange}
+              value={values.firstname}
+              error={Boolean(errors.firstname)}
+              helperText={errors.firstname}
             />
           </Grid>
           <Grid item lg={6} md={6} sm={6} xs={12}>
@@ -83,6 +131,9 @@ const AddressMain = () => {
               color="primary"
               variant="standard"
               onChange={handleChange}
+              value={values.lastname}
+              error={Boolean(errors.lastname)}
+              helperText={errors.lastname}
             />
           </Grid>
           <Grid item lg={6} md={6} sm={6} xs={12}>
@@ -93,6 +144,9 @@ const AddressMain = () => {
               color="primary"
               variant="standard"
               onChange={handleChange}
+              value={values.address}
+              error={Boolean(errors.address)}
+              helperText={errors.address}
             />
           </Grid>
           <Grid item lg={6} md={6} sm={6} xs={12}>
@@ -106,6 +160,9 @@ const AddressMain = () => {
                   type="number"
                   name="country_code"
                   onChange={handleChange}
+                  value={values.country_code}
+                  error={Boolean(errors.country_code)}
+                  helperText={errors.country_code}
                 />
               </Grid>
               <Grid item lg={9} xs={10}>
@@ -117,6 +174,9 @@ const AddressMain = () => {
                   label="TELEPHONE"
                   name="mobile"
                   onChange={handleChange}
+                  value={values.mobile}
+                  error={Boolean(errors.mobile)}
+                  helperText={errors.mobile}
                 />
               </Grid>
             </Grid>
@@ -129,6 +189,9 @@ const AddressMain = () => {
               color="primary"
               variant="standard"
               onChange={handleChange}
+              value={values.district}
+              error={Boolean(errors.district)}
+              helperText={errors.district}
             />
           </Grid>
           <Grid item lg={6} md={6} sm={6} xs={12}>
@@ -139,6 +202,9 @@ const AddressMain = () => {
               color="primary"
               variant="standard"
               onChange={handleChange}
+              value={values.locality}
+              error={Boolean(errors.locality)}
+              helperText={errors.locality}
             />
           </Grid>
           <Grid item lg={6} md={6} sm={6} xs={12}>
@@ -149,6 +215,9 @@ const AddressMain = () => {
               color="primary"
               variant="standard"
               onChange={handleChange}
+              value={values.region}
+              error={Boolean(errors.region)}
+              helperText={errors.region}
             />
           </Grid>
           <Grid item lg={6}>

@@ -76,15 +76,19 @@ const ProductDetails = () => {
     setSelectedSize(size);
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (price) => {
     if (!selectedColor || !selectedSize) {
       Notification("warning", "Please select a color and size");
     } else {
       const product_id = productId;
       const product_color = selectedColor;
       const product_size = selectedSize;
+      const product_price = price;
+      // const product
 
-      dispatch(addToCart({ product_id, product_color, product_size }))
+      dispatch(
+        addToCart({ product_id, product_color, product_size, product_price })
+      )
         .then((data) => {
           console.log(data);
 
@@ -101,6 +105,8 @@ const ProductDetails = () => {
         });
     }
   };
+
+  const handleSearchChange = () => {};
 
   const list = (anchor) => (
     <Box
@@ -136,11 +142,11 @@ const ProductDetails = () => {
             </Grid>
             <Grid item lg={7} md={7} sm={12} xs={12}>
               <Typography sx={{ mt: 1 }}>
-                {item?.product_details?.product_name}
+                {item?.product?.product_name}
               </Typography>
               <Typography>
-                {item?.product_details?.product_name}/
-                {item?.product_details?.product_price}
+                {/* {item?.product?.product_name}/{item?.product?.product_price} */}
+                {item?.product?.product_price}
               </Typography>
               <Box sx={{ mt: 3 }}>
                 <Button
@@ -165,7 +171,7 @@ const ProductDetails = () => {
   }
   return (
     <Box sx={{ mt: 20 }}>
-      <SearchBox />
+      <SearchBox handleSearchChange={handleSearchChange} />
       <Container>
         <Grid container spacing={2}>
           <Grid item lg={6} md={6} sm={6} xs={12}>
@@ -321,7 +327,7 @@ const ProductDetails = () => {
               </Box>
               <Button
                 onClick={() => [
-                  handleAddToCart(),
+                  handleAddToCart(product?.product_price),
                   // addToCart({
                   //   productId: product?.id,
                   //   productSize: selectedSize,
@@ -343,14 +349,15 @@ const ProductDetails = () => {
         <Container>
           <Grid container spacing={5}>
             {relatedProducts.map((cureEle, index) => {
+              console.log("cureEle", cureEle);
               const {
                 id,
-                Rating,
                 main_image,
                 main_image_path,
                 product_name,
                 product_price,
                 discount_price,
+                ratings,
               } = cureEle;
               return (
                 <Grid item lg={6} md={6} sm={6} xs={12} key={index}>
@@ -368,7 +375,9 @@ const ProductDetails = () => {
                           <Box className="head-section">
                             <Typography className="rating-box rating-text-box">
                               <StarIcon />
-                              <span className="rating-text"> {Rating}</span>
+                              <span className="rating-text">
+                                {ratings[0]?.rating}
+                              </span>
                             </Typography>
                             <Typography className="rating-box rating-star">
                               <StarIcon />

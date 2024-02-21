@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchCartDetails } from "../../Redux/Thunks/cartThunk";
 import { fetchUserDetails, userLogout } from "../../Redux/Thunks/userThunk";
 import { jwtDecode as jwt_decode } from "jwt-decode";
+// import { Notification } from "react-notification-system";
+import Notification from "../../utils/Notification";
 
 const Navbar = () => {
   const [showLogo, setShowLogo] = useState(false);
@@ -16,13 +18,11 @@ const Navbar = () => {
   const [FixedNavbar, setFixedNavbar] = useState();
 
   const dispatch = useDispatch();
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
 
   const { cartData = {} } = useSelector((state) => state.cart);
-  // const userData = useSelector((state) => state.user);
 
   const token = localStorage.getItem("auth_token");
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
@@ -31,16 +31,16 @@ const Navbar = () => {
     }
   }, [dispatch]);
 
-  const handleNavLinkClick = () => {
-    if (open) {
-      setOpen(false);
-    }
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+  const handleNavLinkClick = (event, to) => {
+    event.preventDefault();
+    handleNavLink(to);
   };
+
+  const handleNavLink = (to) => {
+    setOpen(false);
+    navigate(to);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 2) {
@@ -58,16 +58,16 @@ const Navbar = () => {
     };
   }, [location.pathname]);
 
-  // useEffect(() => {
-  //   if (token) {
-  //     const decodedToken = jwt_decode(token);
-  //     const currentTime = Date.now() / 1000;
-  //     if (decodedToken.exp < currentTime) {
-  //       dispatch(userLogout(navigate));
-  //       window.location.reload();
-  //     }
-  //   }
-  // }, [token]);
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken.exp < currentTime) {
+        dispatch(userLogout(navigate));
+        window.location.reload();
+      }
+    }
+  }, [token]);
 
   const isHomepage = location.pathname === "/";
   return (
@@ -75,9 +75,9 @@ const Navbar = () => {
       <Container>
         <Box className="navbar-section">
           <Box>
-            <Link to="/">
+            <NavLink to="/">
               {(!isHomepage || showLogo) && <Logo width={70} />}
-            </Link>
+            </NavLink>
           </Box>
           <Box sx={{ ml: "auto" }}>
             <Box
@@ -87,44 +87,68 @@ const Navbar = () => {
             >
               <Box className="nav-list-group">
                 <NavLink
-                  onClick={handleNavLinkClick}
-                  className="nav-list"
+                  onClick={(event) => handleNavLinkClick(event, "/")}
+                  className={`nav-list ${
+                    location.pathname === "/" ? "active" : ""
+                  }`}
                   color="primary"
                   to="/"
                 >
                   Home
                 </NavLink>
                 <NavLink
-                  onClick={handleNavLinkClick}
-                  className="nav-list"
+                  onClick={(event) => handleNavLinkClick(event, "/shop")}
+                  className={`nav-list ${
+                    location.pathname === "/shop" ? "active" : ""
+                  }`}
                   to="shop"
                 >
                   Shop
                 </NavLink>
-                <NavLink
-                  onClick={handleNavLinkClick}
-                  className="nav-list"
-                  to="shopping-bag"
-                >
-                  Shopping Bag (
-                  {cartData && cartData.cart_items
-                    ? cartData.cart_items.length
-                    : "0"}
-                  )
-                </NavLink>
+                {token ? (
+                  <NavLink
+                    onClick={(event) =>
+                      handleNavLinkClick(event, "/shopping-bag")
+                    }
+                    className={`nav-list ${
+                      location.pathname === "/shopping-bag" ? "active" : ""
+                    }`}
+                    to="shopping-bag"
+                  >
+                    Shopping Bag (
+                    {cartData && cartData.cart_items
+                      ? cartData.cart_items.length
+                      : "0"}
+                    )
+                  </NavLink>
+                ) : (
+                  <Link
+                    className="nav-list "
+                    onClick={() =>
+                      Notification("info", "Please login to Continue")
+                    }
+                    to={"/login"}
+                  >
+                    Shopping Bag
+                  </Link>
+                )}
 
                 {token ? (
                   <NavLink
-                    onClick={handleNavLinkClick}
-                    className="nav-list"
+                    onClick={(event) => handleNavLinkClick(event, "/profile")}
+                    className={`nav-list ${
+                      location.pathname === "/profile" ? "active" : ""
+                    }`}
                     to="/profile"
                   >
                     My Account
                   </NavLink>
                 ) : (
                   <NavLink
-                    onClick={handleNavLinkClick}
-                    className="nav-list"
+                    onClick={(event) => handleNavLinkClick(event, "/login")}
+                    className={`nav-list ${
+                      location.pathname === "/login" ? "active" : ""
+                    }`}
                     to="/login"
                   >
                     LOG IN

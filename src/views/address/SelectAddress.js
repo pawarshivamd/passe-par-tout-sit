@@ -2,27 +2,54 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 
 import AddIcon from "@mui/icons-material/Add";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ContinueProFooter from "../../layout/ContinueProFooter";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAddresss } from "../../Redux/Thunks/addressThunk";
 import Loader from "../../utils/Loader";
+import ContinueProFooter2 from "../../layout/ContinueFooter2";
+import Notification from "../../utils/Notification";
+import { fetchCartDetails } from "../../Redux/Thunks/cartThunk";
+import { placeOrder } from "../../Redux/Thunks/orderThunk";
 
 const SelectAddress = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const token = localStorage.getItem("auth_token");
   const { address, isLoading } = useSelector((state) => state.address);
+  const { cartData } = useSelector((state) => state.cart);
 
   const { addresses, message, status } = address;
 
-  console.log(addresses);
+  console.log(cartData);
 
   useEffect(() => {
     if (token) {
       dispatch(fetchAddresss());
+      dispatch(fetchCartDetails());
     }
   }, [dispatch]);
+
+  const cart_id = cartData?.cart_items?.map((item) => item.id).join(",");
+
+  const idStoretoLocal = (id) => {
+    localStorage.setItem("address_id", id);
+  };
+
+  const handleContinueClick = () => {
+    const address_id = localStorage.getItem("address_id");
+    const payment_id = 1;
+    const orderData = { address_id, cart_id, payment_id };
+
+    if (address_id) {
+      console.log("called");
+      dispatch(placeOrder(orderData));
+      navigate("/profile");
+    } else {
+      Notification("info", "Please select an address");
+    }
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -49,8 +76,7 @@ const SelectAddress = () => {
               </Box>
             </Grid>
 
-            {addresses &&
-              addresses.length > 0 &&
+            {addresses && addresses.length > 0 ? (
               addresses.map((item) => {
                 console.log(item);
                 return (
@@ -76,14 +102,33 @@ const SelectAddress = () => {
                         <Link>Edit</Link>
                       </Box>
                       <Box sx={{ padding: "10px" }}>
-                        <Button variant="outlined" className="custom-button">
+                        <Button
+                          variant="outlined"
+                          className="custom-button"
+                          onClick={() => idStoretoLocal(item.id)}
+                        >
                           Deliver to this Address
                         </Button>
                       </Box>
                     </Box>
                   </Grid>
                 );
-              })}
+              })
+            ) : (
+              <Box
+                sx={{
+                  minHeight: "40vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  mb: 3,
+                }}
+              >
+                <Typography sx={{ textAlign: "center" }}>
+                  Please Add Address First !!
+                </Typography>
+              </Box>
+            )}
 
             {/* <Grid item lg={12}>
               <Box className="select-address-box">
@@ -134,7 +179,11 @@ const SelectAddress = () => {
           </Grid>
         </Box>
       </Container>
-      <ContinueProFooter BtnText="Continue" to="/profile" />
+      <ContinueProFooter2
+        BtnText="Continue"
+        // to={addresses && addresses.length > 0 ? "/shopping-bag" : "/address"}
+        onClick={handleContinueClick}
+      />
     </Box>
   );
 };

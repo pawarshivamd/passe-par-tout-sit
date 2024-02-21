@@ -12,22 +12,62 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [values, setValues] = useState({
+  const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
 
+  const [errors, setErrors] = useState({});
+
+  // console.log(errors);
+
   const handleChange = (e) => {
-    setValues({
-      ...values,
-      [e.target.name]: e.target.value,
+    const { name, value } = e.target;
+    setUserData({
+      ...userData,
+      [name]: value,
     });
+    if (errors[name]) {
+      console.log(errors[name]);
+      setErrors({ ...errors, [name]: "" });
+    }
+  };
+
+  // console.log(userData);
+
+  const validate = (values) => {
+    let errors = {};
+
+    // Email validation
+    if (!values.email) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+      errors.email = "Email address is invalid";
+    }
+
+    // Password validation
+    if (!values.password) {
+      errors.password = "Password is required";
+    } else if (values.password.length < 6) {
+      errors.password = "Password must be at least 6 characters";
+    }
+
+    return errors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("btn clicked");
-    dispatch(fetchUserDetails({ values, navigate }));
+    const validationErros = validate(userData);
+    setErrors(validationErros);
+    if (Object.keys(validationErros).length === 0) {
+      dispatch(fetchUserDetails({ userData, navigate }))
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -61,7 +101,9 @@ const Login = () => {
                         color="primary"
                         variant="standard"
                         onChange={handleChange}
-                        value={values.email}
+                        value={userData.email}
+                        error={Boolean(errors.email)}
+                        helperText={errors.email}
                       />
                     </Grid>
                     <Grid item xs={12} lg={12} sx={{ mt: 2 }}>
@@ -72,8 +114,10 @@ const Login = () => {
                         color="primary"
                         variant="standard"
                         onChange={handleChange}
-                        value={values.password}
+                        value={userData.password}
                         type="password"
+                        error={Boolean(errors.password)}
+                        helperText={errors.password}
                       />
                     </Grid>
                     <Grid item xs={12} lg={12}>

@@ -2,47 +2,19 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import API from "../../API";
 import Notification from "../../utils/Notification";
 
-// export const addToCart = createAsyncThunk(
-//   "addToCart",
-//   async (
-//     { productId, productColor, productSize, product_price },
-//     { rejectWithValue }
-//   ) => {
-//     try {
-//       const formData = new FormData();
-//       formData.append("product_id", productId);
-//       formData.append("product_color", productColor);
-//       formData.append("product_size", productSize);
-//       formData.append("product_price", product_price);
-
-//       const {
-//         data: { status, message },
-//         status: statusCode,
-//       } = await API.post("/cart/add", formData);
-
-//       if (status === "success") {
-//         Notification("success", message);
-//         console.log("SUccess");
-//         // return response.;
-//       } else if (statusCode === 200) {
-//         Notification("error", message);
-//       } else {
-//         // Notification("error", message);
-//         console.log("errro");
-//       }
-
-//       console.log(status, message);
-//     } catch (error) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
-
 export const addToCart = createAsyncThunk(
   "addToCart",
-  async ({ product_id, product_color, product_size }, { rejectWithValue }) => {
+  async (
+    { product_id, product_color, product_size, product_price },
+    { rejectWithValue }
+  ) => {
     try {
-      const requestData = { product_id, product_color, product_size };
+      const requestData = {
+        product_id,
+        product_color,
+        product_size,
+        product_price,
+      };
       const response = await API.post("/cart/add", requestData);
       const { status, message } = response.data;
 
@@ -56,7 +28,8 @@ export const addToCart = createAsyncThunk(
         Notification("error", "Unknown error occurred");
       }
     } catch (error) {
-      return rejectWithValue(error.message);
+      // console.log(error);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );

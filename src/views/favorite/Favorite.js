@@ -80,13 +80,13 @@ const Favorite = () => {
               const { main_image, ImgAlt, product_name, product_price } =
                 cureEle.product;
               return (
-                <Grid item lg={4} md={4} sm={6} xs={12}>
+                <Grid item lg={4} md={4} sm={6} xs={12} key={index}>
                   <Card className="product-card-">
                     <Box className="product-img">
                       <CardMedia
                         component="img"
                         height="100%"
-                        image={`${IMAGE_BASE_URL}/${main_image}`}
+                        image={main_image}
                         alt={ImgAlt}
                         sx={{ objectFit: "contain" }}
                       />

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCartDetails } from "../Redux/Thunks/cartThunk";
 
-const ContinueProFooter = (props) => {
+const ContinueProFooter2 = (props) => {
   const dispatch = useDispatch();
 
   const {
@@ -44,8 +44,8 @@ const ContinueProFooter = (props) => {
                 <Grid item lg={2} md={2} sm={2} xs={6}>
                   <Box sx={{ display: "flex", justifyContent: "end" }}>
                     <Button
-                      component={Link}
-                      to={props.to}
+                      //   component={Link}
+                      //   to={props.to}
                       variant="outlined"
                       className="custom-button"
                       sx={{ padding: "5px 50px" }}
@@ -63,4 +63,4 @@ const ContinueProFooter = (props) => {
     </Box>
   );
 };
-export default ContinueProFooter;
+export default ContinueProFooter2;
