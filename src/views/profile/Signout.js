@@ -78,8 +78,9 @@ const Signout = ({ saveButton }) => {
         .then((res) => {
           console.log(res);
           localStorage.clear();
+           navigate("/");
           window.location.reload();
-          navigate("/");
+         
         })
         .catch((err) => {
           console.log(err);
