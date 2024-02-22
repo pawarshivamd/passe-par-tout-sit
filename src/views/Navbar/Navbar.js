@@ -63,8 +63,7 @@ const Navbar = () => {
       const decodedToken = jwt_decode(token);
       const currentTime = Date.now() / 1000;
       if (decodedToken.exp < currentTime) {
-        dispatch(userLogout(navigate));
-        window.location.reload();
+        dispatch(userLogout({ navigate, reason: "sessionTimeout" }));
       }
     }
   }, [token]);

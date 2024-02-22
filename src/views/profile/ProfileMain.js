@@ -23,7 +23,7 @@ const ProfileMain = () => {
   const user_data = JSON.parse(localStorage.getItem("user_data"));
 
   const handleSignOut = () => {
-    dispatch(userLogout(navigate));
+    dispatch(userLogout({ navigate, reason: "logut" }));
   };
 
   return (

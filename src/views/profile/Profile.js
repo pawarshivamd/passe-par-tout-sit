@@ -17,17 +17,21 @@ import { Link as RouterLink } from "react-router-dom";
 import ProfileMain from "./ProfileMain";
 import { fetchOrderProducts } from "../../Redux/Thunks/orderThunk";
 import { useDispatch, useSelector } from "react-redux";
-import { IMAGE_BASE_URL } from "../../utils/constants";
 import Loader from "../../utils/Loader";
+
 
 const Profile = () => {
   const token = localStorage.getItem("auth_token");
-  const [activeTab, setActiveTab] = useState(1);
   const dispatch = useDispatch();
+  const [activeTab, setActiveTab] = useState(1);
+  
   const { orders, isLoading } = useSelector((state) => state.order);
   const [searchValue, setSearchValue] = useState("");
 
-  const { order_history } = orders;
+  let order_history;
+  if (orders) {
+    ({ order_history } = orders);
+  }
 
   const handleTabChange = (tabNumber) => {
     setActiveTab(tabNumber);

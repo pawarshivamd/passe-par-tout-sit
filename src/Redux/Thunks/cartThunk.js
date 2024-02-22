@@ -4,25 +4,23 @@ import Notification from "../../utils/Notification";
 
 export const addToCart = createAsyncThunk(
   "addToCart",
-  async (
-    { product_id, product_color, product_size, product_price },
-    { rejectWithValue }
-  ) => {
+  async ({ product_id, product_color, product_size }, { rejectWithValue }) => {
     try {
       const requestData = {
         product_id,
         product_color,
         product_size,
-        product_price,
       };
       const response = await API.post("/cart/add", requestData);
-      const { status, message } = response.data;
+      console.log(response.data);
+      const { status, message } = response?.data || {};
 
       if (status === "success") {
         Notification("success", message);
-        console.log("Success");
-        // return response.;
+
+        return response.data;
       } else if (status === "error") {
+        console.log("Success", message);
         throw new Error(message);
       } else {
         Notification("error", "Unknown error occurred");

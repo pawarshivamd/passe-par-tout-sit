@@ -24,6 +24,8 @@ const Shop = () => {
   const { products, searchedProduct, isLoading } = useSelector(
     (state) => state.shop
   );
+
+  const [compLoaded, setCompLoaded] = useState(false);
   const [searchValue, setSeachVal] = useState("");
   const [searchedProducts, setSearchedProducts] = useState([]);
 
@@ -54,13 +56,21 @@ const Shop = () => {
   // }, [dispatch, searchValue]);
 
   useEffect(() => {
+    let timeoutId;
+
     if (searchValue) {
-      dispatch(productSearch(searchValue)).then((response) => {
-        setSearchedProducts(searchedProduct);
-      });
+      timeoutId = setTimeout(() => {
+        dispatch(productSearch(searchValue)).then((response) => {
+          setSearchedProducts(searchedProduct);
+        });
+      }, 1000);
     } else {
       setSearchedProducts(products);
     }
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [dispatch, products, searchValue]);
 
   useEffect(() => {
@@ -69,6 +79,7 @@ const Shop = () => {
     const count = 10;
 
     dispatch(fetchShopProducts({ category_id, start, count }));
+    setCompLoaded(true);
   }, [dispatch]);
 
   const handleNavigate = (id) => {

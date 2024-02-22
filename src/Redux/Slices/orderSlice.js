@@ -12,6 +12,7 @@ const orderSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(fetchOrderProducts.fulfilled, (state, action) => {
+      console.log(action.payload,"order Slice");
       state.isLoading = false;
       state.orders = action.payload;
     });

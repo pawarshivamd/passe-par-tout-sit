@@ -35,7 +35,7 @@ export const fetchUserDetails = createAsyncThunk(
 
 export const userLogout = createAsyncThunk(
   "userLogout",
-  async (navigate, { rejectWithValue }) => {
+  async ({ navigate, reason }, { rejectWithValue }) => {
     try {
       console.log("Logout called");
       const {
@@ -47,7 +47,11 @@ export const userLogout = createAsyncThunk(
         localStorage.removeItem("auth_token");
         localStorage.removeItem("user_data");
         localStorage.removeItem("address_id");
-        Notification("success", message);
+        if (reason === "sessionTimeout") {
+          Notification("info", "Your session has timed out.");
+        } else {
+          Notification("success", message);
+        }
         setTimeout(() => {
           navigate("/login");
           window.location.reload();

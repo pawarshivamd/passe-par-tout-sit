@@ -33,10 +33,6 @@ const ProductDetails = () => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [activeimg, setActiveimg] = useState("");
 
-  const handleSelectColor = (color) => {
-    setSelectedColor(color);
-  };
-
   const {
     main_image_path,
     product,
@@ -54,7 +50,7 @@ const ProductDetails = () => {
     isError: cartIsError,
   } = useSelector((state) => state.cart);
 
-  console.log(cartData);
+
 
   useEffect(() => {
     dispatch(fetchProductDetails(productId));
@@ -73,28 +69,26 @@ const ProductDetails = () => {
   }, [dispatch]);
 
   const handleSelectedSize = (size) => {
-    setSelectedSize(size);
+    setSelectedSize((prevSize) => (prevSize === size ? null : size));
   };
 
-  const handleAddToCart = (price) => {
+  const handleSelectColor = (color) => {
+    setSelectedColor((prevColor) => (prevColor === color ? null : color));
+  };
+
+  const handleAddToCart = () => {
     if (!selectedColor || !selectedSize) {
       Notification("warning", "Please select a color and size");
     } else {
       const product_id = productId;
       const product_color = selectedColor;
       const product_size = selectedSize;
-      const product_price = price;
-      // const product
 
-      dispatch(
-        addToCart({ product_id, product_color, product_size, product_price })
-      )
-        .then((data) => {
-          console.log(data);
-
-          if (data.payload && data.error.message == "Rejected") {
+      dispatch(addToCart({ product_id, product_color, product_size }))
+        .then((res) => {
+          if (res.error) {
             setIsDrawerVisible(false);
-            Notification("error", data.payload);
+            Notification("error", "Product Already Add in cart.");
           } else {
             setIsDrawerVisible(true);
             dispatch(fetchCartDetails());
@@ -327,7 +321,7 @@ const ProductDetails = () => {
               </Box>
               <Button
                 onClick={() => [
-                  handleAddToCart(product?.product_price),
+                  handleAddToCart(),
                   // addToCart({
                   //   productId: product?.id,
                   //   productSize: selectedSize,
@@ -349,7 +343,6 @@ const ProductDetails = () => {
         <Container>
           <Grid container spacing={5}>
             {relatedProducts.map((cureEle, index) => {
-              console.log("cureEle", cureEle);
               const {
                 id,
                 main_image,
