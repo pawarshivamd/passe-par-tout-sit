@@ -5,6 +5,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ShoppingBag from "./views/ShoPppingbag/ShoppingBag";
 import { Provider } from "react-redux";
 import Login from "./views/auth/Login";
+import ForgotPassword from "./views/auth/ForgotPassword";
 import Home from "./views/Home/Home";
 import Shop from "./views/Shop/Shop";
 import Navbar from "./views/Navbar/Navbar";
@@ -44,6 +45,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<SingUp />} />
+              <Route path="/forgotPassword" element={<ForgotPassword />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/shop/new/:productId" element={<ProductDetails />} />
               <Route path="/shopping-bag" element={<ShoppingBag />} />

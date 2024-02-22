@@ -153,6 +153,25 @@ export const changePassword = createAsyncThunk(
   }
 );
 
+export const forgotPassword = createAsyncThunk(
+  "forgotPassword",
+  async (passwordData, { rejectWithValue }) => {
+    try {
+      const {
+        data: { message, response },
+        status,
+      } = await API.post("/user/forget-password", passwordData);
+
+      if (status === 200) {
+        Notification("success", message);
+        return response;
+      }
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
 export const deleteAccount = createAsyncThunk(
   "deleteAccount",
   async (deleteAccountData, { rejectWithValue }) => {

@@ -5,7 +5,7 @@ import CustomInput from "../../layout/CustomInput";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchUserDetails } from "../../Redux/Thunks/userThunk";
+import { forgotPassword } from "../../Redux/Thunks/userThunk";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -14,7 +14,6 @@ const Login = () => {
 
   const [userData, setUserData] = useState({
     email: "",
-    password: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -45,32 +44,25 @@ const Login = () => {
       errors.email = "Email address is invalid";
     }
 
-    // Password validation
-    if (!values.password) {
-      errors.password = "Password is required";
-    } else if (values.password.length < 6) {
-      errors.password = "Password must be at least 6 characters";
-    }
-
     return errors;
   };
-
-  const handleSearchChange = (event) => {};
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErros = validate(userData);
     setErrors(validationErros);
     if (Object.keys(validationErros).length === 0) {
-      dispatch(fetchUserDetails({ userData, navigate }))
+      dispatch(forgotPassword(userData))
         .then((res) => {
-          console.log(res);
+          navigate("/login");
         })
         .catch((err) => {
           console.log(err);
         });
     }
   };
+
+  const handleSearchChange = (event) => {};
 
   return (
     <Box sx={{ mt: 20, mb: 20 }}>
@@ -83,7 +75,7 @@ const Login = () => {
                 <StarIcon />
               </Grid>
               <Grid item xs={11} lg={11}>
-                <Typography>LOG IN TO YOUR ACCOUNT</Typography>
+                <Typography>CHANGE YOUR  PASSWORD</Typography>
                 <Box>
                   <Grid
                     item
@@ -108,20 +100,6 @@ const Login = () => {
                         helperText={errors.email}
                       />
                     </Grid>
-                    <Grid item xs={12} lg={12} sx={{ mt: 2 }}>
-                      <CustomInput
-                        id="Password"
-                        name="password"
-                        label="PASSWORD"
-                        color="primary"
-                        variant="standard"
-                        onChange={handleChange}
-                        value={userData.password}
-                        type="password"
-                        error={Boolean(errors.password)}
-                        helperText={errors.password}
-                      />
-                    </Grid>
                     <Grid item xs={12} lg={12}>
                       <Box
                         sx={{
@@ -138,7 +116,7 @@ const Login = () => {
                           className="custom-button"
                           sx={{ minWidth: "200px", padding: "10px 20px" }}
                         >
-                          Log in
+                          SUBMIT
                         </Button>
                       </Box>
                     </Grid>
@@ -147,18 +125,14 @@ const Login = () => {
               </Grid>
               <Grid item xs={12} lg={12}>
                 <Box sx={{ mt: 5 }}>
-                  <Typography
-                    component={Link}
-                    variant="body2"
-                    to={"/forgotpassword"}
-                  >
-                    HAVE YOU FORGOTTEN YOUR PASSWORD?
-                  </Typography>
+                  <Typography component={Link} variant="body2" to={"/login"}>
+                    GO TO LOGIN
+                  </Typography>{" "}
                 </Box>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} lg={5} sm={5} md={5}>
+          {/* <Grid item xs={12} lg={5} sm={5} md={5}>
             <Grid container>
               <Grid item xs={1} lg={1}>
                 <StarIcon />
@@ -178,7 +152,7 @@ const Login = () => {
                 </Box>
               </Grid>
             </Grid>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </Box>

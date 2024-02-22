@@ -5,7 +5,11 @@ import {
   CardContent,
   CardMedia,
   Container,
+  FormControl,
   Grid,
+  InputLabel,
+  MenuItem,
+  Select,
   Typography,
 } from "@mui/material";
 import productimg from "../../assets/img/products/product1.png";
@@ -28,6 +32,7 @@ const Shop = () => {
   const [compLoaded, setCompLoaded] = useState(false);
   const [searchValue, setSeachVal] = useState("");
   const [searchedProducts, setSearchedProducts] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   console.log(searchedProduct);
 
@@ -73,8 +78,16 @@ const Shop = () => {
     };
   }, [dispatch, products, searchValue]);
 
+  const handleCategorySelect = (event) => {
+    const categoryId = event.target.value;
+    setSelectedCategory(categoryId);
+    dispatch(
+      fetchShopProducts({ category_id: categoryId, start: 0, count: 10 })
+    );
+  };
+
   useEffect(() => {
-    const category_id = 2;
+    const category_id = 1;
     const start = 0;
     const count = 10;
 
@@ -90,20 +103,77 @@ const Shop = () => {
     });
   };
 
-  // useEffect(() => {
-  //   if (searchValue) {
-  //     dispatch(productSearch(searchValue));
-  //   }
-  // }, [dispatch, searchValue]);
-
   if (isLoading) {
     return <Loader />;
   }
 
   return (
     <Box sx={{ mt: 20 }}>
-      <SearchBox handleSearchChange={handleSearchChange} />
       <Container>
+        <Grid container spacing={2}>
+          <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Box sx={{ display: "flex", justifyContent: "end" }}>
+              <FormControl
+                variant="outlined"
+                sx={{
+                  mr: 3,
+                  mb: 2,
+                  minWidth: 220,
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "white",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#efc80c",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#efc80c",
+                    },
+                  },
+                }}
+              >
+                <InputLabel
+                  id="category-select-label"
+                  sx={{
+                    color: "#888888 !important",
+                  }}
+                >
+                  Select Category
+                </InputLabel>
+                <Select
+                  labelId="category-select-label"
+                  id="category-select"
+                  size="small"
+                  value={selectedCategory}
+                  label="Select Category"
+                  onChange={handleCategorySelect}
+                  sx={{
+                    color: "#FFF",
+                    "& .MuiSelect-icon": {
+                      color: "#FFF",
+                    },
+                  }}
+                  InputLabelProps={{
+                    sx: { color: "#fff !important" },
+                  }}
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                        backgroundColor: "white",
+                      },
+                    },
+                  }}
+                >
+                  <MenuItem value={1}>Men</MenuItem>
+                  <MenuItem value={2}>Women</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </Grid>
+
+          <SearchBox handleSearchChange={handleSearchChange} />
+        </Grid>
+
         <Box>
           <Grid container spacing={2}>
             {searchedProducts && searchedProducts.length > 0 ? (
