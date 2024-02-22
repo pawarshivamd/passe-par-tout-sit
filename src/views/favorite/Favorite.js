@@ -18,7 +18,6 @@ import {
 } from "../../Redux/Thunks/wishListThunk";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../utils/Loader";
-import { IMAGE_BASE_URL } from "../../utils/constants";
 
 const Favorite = () => {
   const token = localStorage.getItem("auth_token");

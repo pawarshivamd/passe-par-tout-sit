@@ -17,6 +17,10 @@ import CustomDrawer from "../../layout/CustomDrawer";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../utils/Loader";
+import {
+  addToWishList,
+  removeFromWishList,
+} from "../../Redux/Thunks/wishListThunk";
 
 // actions
 import { fetchProductDetails } from "../../Redux/Thunks/productDetailsThunk";
@@ -27,7 +31,7 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = localStorage.getItem("auth_token");
-
+  const [isChecked, setIsChecked] = useState(false);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
@@ -35,7 +39,7 @@ const ProductDetails = () => {
 
   const {
     main_image_path,
-    product,
+    product,  
     productSize,
     productColor,
     productImage,
@@ -50,7 +54,18 @@ const ProductDetails = () => {
     isError: cartIsError,
   } = useSelector((state) => state.cart);
 
-
+  const handleToggle = (product_id) => {
+    if (token) {
+      setIsChecked((prevChecked) => !prevChecked);
+      if (isChecked) {
+        dispatch(removeFromWishList({ product_id }));
+      } else {
+        dispatch(addToWishList({ product_id }));
+      }
+    } else {
+      Notification("info", "Please login to Continue");
+    }
+  };
 
   useEffect(() => {
     dispatch(fetchProductDetails(productId));
@@ -372,9 +387,38 @@ const ProductDetails = () => {
                                 {ratings[0]?.rating}
                               </span>
                             </Typography>
-                            <Typography className="rating-box rating-star">
-                              <StarIcon />
-                            </Typography>
+                            {isChecked ? (
+                              <Typography className="rating-box set-rating-star ">
+                                <StarIcon
+                                  // onClick={() => handleToggle(id)}
+                                  onClick={() => {
+                                    if (token) {
+                                      handleToggle(id);
+                                    } else {
+                                      Notification(
+                                        "error",
+                                        "Please log in to add to wishlist"
+                                      );
+                                    }
+                                  }}
+                                />
+                              </Typography>
+                            ) : (
+                              <Typography className="rating-box rating-star ">
+                                <StarIcon
+                                  onClick={() => {
+                                    if (token) {
+                                      handleToggle(id);
+                                    } else {
+                                      Notification(
+                                        "error",
+                                        "Please log in to add to wishlist"
+                                      );
+                                    }
+                                  }}
+                                />
+                              </Typography>
+                            )}
                           </Box>
                           <Box className="card-details-box">
                             <Typography className="main-text">

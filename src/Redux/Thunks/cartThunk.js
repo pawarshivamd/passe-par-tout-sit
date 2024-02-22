@@ -53,11 +53,11 @@ export const fetchCartDetails = createAsyncThunk(
 
 export const removeCartItem = createAsyncThunk(
   "removeCartItem",
-  async (product_id, { rejectWithValue }) => {
+  async (id, { rejectWithValue }) => {
     try {
-      const data = await API.post("/cart/remove", product_id);
+      const data = await API.post("/cart/remove", id);
 
-      return product_id;
+      return id;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }

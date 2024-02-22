@@ -54,7 +54,7 @@ const ShoppingBag = () => {
 
   const confirmProductRemove = () => {
     // Action to remove the product
-    dispatch(removeCartItem({ product_id: productToRemove }))
+    dispatch(removeCartItem({ id: productToRemove }))
       .then(() => {
         dispatch(fetchCartDetails());
         setShowConfirmationModal(false); // Close the confirmation modal after successful removal
@@ -70,13 +70,15 @@ const ShoppingBag = () => {
     setShowConfirmationModal(false);
   };
 
+  const handleSearchChange = (event) => {};
+
   if (isLoading) {
     return <Loader />;
   }
 
   return (
     <Box sx={{ mt: 20 }}>
-      <SearchBox />
+      <SearchBox handleSearchChange={handleSearchChange} />
       <Container>
         <Box>
           <Box
@@ -149,9 +151,7 @@ const ShoppingBag = () => {
                                 <Link>{item?.product?.product_name}</Link>
                               </Typography>
                               <CloseIcon
-                                onClick={() =>
-                                  handleProductRemove(item?.product?.id)
-                                }
+                                onClick={() => handleProductRemove(item?.id)}
                                 className="close-icon"
                               />
                             </Box>
