@@ -30,6 +30,7 @@ const ShoppingBag = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("auth_token");
   const { cartData, isLoading, isError } = useSelector((state) => state.cart);
+  console.log(cartData, "cartData");
 
   const handleTabChange = (tabNumber) => {
     setActiveTab(tabNumber);
@@ -128,8 +129,8 @@ const ShoppingBag = () => {
                             <CardMedia
                               component="img"
                               height="100%"
-                              image={item?.main_image_path}
-                              alt={item?.main_image_path}
+                              image={item?.product.main_image}
+                              alt={item?.product.main_image}
                               sx={{ objectFit: "cover" }}
                             />
                           </Box>
@@ -148,7 +149,16 @@ const ShoppingBag = () => {
                               }}
                             >
                               <Typography variant="subtitle1" component="div">
-                                <Link>{item?.product?.product_name}</Link>
+                                {/* <Link
+                                  onClick={() =>
+                                    navigate(`/shop/new/${item.product.id}`)
+                                  }
+                                >
+                                  {item?.product?.product_name}
+                                </Link> */}
+                                <Link to={`/shop/new/${item.product.id}`}>
+                                  {item?.product?.product_name}
+                                </Link>
                               </Typography>
                               <CloseIcon
                                 onClick={() => handleProductRemove(item?.id)}

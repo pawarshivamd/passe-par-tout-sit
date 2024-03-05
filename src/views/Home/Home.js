@@ -31,6 +31,7 @@ const Home = () => {
   const token = localStorage.getItem("auth_token");
 
   const { products, isLoading, isError } = useSelector((state) => state.home);
+  console.log(products, "productsss::>>");
   const { wishList } = useSelector((state) => state.wishList);
 
   const {
@@ -60,10 +61,26 @@ const Home = () => {
     }
   }, [dispatch, token]);
 
+  // const handleToggle = (product_id) => {
+  //   if (token) {
+  //     setIsChecked((prevChecked) => !prevChecked);
+  //     if (isChecked) {
+  //       dispatch(removeFromWishList({ product_id }));
+  //     } else {
+  //       dispatch(addToWishList({ product_id }));
+  //     }
+  //   } else {
+  //     Notification("info", "Please login to Continue");
+  //   }
+  // };
   const handleToggle = (product_id) => {
     if (token) {
-      setIsChecked((prevChecked) => !prevChecked);
-      if (isChecked) {
+      setIsChecked((prevItems) => ({
+        ...prevItems,
+        [product_id]: !prevItems[product_id],
+      }));
+
+      if (isChecked[product_id]) {
         dispatch(removeFromWishList({ product_id }));
       } else {
         dispatch(addToWishList({ product_id }));
@@ -73,18 +90,32 @@ const Home = () => {
     }
   };
 
+  // useEffect(() => {
+  //   if (token) {
+  //     const productIds = products.map((product) => String(product.id));
+  //     const wishListProductIds = wishList?.wishlist?.map(
+  //       (item) => item.product_id
+  //     );
+  //     setIsChecked(
+  //       wishListProductIds?.some((productId) => productIds.includes(productId))
+  //     );
+  //   }
+  // }, [products, wishList.wishlist]);
   useEffect(() => {
-    if (token) {
-      const productIds = products.map((product) => String(product.id));
-      const wishListProductIds = wishList?.wishlist?.map(
-        (item) => item.product_id
-      );
-      setIsChecked(
-        wishListProductIds?.some((productId) => productIds.includes(productId))
-      );
-    }
-  }, [products, wishList.wishlist]);
+    if (token && wishList?.wishlist) {
+      const initialCheckedState = products.reduce((acc, product) => {
+        // Convert product.id to String if it's not already, assuming wishList IDs are also strings
+        const isWishlisted = wishList.wishlist.some(
+          (wishItem) => String(wishItem.product_id) === String(product.id)
+        );
+        acc[String(product.id)] = isWishlisted;
+        return acc;
+      }, {});
 
+      setIsChecked(initialCheckedState);
+    }
+  }, [products, wishList.wishlist, token]);
+  console.log(cartData.cart_items, "cartData.cart_items");
   const list = (anchor) => (
     <Box
       className="drawer-open-section"
@@ -110,9 +141,9 @@ const Home = () => {
             <Grid item lg={5} md={5} sm={12} xs={12}>
               <Box>
                 <img
-                  src={item?.main_image_path}
+                  src={item?.product.main_image}
                   width={"100%"}
-                  alt={item?.main_image_path}
+                  alt={item?.product.main_image}
                   style={{ objectFit: "contain" }}
                 />
               </Box>
@@ -235,10 +266,41 @@ const Home = () => {
                                     </span>
                                   </Typography>
 
-                                  {isChecked ? (
+                                  {/* {isChecked ? (
                                     <Typography className="rating-box set-rating-star ">
                                       <StarIcon
                                         // onClick={() => handleToggle(id)}
+                                        onClick={() => {
+                                          if (token) {
+                                            handleToggle(id);
+                                          } else {
+                                            Notification(
+                                              "error",
+                                              "Please log in to add to wishlist"
+                                            );
+                                          }
+                                        }}
+                                      />
+                                    </Typography>
+                                  ) : (
+                                    <Typography className="rating-box rating-star ">
+                                      <StarIcon
+                                        onClick={() => {
+                                          if (token) {
+                                            handleToggle(id);
+                                          } else {
+                                            Notification(
+                                              "error",
+                                              "Please log in to add to wishlist"
+                                            );
+                                          }
+                                        }}
+                                      />
+                                    </Typography>
+                                  )} */}
+                                  {isChecked[id] ? (
+                                    <Typography className="rating-box set-rating-star ">
+                                      <StarIcon
                                         onClick={() => {
                                           if (token) {
                                             handleToggle(id);

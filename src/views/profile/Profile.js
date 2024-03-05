@@ -19,12 +19,11 @@ import { fetchOrderProducts } from "../../Redux/Thunks/orderThunk";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../utils/Loader";
 
-
 const Profile = () => {
   const token = localStorage.getItem("auth_token");
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState(1);
-  
+
   const { orders, isLoading } = useSelector((state) => state.order);
   const [searchValue, setSearchValue] = useState("");
 

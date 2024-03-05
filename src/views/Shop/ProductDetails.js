@@ -26,6 +26,20 @@ import {
 import { fetchProductDetails } from "../../Redux/Thunks/productDetailsThunk";
 import { addToCart, fetchCartDetails } from "../../Redux/Thunks/cartThunk";
 import Notification from "../../utils/Notification";
+
+const parseOtherImages = (otherImagesString) => {
+  try {
+    // Attempt to parse the JSON string into an array
+    const parsed = JSON.parse(otherImagesString);
+    // Ensure the parsed result is an array
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    // If an error occurs during parsing, log it and return an empty array
+    console.error("Error parsing other_images JSON:", error);
+    return [];
+  }
+};
+
 const ProductDetails = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
@@ -39,7 +53,7 @@ const ProductDetails = () => {
 
   const {
     main_image_path,
-    product,  
+    product,
     productSize,
     productColor,
     productImage,
@@ -47,6 +61,15 @@ const ProductDetails = () => {
     isLoading,
     error,
   } = useSelector((state) => state.product);
+
+  const { other_images, main_image } = product ?? {};
+  const imagesArray = parseOtherImages(other_images);
+
+  console.log(imagesArray, "other_images");
+
+  // const data = useSelector((state) => state.product);
+
+  console.log(product, "other_images");
 
   const {
     cartData,
@@ -72,8 +95,8 @@ const ProductDetails = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (product && main_image_path) {
-      setActiveimg(main_image_path);
+    if (product && main_image) {
+      setActiveimg(main_image);
     }
   }, [product]);
 
@@ -92,7 +115,7 @@ const ProductDetails = () => {
   };
 
   const handleAddToCart = () => {
-    if (!selectedColor || !selectedSize) {
+    if (!selectedSize) {
       Notification("warning", "Please select a color and size");
     } else {
       const product_id = productId;
@@ -116,6 +139,7 @@ const ProductDetails = () => {
   };
 
   const handleSearchChange = () => {};
+  console.log(cartData.cart_items, "cartData.cart_items");
 
   const list = (anchor) => (
     <Box
@@ -138,11 +162,11 @@ const ProductDetails = () => {
         </Typography>
 
         {cartData?.cart_items?.map((item, index) => (
-          <Grid container spacing={2} key={index}>
+          <Grid container spacing={2} sx={{ mb: 3 }} key={index}>
             <Grid item lg={5} md={5} sm={12} xs={12}>
               <Box>
                 <img
-                  src={item?.main_image_path}
+                  src={item?.product.main_image}
                   width={"100%"}
                   alt={item?.main_image_path}
                   style={{ objectFit: "contain" }}
@@ -253,15 +277,24 @@ const ProductDetails = () => {
                     }}
                     modules={[Navigation]}
                   >
-                    <SwiperSlide onClick={() => setActiveimg(main_image_path)}>
-                      <img src={main_image_path} alt={main_image_path} />
-                    </SwiperSlide>
+                    {/* <SwiperSlide onClick={() => setActiveimg(main_image)}>
+                      <img src={main_image} alt={main_image} />
+                    </SwiperSlide> */}
 
-                    {productImage?.map((slide, i) => (
+                    {/* {other_images?.map((slide, i) => (
                       <SwiperSlide key={i} onClick={() => setActiveimg(slide)}>
                         <img src={slide} alt={slide} />
                       </SwiperSlide>
-                    ))}
+                    ))} */}
+                    {Array.isArray(imagesArray) &&
+                      imagesArray.map((slide, i) => (
+                        <SwiperSlide
+                          key={i}
+                          onClick={() => setActiveimg(slide.url)}
+                        >
+                          <img src={slide.url} alt={slide.url} />
+                        </SwiperSlide>
+                      ))}
                   </Swiper>
                 </Grid>
               </Grid>
@@ -279,9 +312,13 @@ const ProductDetails = () => {
               <Typography sx={{ fontSize: "14px" }}>
                 {product && parseInt(product?.product_price) + "$"}
               </Typography>
-              <Typography sx={{ mt: 2 }}>
+              {/* <Typography sx={{ mt: 2 }}>
                 {product && product?.description}
-              </Typography>
+              </Typography> */}
+              <Typography
+                sx={{ mt: 2 }}
+                dangerouslySetInnerHTML={{ __html: product?.description || "" }}
+              ></Typography>
               <Box>
                 <Typography
                   sx={{

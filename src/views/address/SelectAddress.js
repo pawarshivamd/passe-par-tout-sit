@@ -31,20 +31,59 @@ const SelectAddress = () => {
     }
   }, [dispatch]);
 
-  const cart_id = cartData?.cart_items?.map((item) => item.id).join(",");
-
   const idStoretoLocal = (id) => {
     localStorage.setItem("address_id", id);
   };
 
+  const user_data = JSON.parse(localStorage.getItem("user_data"));
+  const product_size = cartData.cart_items[0].size;
+  console.log(user_data, cartData.cart_items[0].size, "formData");
+
+  // const handleContinueClick = () => {
+  //   const user_id = user_data.id;
+  //   const address_id = localStorage.getItem("address_id");
+  //   const orderData = [
+  //     {
+  //       user_id: user_id,
+  //       address_id: address_id,
+  //       cart_id: cart_id,
+  //       product_size: product_size,
+  //     },
+  //   ];
+  //   console.log(user_id, "formData");
+
+  //   if (address_id) {
+  //     console.log("called");
+  //     dispatch(placeOrder(orderData));
+  //     navigate("/profile");
+  //   } else {
+  //     Notification("info", "Please select an address");
+  //   }
+  // };
   const handleContinueClick = () => {
+    // Assuming user_data and address_id are already available as shown in your example
+    const user_id = user_data.id;
     const address_id = localStorage.getItem("address_id");
-    const payment_id = 1;
-    const orderData = { address_id, cart_id, payment_id };
+
+    // Generate cart_id from all cart item IDs
+    // const cart_id = cartData.cart_items.map((item) => item.id).join(",");
+
+    // Now, instead of taking the size of the first item, we'll prepare orderData for each cart item
+    const orderData = cartData.cart_items.map((item) => ({
+      user_id: user_id,
+      address_id: address_id,
+      cart_id: item.id, // This will be the same for all items, consider if this is the intended logic
+      product_size: item.size, // Size of the current item
+      // If you need to include more item-specific data, you can add them here
+    }));
+
+    console.log("Order Data:", orderData);
+
+    console.log(orderData, "orderData");
 
     if (address_id) {
-      console.log("called");
-      dispatch(placeOrder(orderData));
+      console.log("Order placement called");
+      dispatch(placeOrder(orderData)); // Ensure your placeOrder action can handle an array of orders
       navigate("/profile");
     } else {
       Notification("info", "Please select an address");
@@ -98,9 +137,9 @@ const SelectAddress = () => {
                         </span>
                         <br />
                       </Typography>
-                      <Box sx={{ padding: "10px" }}>
+                      {/* <Box sx={{ padding: "10px" }}>
                         <Link>Edit</Link>
-                      </Box>
+                      </Box> */}
                       <Box sx={{ padding: "10px" }}>
                         <Button
                           variant="outlined"

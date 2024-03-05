@@ -21,9 +21,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchShopProducts, productSearch } from "../../Redux/Thunks/ShopThunk";
 import { useEffect, useState } from "react";
 import Loader from "../../utils/Loader";
+import {
+  addToWishList,
+  fetchWishList,
+  removeFromWishList,
+} from "../../Redux/Thunks/wishListThunk";
 
 const Shop = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { products, searchedProduct, isLoading } = useSelector(
     (state) => state.shop
@@ -32,33 +38,56 @@ const Shop = () => {
   const [compLoaded, setCompLoaded] = useState(false);
   const [searchValue, setSeachVal] = useState("");
   const [searchedProducts, setSearchedProducts] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(1);
+  const [isChecked, setIsChecked] = useState(false);
+  const { wishList } = useSelector((state) => state.wishList);
+  const token = localStorage.getItem("auth_token");
+  console.log(products, "productsss::>>2");
 
-  console.log(searchedProduct);
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchWishList());
+    }
+  }, [dispatch, token]);
+
+  const handleToggle = (product_id) => {
+    if (token) {
+      setIsChecked((prevItems) => ({
+        ...prevItems,
+        [product_id]: !prevItems[product_id],
+      }));
+
+      if (isChecked[product_id]) {
+        dispatch(removeFromWishList({ product_id }));
+      } else {
+        dispatch(addToWishList({ product_id }));
+      }
+    } else {
+      Notification("info", "Please login to Continue");
+    }
+  };
+
+  useEffect(() => {
+    if (token && wishList?.wishlist) {
+      const initialCheckedState = products.reduce((acc, product) => {
+        const isWishlisted = wishList.wishlist.some(
+          (wishItem) => Number(wishItem.product_id) === product.id
+        );
+        acc[String(product.id)] = isWishlisted;
+        return acc;
+      }, {});
+
+      setIsChecked(initialCheckedState);
+    }
+  }, [products, wishList.wishlist, token]);
+
+  console.log(products, "products123", wishList);
+
+  console.log(searchedProduct, isChecked, "isChecked");
 
   const handleSearchChange = (value) => {
     setSeachVal(value);
   };
-
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   if (searchValue) {
-  //     dispatch(productSearch(searchValue))
-  //       .then((response) => {
-  //         const searchedProduct = response?.payload?.prodcuts;
-  //         console.log(response?.payload?.products, "response");
-  //         setSearchedProducts(searchedProduct); // Assuming the response contains searched products data
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error searching products:", error);
-  //         setSearchedProducts([]); // If there's an error, set searched products to an empty array
-  //       });
-  //   } else {
-  //     // If search value is empty, reset searched products
-  //     setSearchedProducts([]);
-  //   }
-  // }, [dispatch, searchValue]);
 
   useEffect(() => {
     let timeoutId;
@@ -87,11 +116,13 @@ const Shop = () => {
   };
 
   useEffect(() => {
-    const category_id = 1;
+    // const category_id = 1;
     const start = 0;
     const count = 10;
 
-    dispatch(fetchShopProducts({ category_id, start, count }));
+    dispatch(
+      fetchShopProducts({ category_id: selectedCategory, start, count })
+    );
     setCompLoaded(true);
   }, [dispatch]);
 
@@ -180,6 +211,7 @@ const Shop = () => {
               searchedProducts?.map((cureEle, index) => {
                 const { id, main_image, ImgAlt, product_name, product_price } =
                   cureEle;
+                console.log(id, "main_image");
                 return (
                   <Grid item lg={4} md={4} sm={6} xs={12} key={id}>
                     <Box>
@@ -212,9 +244,75 @@ const Shop = () => {
                             <Typography variant="subtitle1" component="div">
                               <Link to={`/shop/new/${id}`}>{product_name}</Link>
                             </Typography>
-                            <Box className="pro-rating-star">
-                              <StarIcon />
-                            </Box>
+                            <Box className="pro-rating-star"></Box>
+                            {/* <StarIcon /> */}
+                            {/* {isChecked[id] ? (
+                              <Typography className="rating-box set-rating-star ">
+                                <StarIcon
+                                  onClick={() => {
+                                    if (token) {
+                                      handleToggle(id);
+                                    } else {
+                                      Notification(
+                                        "error",
+                                        "Please log in to add to wishlist"
+                                      );
+                                    }
+                                  }}
+                                />
+                              </Typography>
+                            ) : (
+                              <Typography className="rating-box rating-star ">
+                                <StarIcon
+                                  onClick={() => {
+                                    if (token) {
+                                      handleToggle(id);
+                                    } else {
+                                      Notification(
+                                        "error",
+                                        "Please log in to add to wishlist"
+                                      );
+                                    }
+                                  }}
+                                />
+                              </Typography>
+                            )} */}
+
+                            {isChecked[id] ? (
+                              <Box className="set-pro-rating-star">
+                                <Typography className="rating-box set-rating-star ">
+                                  <StarIcon
+                                    onClick={() => {
+                                      if (token) {
+                                        handleToggle(id);
+                                      } else {
+                                        Notification(
+                                          "error",
+                                          "Please log in to add to wishlist"
+                                        );
+                                      }
+                                    }}
+                                  />
+                                </Typography>
+                              </Box>
+                            ) : (
+                              <Box className="pro-rating-star">
+                                <Typography className="rating-box rating-star ">
+                                  <StarIcon
+                                    onClick={() => {
+                                      if (token) {
+                                        handleToggle(id);
+                                      } else {
+                                        Notification(
+                                          "error",
+                                          "Please log in to add to wishlist"
+                                        );
+                                      }
+                                    }}
+                                  />
+                                </Typography>
+                              </Box>
+                            )}
                           </Box>
                           <Typography variant="body2">
                             {parseInt(product_price)}$

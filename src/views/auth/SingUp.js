@@ -15,6 +15,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../features/auth/api";
 import { registerUser } from "../../Redux/Thunks/userThunk";
+import Notification from "../../utils/Notification";
 const SingUp = () => {
   // const data = useSelector((state) => state.auth.user);
   // const [userData, setUserData] = useState({});
@@ -116,10 +117,12 @@ const SingUp = () => {
           // Navigate("/login");
           if (res.payload.id) {
             navigate("/login");
+          } else {
+            Notification("error", res.payload);
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.payload);
         });
     }
   };
@@ -206,10 +209,11 @@ const SingUp = () => {
                             value={userData.country_code}
                             name="country_code"
                             color="primary"
+                            readOnly
                             error={Boolean(errors.country_code)}
                             helperText={errors.country_code}
                             variant="standard"
-                            onChange={handleChange}
+                            // onChange={handleChange}
                           />
                         </Grid>
                         <Grid item lg={10} xs={10}>
@@ -223,6 +227,9 @@ const SingUp = () => {
                             variant="standard"
                             type="tel"
                             onChange={handleChange}
+                            inputProps={{
+                              maxLength: 8,
+                            }}
                           />
                         </Grid>
                       </Grid>
