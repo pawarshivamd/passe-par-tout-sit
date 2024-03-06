@@ -339,11 +339,12 @@ const Home = () => {
                                   </Typography>
                                   <Box className="price-box">
                                     <Typography className="main-price-text">
-                                      {parseInt(product_price)}$
+                                      {/* {parseInt(product_price)}$ */}
+                                      {parseInt(discount_price)}$
                                     </Typography>
                                     <Typography className="sub-rpice">
                                       DISCOUNT :
-                                      <del> {parseInt(discount_price)}$</del>
+                                      <del> {parseInt(product_price)}$</del>
                                     </Typography>
                                   </Box>
                                   <Box

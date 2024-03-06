@@ -21,7 +21,7 @@ const shopSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(productSearch.pending, (state) => {
-      // state.isLoading = true;
+      state.isLoading = true;
     });
     builder.addCase(productSearch.fulfilled, (state, action) => {
       state.isLoading = false;

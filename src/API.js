@@ -6,7 +6,8 @@
 
 import axios from "axios";
 
-const baseURL = "https://ppt.thebizzbuddy.com/public/api";
+// const baseURL = "https://api.pptthebrand.com/public/api";
+const baseURL = process.env.REACT_APP_BASE_URL;
 
 const API = axios.create({
   baseURL: baseURL,
