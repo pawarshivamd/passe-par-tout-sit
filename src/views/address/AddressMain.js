@@ -1,4 +1,14 @@
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import CustomInput from "../../layout/CustomInput";
@@ -20,7 +30,7 @@ const AddressMain = () => {
     district: "",
     locality: "",
     region: "",
-    address_type: "2",
+    addressType: "",
   });
 
   const handleChange = (event) => {
@@ -70,6 +80,9 @@ const AddressMain = () => {
     if (!val.address) {
       errors.address = "Address is required";
     }
+    if(!val.addressType){
+      errors.addressType = "Address type is required";
+    }
 
     return errors;
   };
@@ -89,7 +102,11 @@ const AddressMain = () => {
         });
     }
   };
+  const [addressType, setaddressType] = useState("");
 
+  const handleChangeSelect = (event) => {
+    setaddressType(event.target.value);
+  };
   return (
     <Box sx={{ mb: 5, mt: 20 }}>
       {/* <SearchBox /> */}
@@ -220,17 +237,51 @@ const AddressMain = () => {
               helperText={errors.region}
             />
           </Grid>
-          <Grid item lg={6}>
-            <Button
-              sx={{ ml: 2, marginBottom: "5px" }}
-              // component={Link}
-              // to="/shopping-bag"
-              variant="outlined"
-              className="custom-button"
-              type="submit"
+          <Grid item lg={6} md={6} sm={6} xs={12}>
+            <FormControl
+              variant="standard"
+              sx={{ marginBottom: "4px", minWidth: 120 }}
+              color="primary"
+              fullWidth
             >
-              SAVE & CONTINUE
-            </Button>
+              <InputLabel id="select-label" className="textFieldcustomLable">
+                ADDRESS TYPE
+              </InputLabel>
+              <Select
+                labelId="select-label"
+                id="select-address"
+                value={values.addressType}
+                onChange={handleChangeSelect}
+                // label="Age"
+                color="primary"
+                error={Boolean(errors.addressType)}
+                helperText={errors.addressType}
+                className="customInput"
+                sx={{
+                  "& .MuiSelect-icon": {
+                    color: "#FFF",
+                  },
+                }}
+              >
+                <MenuItem value="home">HOME</MenuItem>
+                <MenuItem value="office">OFFICE</MenuItem>
+                <MenuItem value="other">OTHER</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item lg={12} xs={12}>
+            <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
+              <Button
+                sx={{ mx: "auto", marginBottom: "5px" }}
+                // component={Link}
+                // to="/shopping-bag"
+                variant="outlined"
+                className="custom-button"
+                type="submit"
+              >
+                SAVE & CONTINUE
+              </Button>
+            </Box>
           </Grid>
         </Grid>
       </Container>

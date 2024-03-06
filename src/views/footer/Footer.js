@@ -5,20 +5,20 @@ import { ReactComponent as SmileICon } from "../../assets/img/icon/smile.svg";
 import { ReactComponent as PhoneIcon } from "../../assets/img/icon/phone.svg";
 import { ReactComponent as EmailIcon } from "../../assets/img/icon/email.svg";
 import { ReactComponent as LocationIcon } from "../../assets/img/icon/loction.svg";
+import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <Box className="banner-container">
     <Box sx={{ background: "#000000", padding: "50px 0px" }}>
       <Container>
         <Grid container spaceing={2} justifyContent="space-between">
-          <Grid item lg={6}>
+          <Grid item lg={8}>
             <Box className="footer-icon-box">
               <Box>
                 <img src={logo} alt="logo" />
               </Box>
-              <Typography sx={{ mt: 1 }}>Lorem ipsum dolor !</Typography>
               <Typography sx={{ mt: 1 }}>
-                ©2023 idol All rights reserved
+              Copyrights © 2024 All Rights Reserved | Powered by <Link to="https://creativecartel.me/">Creative Cartel</Link> 
               </Typography>
             </Box>
           </Grid>
