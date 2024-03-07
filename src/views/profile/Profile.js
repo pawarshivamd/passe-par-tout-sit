@@ -18,6 +18,7 @@ import ProfileMain from "./ProfileMain";
 import { fetchOrderProducts } from "../../Redux/Thunks/orderThunk";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../utils/Loader";
+import { fetchCartDetails } from "../../Redux/Thunks/cartThunk";
 
 const Profile = () => {
   const token = localStorage.getItem("auth_token");
@@ -39,6 +40,7 @@ const Profile = () => {
   useEffect(() => {
     if (token) {
       dispatch(fetchOrderProducts());
+      dispatch(fetchCartDetails());
     }
   }, [dispatch]);
 

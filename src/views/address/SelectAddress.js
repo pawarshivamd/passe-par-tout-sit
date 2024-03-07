@@ -123,7 +123,9 @@ const SelectAddress = () => {
                     <Box className="select-address-box">
                       <Typography className="main-title-box">
                         {item?.firstname}
-                        <span className="select-opption-text">Home</span>
+                        <span className="select-opption-text">
+                          {item.address_type}
+                        </span>
                       </Typography>
                       <Typography className="select-address-here">
                         <span>
@@ -133,7 +135,7 @@ const SelectAddress = () => {
                         <span>{item?.address}</span>
                         <br />
                         <span>
-                          {item?.country_code} +{item?.mobile}
+                          {item?.country_code} {item?.mobile}
                         </span>
                         <br />
                       </Typography>
