@@ -186,7 +186,7 @@ input[type="number"] {
   background-image: url(./assets/img/bannerdemo.png);
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  min-height: 662px;
+  min-height: 729px;
   position: relative;
   z-index: 0;
 
@@ -207,7 +207,7 @@ input[type="number"] {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  min-height: 100vh;
+  min-height: 120vh;
   position: relative;
 
   .banner-box {
@@ -225,18 +225,18 @@ input[type="number"] {
   .right-box-section {
     width: min(100% - 0px, 50%);
     position: absolute;
-    top: 50%;
-    left: 40%;
+    top: 46%;
+    left: 46%;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
 
   .left-box-section {
-    width: min(100% - 0px, 50%);
+    width: min(100% - 0px, 18%);
     position: absolute;
-    bottom: 5%;
-    right: 48%;
+    bottom: 17%;
+    right: 62%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -660,7 +660,7 @@ input[type="number"] {
     width: 173px;
   }
   .banner-section {
-    min-height: 400px;
+    min-height: 455px;
   }
   .banner-section .banner-box .logo-banner {
     width: 200px;
@@ -687,9 +687,6 @@ input[type="number"] {
   }
 
   .product-zoom-left-setion {
-    .ss {
-      /* height: auto; */
-    }
 
     .next {
       top: 50px !important;
@@ -836,7 +833,6 @@ input[type="number"] {
     }
 
     .nav-list-group {
-      /* border: 1px solid red; */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -848,7 +844,7 @@ input[type="number"] {
 
 @media (max-width: 1024px) and (min-width: 1024px) {
   .banner-section {
-    min-height: 50vh;
+    min-height: 585px;
   }
   .passe-banner-section {
     min-height: 50vh;
@@ -864,7 +860,7 @@ input[type="number"] {
 }
 @media (max-width: 600px) {
   .banner-section {
-    min-height: 300px;
+    min-height: 214px;
     background-position: center;
     background-size: 100% 100%;
   }

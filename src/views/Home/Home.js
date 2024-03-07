@@ -193,14 +193,9 @@ const Home = () => {
       <section>
         <Box className="banner-container">
           <Box className="passe-banner-section">
-            <Box className="banner-box">
-              Lorem ipsum dolor sit amet consectetur. Ipsum erat velit iaculis
-              elementum lorem. Luctus natoque purus pellentesque proin id
-              Gravida vel vel pharetra tortor.
-            </Box>
-            <Box className="right-box-section">
-              <Typography sx={{ textAlign: "center" }}> lorem is </Typography>
-              <Box sx={{ textAlign: "center" }}>
+            {/* <Box className="right-box-section">
+              <Typography sx={{ textAlign: "center" }}>& even more swag</Typography>
+              <Box sx={{ textAlign: "center" ,padding:" 0 15px"}}>
                 <RightMoveArrow className="arrow-icon" />
               </Box>
             </Box>
@@ -208,8 +203,8 @@ const Home = () => {
               <Box sx={{ textAlign: "center" }}>
                 <LeftMoveArrow className="arrow-icon" />
               </Box>
-              <Typography sx={{ textAlign: "center" }}> lorem is </Typography>
-            </Box>
+              <Typography sx={{ marginTop:"-50px",padding:" 0 15px" }}> For swag</Typography>
+            </Box> */}
           </Box>
         </Box>
       </section>
