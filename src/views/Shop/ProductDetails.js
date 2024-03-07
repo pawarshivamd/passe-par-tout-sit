@@ -119,8 +119,9 @@ const ProductDetails = () => {
       Notification("warning", "Please select a color and size");
     } else {
       const product_id = productId;
-      const product_color = selectedColor;
+      // const product_color = selectedColor;
       const product_size = selectedSize;
+      const product_color = "beige";
 
       dispatch(addToCart({ product_id, product_color, product_size }))
         .then((res) => {
