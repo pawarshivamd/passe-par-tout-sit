@@ -74,6 +74,7 @@ const SelectAddress = () => {
       address_id: address_id,
       cart_id: item.id, // This will be the same for all items, consider if this is the intended logic
       product_size: item.size, // Size of the current item
+      product_color: "beige",
       // If you need to include more item-specific data, you can add them here
     }));
 

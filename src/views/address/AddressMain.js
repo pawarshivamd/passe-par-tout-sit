@@ -3,6 +3,7 @@ import {
   Button,
   Container,
   FormControl,
+  FormHelperText,
   Grid,
   InputLabel,
   MenuItem,
@@ -30,7 +31,7 @@ const AddressMain = () => {
     district: "",
     locality: "",
     region: "",
-    addressType: "",
+    address_type: "",
   });
 
   const handleChange = (event) => {
@@ -80,8 +81,8 @@ const AddressMain = () => {
     if (!val.address) {
       errors.address = "Address is required";
     }
-    if (!val.addressType) {
-      errors.addressType = "Address type is required";
+    if (!val.address_type) {
+      errors.address_type = "Address type is required";
     }
 
     return errors;
@@ -249,13 +250,13 @@ const AddressMain = () => {
               <Select
                 labelId="select-label"
                 id="select-address"
-                name="addressType"
-                value={values.addressType}
+                name="address_type"
+                value={values.address_type}
                 onChange={handleChange}
                 // label="Age"
                 color="primary"
-                error={Boolean(errors.addressType)}
-                helperText={errors.addressType}
+                error={Boolean(errors.address_type)}
+                helperText={errors.address_type}
                 className="customInput"
                 sx={{
                   "& .MuiSelect-icon": {
@@ -267,6 +268,9 @@ const AddressMain = () => {
                 <MenuItem value="office">OFFICE</MenuItem>
                 <MenuItem value="other">OTHER</MenuItem>
               </Select>
+              {errors.address_type && (
+                <FormHelperText>{errors.address_type}</FormHelperText>
+              )}
             </FormControl>
           </Grid>
           <Grid item lg={12} xs={12}>

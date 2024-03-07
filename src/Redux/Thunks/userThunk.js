@@ -15,8 +15,10 @@ export const fetchUserDetails = createAsyncThunk(
         },
         status,
       } = await API.post("/user_login", userData);
+      console.log(status, response, "statussss");
       // console.log(response);
       if (status === 200) {
+        console.log(status, response, "statussss2");
         localStorage.setItem("auth_token", token); // Store token in local storage
         localStorage.setItem("user_data", JSON.stringify(response));
         Notification("success", message);
