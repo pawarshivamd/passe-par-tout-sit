@@ -80,7 +80,7 @@ const AddressMain = () => {
     if (!val.address) {
       errors.address = "Address is required";
     }
-    if(!val.addressType){
+    if (!val.addressType) {
       errors.addressType = "Address type is required";
     }
 
@@ -102,11 +102,7 @@ const AddressMain = () => {
         });
     }
   };
-  const [addressType, setaddressType] = useState("");
 
-  const handleChangeSelect = (event) => {
-    setaddressType(event.target.value);
-  };
   return (
     <Box sx={{ mb: 5, mt: 20 }}>
       {/* <SearchBox /> */}
@@ -194,6 +190,9 @@ const AddressMain = () => {
                   value={values.mobile}
                   error={Boolean(errors.mobile)}
                   helperText={errors.mobile}
+                  inputProps={{
+                    maxLength: 8,
+                  }}
                 />
               </Grid>
             </Grid>
@@ -250,8 +249,9 @@ const AddressMain = () => {
               <Select
                 labelId="select-label"
                 id="select-address"
+                name="addressType"
                 value={values.addressType}
-                onChange={handleChangeSelect}
+                onChange={handleChange}
                 // label="Age"
                 color="primary"
                 error={Boolean(errors.addressType)}

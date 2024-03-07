@@ -9,8 +9,9 @@ export const addAddress = createAsyncThunk(
       console.log(address, "First");
 
       const response = await API.post("/add-address", address);
-
-      console.log(address, "second");
+      const { data } = response;
+      return data;
+      console.log(address, "second", response);
     } catch (error) {
       return rejectWithValue(error.response.data);
     }

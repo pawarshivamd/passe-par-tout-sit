@@ -125,8 +125,13 @@ const ProductDetails = () => {
       dispatch(addToCart({ product_id, product_color, product_size }))
         .then((res) => {
           if (res.error) {
+            console.log(res, "ressss");
             setIsDrawerVisible(false);
-            Notification("error", "Product Already Add in cart.");
+            if (!token) {
+              Notification("error", "Please login to Add items in cart.");
+            } else {
+              Notification("error", res.payload);
+            }
           } else {
             setIsDrawerVisible(true);
             dispatch(fetchCartDetails());
