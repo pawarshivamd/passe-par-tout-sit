@@ -21,6 +21,8 @@ import {
 } from "../../Redux/Thunks/wishListThunk";
 import Loader from "../../utils/Loader";
 import Notification from "../../utils/Notification";
+import banner1 from "../../assets/img/bannerdemo.png"
+import banner2 from "../../assets/img/banner2.png"
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -182,17 +184,13 @@ const Home = () => {
     <Box>
       <Box className="banner-container">
         <Box className="banner-section">
-          <Box className="banner-box">
-            <Box>{/* <Logo className="logo-banner" /> */}</Box>
-            <Box>
-              {/* <Typography sx={{ color: "#EFC80C",ml:2 }}>A' vous, pour tout</Typography> */}
-            </Box>
-          </Box>
+          <img src={banner1} alt="" width={"100%"} />
         </Box>
       </Box>
       <section>
         <Box className="banner-container">
           <Box className="passe-banner-section">
+          <img src={banner2} alt="" width={"100%"} />
             {/* <Box className="right-box-section">
               <Typography sx={{ textAlign: "center" }}>& even more swag</Typography>
               <Box sx={{ textAlign: "center" ,padding:" 0 15px"}}>

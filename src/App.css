@@ -183,10 +183,10 @@ input[type="number"] {
   }
 }
 .banner-section {
-  background-image: url(./assets/img/bannerdemo.png);
+  /* background-image: url(./assets/img/bannerdemo.png); */
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  min-height: 729px;
+  /* min-height: 729px; */
   position: relative;
   z-index: 0;
 
@@ -203,7 +203,7 @@ input[type="number"] {
 }
 
 .passe-banner-section {
-  background-image: url(./assets/img/banner2.png);
+  /* background-image: url(./assets/img/banner2.png); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -659,9 +659,7 @@ input[type="number"] {
   .select-address-head-section .main-text {
     width: 173px;
   }
-  .banner-section {
-    min-height: 455px;
-  }
+
   .banner-section .banner-box .logo-banner {
     width: 200px;
     height: 200px;
@@ -807,7 +805,7 @@ input[type="number"] {
   } */
 
   .passe-banner-section {
-    min-height: 40vh;
+    min-height: auto;
   }
 
   .navbar {
@@ -843,9 +841,7 @@ input[type="number"] {
 }
 
 @media (max-width: 1024px) and (min-width: 1024px) {
-  .banner-section {
-    min-height: 585px;
-  }
+
   .passe-banner-section {
     min-height: 50vh;
   }
@@ -859,22 +855,11 @@ input[type="number"] {
   }
 }
 @media (max-width: 600px) {
-  .banner-section {
-    min-height: 214px;
-    background-position: center;
-    background-size: 100% 100%;
-  }
   .product-zoom-left-setion .ss {
     height: auto;
   }
 }
-/* @media (min-width: 1400px){
-  .banner-container {
-      max-width: 1200px;
-      margin-inline:auto ;
-  }
 
-} */
 @media (min-width: 1400px) {
   .banner-section {
     min-height: 100vh;
