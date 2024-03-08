@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Container,
   Grid,
   TextField,
@@ -63,28 +64,44 @@ const CustomTextarea = styled(TextareaAutosize)`
 `;
 const ContactUs = () => {
   return (
-    <Box sx={{mt:20}}>
+    <Box sx={{ mt: 20 }}>
       <SearchBox />
       <Container>
         <Box className="contact-main-text">Contact Way</Box>
-        <Grid container spacing={2} lg={11} sm={12} md={12} xs={12} sx={{ mt: 4 }}>
-          <Grid item lg={3} md={3}  sm={6}  xs={12}>
+        <Grid
+          container
+          spacing={2}
+          lg={11}
+          sm={12}
+          md={12}
+          xs={12}
+          sx={{ mt: 4 }}
+        >
+          <Grid item lg={3} md={6} sm={6} xs={12}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Box sx={{ mr: 2 }}>
                 <PhoneIcon width={17} />
               </Box>
               <Box>
                 <Typography variant="body2">
-                  Tel:<Link style={{ color: "#EFC80C" }}>877-67-88-99</Link>
+                  Tel:
+                  <Link to="tel:+961 70 154 218" style={{ color: "#EFC80C" }}>
+                    +961 70 154 218
+                  </Link>
                 </Typography>
-                <Typography variant="body2">
+                <Typography variant="body2" sx={{ textWrap: "nowrap" }}>
                   E-Mail:
-                  <Link style={{ color: "#EFC80C" }}>shop@store.com</Link>
+                  <Link
+                    to="mailto:swag@pptthebrand.com"
+                    style={{ color: "#EFC80C" }}
+                  >
+                    swag@pptthebrand.com
+                  </Link>
                 </Typography>
               </Box>
             </Box>
           </Grid>
-          <Grid item lg={3} md={3}  sm={6}  xs={12}>
+          <Grid item lg={3} md={6} sm={6} xs={12}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Box sx={{ mr: 2 }}>
                 <LocationIcon width={17} fill="none " />
@@ -95,7 +112,7 @@ const ContactUs = () => {
               </Box>
             </Box>
           </Grid>
-          <Grid item lg={3} md={3}  sm={6}  xs={12}>
+          <Grid item lg={3} md={6} sm={6} xs={12}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Box sx={{ mr: 2 }}>
                 <ContactSupportIcon width={17} />
@@ -106,7 +123,7 @@ const ContactUs = () => {
               </Box>
             </Box>
           </Grid>
-          <Grid item lg={3} md={3}  sm={6}  xs={12}>
+          <Grid item lg={3} md={6} sm={6} xs={12}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Box sx={{ mr: 2 }}>
                 <TagIcon width={17} />
@@ -173,10 +190,24 @@ const ContactUs = () => {
                 fullWidth
               />
             </Grid>
+            <Grid item lg={10}  xs={12}>
+            <Box sx={{display:"flex",justifyContent:"end"}}>
+
+              <Button
+                component={Link}
+                variant="outlined"
+                className="custom-button"
+                sx={{ padding: "5px 50px" }}
+              >
+                Submit
+              </Button>
+            </Box>
+
+            </Grid>
           </Grid>
         </Box>
       </Container>
-      <ContinueProFooter BtnText="Submit" />
+      {/* <ContinueProFooter BtnText="Submit" /> */}
     </Box>
   );
 };
