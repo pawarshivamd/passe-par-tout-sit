@@ -120,9 +120,9 @@ const ProductDetails = () => {
       Notification("warning", "Please select a color and size");
     } else {
       const product_id = productId;
-      // const product_color = selectedColor;
+      const product_color = selectedColor;
       const product_size = selectedSize;
-      const product_color = "beige";
+      // const product_color = "beige";
 
       dispatch(addToCart({ product_id, product_color, product_size }))
         .then((res) => {
@@ -365,11 +365,11 @@ const ProductDetails = () => {
                 sx={{ display: "flex", alignItems: "center", my: 2, gap: 2 }}
               >
                 <Box
-                  onClick={() => handleStarClick("#000")}
+                  onClick={() => handleStarClick("black")}
                   sx={{
                     cursor: "pointer",
                     "& .star-icon-fill": {
-                      fill: selectedColor === "#000" ? "#000" : "transparent",
+                      fill: selectedColor === "black" ? "#000" : "transparent",
                     },
                     "& .star-icon-fill:hover": { fill: "#000" },
                   }}
@@ -377,12 +377,12 @@ const ProductDetails = () => {
                   <StarIcon width={23} height={23} stroke="#000" />
                 </Box>
                 <Box
-                  onClick={() => handleStarClick("#F5DEB3")}
+                  onClick={() => handleStarClick("beige")}
                   sx={{
                     cursor: "pointer",
                     "& .star-icon-fill": {
                       fill:
-                        selectedColor === "#F5DEB3" ? "#F5DEB3" : "transparent",
+                        selectedColor === "beige" ? "#F5DEB3" : "transparent",
                     },
                     "& .star-icon-fill:hover": { fill: "#F5DEB3" },
                   }}
@@ -390,12 +390,14 @@ const ProductDetails = () => {
                   <StarIcon width={23} height={23} stroke="#F5DEB3" />
                 </Box>
                 <Box
-                  onClick={() => handleStarClick("#808000")}
+                  onClick={() => handleStarClick("Olive Green")}
                   sx={{
                     cursor: "pointer",
                     "& .star-icon-fill": {
                       fill:
-                        selectedColor === "#808000" ? "#808000" : "transparent",
+                        selectedColor === "Olive Green"
+                          ? "#808000"
+                          : "transparent",
                     },
                     "& .star-icon-fill:hover": { fill: "#808000" },
                   }}
@@ -403,12 +405,12 @@ const ProductDetails = () => {
                   <StarIcon width={23} height={23} stroke="#808000" />
                 </Box>
                 <Box
-                  onClick={() => handleStarClick("#808080")}
+                  onClick={() => handleStarClick("Grey")}
                   sx={{
                     cursor: "pointer",
                     "& .star-icon-fill": {
                       fill:
-                        selectedColor === "#808080" ? "#808080" : "transparent",
+                        selectedColor === "Grey" ? "#808080" : "transparent",
                     },
                     "& .star-icon-fill:hover": { fill: "#808080" },
                   }}
@@ -416,12 +418,12 @@ const ProductDetails = () => {
                   <StarIcon width={23} height={23} stroke="#808080" />
                 </Box>
                 <Box
-                  onClick={() => handleStarClick("#D2691E")}
+                  onClick={() => handleStarClick("Brown")}
                   sx={{
                     cursor: "pointer",
                     "& .star-icon-fill": {
                       fill:
-                        selectedColor === "#D2691E" ? "#D2691E" : "transparent",
+                        selectedColor === "Brown" ? "#D2691E" : "transparent",
                     },
                     "& .star-icon-fill:hover": { fill: "#D2691E" },
                   }}
@@ -431,7 +433,7 @@ const ProductDetails = () => {
               </Box>
 
               <Button
-                onClick={() => [handleAddToCart()]}
+                onClick={() => handleAddToCart()}
                 variant="outlined"
                 className="custom-button"
                 sx={{ paddingInline: "35px" }}
