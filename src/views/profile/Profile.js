@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ShopData } from "../Shop/Shop";
 // import { ReactComponent as CloseIcon } from "../../assets/img/icon/closeicon.svg";
 import { Link as RouterLink } from "react-router-dom";
@@ -23,6 +23,7 @@ import { fetchCartDetails } from "../../Redux/Thunks/cartThunk";
 const Profile = () => {
   const token = localStorage.getItem("auth_token");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(1);
 
   const { orders, isLoading } = useSelector((state) => state.order);
@@ -52,9 +53,20 @@ const Profile = () => {
     return <Loader />;
   }
 
+  const handleSearchChangeShoppingBag = (event) => {
+    console.log(1, "Setting AutoFocus");
+    localStorage.setItem("AutoFocus", "true");
+    console.log(2, "AutoFocus set, navigating");
+
+    // Delay navigation slightly
+    setTimeout(() => navigate("/shop"), 50);
+  };
+
   return (
     <Box sx={{ mt: 20 }}>
-      <SearchBox handleSearchChange={handleSearchChange} />
+      <SearchBox
+        handleSearchChangeShoppingBag={handleSearchChangeShoppingBag}
+      />
       <Container>
         <Box>
           <Box

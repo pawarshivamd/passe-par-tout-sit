@@ -50,6 +50,31 @@ const Shop = () => {
     }
   }, [dispatch, token]);
 
+  const [focusSearchBox, setFocusSearchBox] = useState(false);
+
+  // useEffect(() => {
+  //   // Check localStorage for autoFocus and update state
+  //   const autoFocus = localStorage.getItem("AutoFocus") === "true";
+  //   setFocusSearchBox(autoFocus);
+
+  //   // Cleanup function to remove autoFocus from localStorage when leaving the page
+  //   return () => {
+  //     localStorage.removeItem("AutoFocus");
+  //   };
+  // }, []);
+  useEffect(() => {
+    const autoFocus = localStorage.getItem("AutoFocus") === "true";
+    if (autoFocus) {
+      // This assumes that setting focusSearchBox state will somehow lead to the search box being focused.
+      setFocusSearchBox(autoFocus);
+
+      // Clear the flag in localStorage so it doesn't autofocus on subsequent, manual navigations to the Shop page
+      localStorage.removeItem("AutoFocus");
+    }
+
+    // No need for a cleanup function here to remove "AutoFocus" since we're already doing it above
+  }, []);
+
   const handleToggle = (product_id) => {
     if (token) {
       setIsChecked((prevItems) => ({
@@ -90,41 +115,52 @@ const Shop = () => {
   };
 
   useEffect(() => {
-    let timeoutId;
-
-    if (searchValue) {
-      timeoutId = setTimeout(() => {
-        dispatch(productSearch(searchValue)).then((response) => {
-          setSearchedProducts(searchedProduct);
-        });
-      }, 1000);
-    } else {
-      setSearchedProducts(products);
-    }
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [dispatch, products, searchValue]);
+    setSearchedProducts(products);
+  }, [dispatch, products]);
 
   const handleCategorySelect = (event) => {
     const categoryId = event.target.value;
     setSelectedCategory(categoryId);
-    dispatch(
-      fetchShopProducts({ category_id: categoryId, start: 0, count: 10 })
-    );
   };
 
-  useEffect(() => {
-    // const category_id = 1;
-    const start = 0;
-    const count = 10;
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
-    dispatch(
-      fetchShopProducts({ category_id: selectedCategory, start, count })
-    );
-    setCompLoaded(true);
-  }, [dispatch]);
+  useEffect(() => {
+    if (isInitialLoad) {
+      dispatch(
+        fetchShopProducts({
+          category_id: selectedCategory,
+          start: 0,
+          count: 10,
+          search: searchValue,
+        })
+      );
+      setIsInitialLoad(false); // Set flag to false after initial load
+      setCompLoaded(true); // Assuming you need this for some part of your logic
+    }
+  }, []); // Empty dependency array to run only once on mount
+
+  // Debounced effect for subsequent updates
+  useEffect(() => {
+    // Skip debouncing on initial load
+    if (!isInitialLoad) {
+      const debounceDelay = 500; // Delay in milliseconds
+      const timer = setTimeout(() => {
+        dispatch(
+          fetchShopProducts({
+            category_id: selectedCategory,
+            start: 0,
+            count: 10,
+            search: searchValue,
+          })
+        );
+        setCompLoaded(true);
+      }, debounceDelay);
+
+      // Cleanup function to clear the timer
+      return () => clearTimeout(timer);
+    }
+  }, [dispatch, selectedCategory, searchValue, isInitialLoad]);
 
   const handleNavigate = (id) => {
     navigate(`/shop/new/${id}`);
@@ -195,14 +231,18 @@ const Shop = () => {
                     },
                   }}
                 >
-                  <MenuItem value={1}>Men</MenuItem>
-                  <MenuItem value={2}>Women</MenuItem>
+                  <MenuItem value={1}>Male</MenuItem>
+                  <MenuItem value={2}>Female</MenuItem>
                 </Select>
               </FormControl>
             </Box>
           </Grid>
 
-          <SearchBox handleSearchChange={handleSearchChange} />
+          <SearchBox
+            handleSearchChange={handleSearchChange}
+            searchValue={searchValue}
+            focus={focusSearchBox}
+          />
         </Grid>
 
         <Box>
@@ -334,7 +374,7 @@ const Shop = () => {
                 }}
               >
                 <Typography sx={{ textAlign: "center" }}>
-                  Loading....
+                  Data Not Found...
                 </Typography>
               </Box>
             )}

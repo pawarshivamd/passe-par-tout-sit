@@ -4,11 +4,12 @@ import Notification from "../../utils/Notification";
 
 export const fetchShopProducts = createAsyncThunk(
   "fetchHomeProducts",
-  async ({ category_id, start, count }, { rejectWithValue }) => {
+  async ({ category_id, start, count, search }, { rejectWithValue }) => {
     const requestedData = {
       category_id,
       start,
       count,
+      search,
     };
 
     try {

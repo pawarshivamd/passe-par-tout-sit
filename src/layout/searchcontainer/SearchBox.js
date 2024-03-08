@@ -33,11 +33,14 @@ const SearchBox = (props) => {
         </Grid>
         <Grid item lg={3} md={4} sm={4} xs={6}>
           <CustomInput
+            autoFocus={props?.searchValue?.length > 0 || props.focus}
             type="search"
             placeholder="SEARCH"
             color="secondary"
             variant="outlined"
             className="search-filed"
+            onClick={props.handleSearchChangeShoppingBag}
+            value={props.searchValue}
             onChange={handleSearchChange_}
           />
         </Grid>

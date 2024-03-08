@@ -71,7 +71,20 @@ const ShoppingBag = () => {
     setShowConfirmationModal(false);
   };
 
-  const handleSearchChange = (event) => {};
+  // const handleSearchChangeShoppingBag = (event) => {
+  //   navigate("/shop");
+  //   console.log(1, "11111");
+  //   localStorage.setItem("AutoFocus", "true");
+  //   console.log(2, "11111");
+  // };
+  const handleSearchChangeShoppingBag = (event) => {
+    console.log(1, "Setting AutoFocus");
+    localStorage.setItem("AutoFocus", "true");
+    console.log(2, "AutoFocus set, navigating");
+
+    // Delay navigation slightly
+    setTimeout(() => navigate("/shop"), 50);
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -79,7 +92,9 @@ const ShoppingBag = () => {
 
   return (
     <Box sx={{ mt: 20 }}>
-      <SearchBox handleSearchChange={handleSearchChange} />
+      <SearchBox
+        handleSearchChangeShoppingBag={handleSearchChangeShoppingBag}
+      />
       <Container>
         <Box>
           <Box
