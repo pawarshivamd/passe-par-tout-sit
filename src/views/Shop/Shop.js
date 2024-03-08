@@ -52,22 +52,11 @@ const Shop = () => {
 
   const [focusSearchBox, setFocusSearchBox] = useState(false);
 
-  // useEffect(() => {
-  //   // Check localStorage for autoFocus and update state
-  //   const autoFocus = localStorage.getItem("AutoFocus") === "true";
-  //   setFocusSearchBox(autoFocus);
-
-  //   // Cleanup function to remove autoFocus from localStorage when leaving the page
-  //   return () => {
-  //     localStorage.removeItem("AutoFocus");
-  //   };
-  // }, []);
   useEffect(() => {
     const autoFocus = localStorage.getItem("AutoFocus") === "true";
     if (autoFocus) {
       // This assumes that setting focusSearchBox state will somehow lead to the search box being focused.
       setFocusSearchBox(autoFocus);
-
       // Clear the flag in localStorage so it doesn't autofocus on subsequent, manual navigations to the Shop page
       localStorage.removeItem("AutoFocus");
     }
@@ -285,39 +274,6 @@ const Shop = () => {
                               <Link to={`/shop/new/${id}`}>{product_name}</Link>
                             </Typography>
                             <Box className="pro-rating-star"></Box>
-                            {/* <StarIcon /> */}
-                            {/* {isChecked[id] ? (
-                              <Typography className="rating-box set-rating-star ">
-                                <StarIcon
-                                  onClick={() => {
-                                    if (token) {
-                                      handleToggle(id);
-                                    } else {
-                                      Notification(
-                                        "error",
-                                        "Please log in to add to wishlist"
-                                      );
-                                    }
-                                  }}
-                                />
-                              </Typography>
-                            ) : (
-                              <Typography className="rating-box rating-star ">
-                                <StarIcon
-                                  onClick={() => {
-                                    if (token) {
-                                      handleToggle(id);
-                                    } else {
-                                      Notification(
-                                        "error",
-                                        "Please log in to add to wishlist"
-                                      );
-                                    }
-                                  }}
-                                />
-                              </Typography>
-                            )} */}
-
                             {isChecked[id] ? (
                               <Box className="set-pro-rating-star">
                                 <Typography className="rating-box set-rating-star ">

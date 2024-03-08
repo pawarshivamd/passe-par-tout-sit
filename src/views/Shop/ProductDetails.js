@@ -50,7 +50,7 @@ const ProductDetails = () => {
   const [selectedSize, setSelectedSize] = useState(null);
   // const [selectedColor, setSelectedColor] = useState(null);
   const [activeimg, setActiveimg] = useState("");
-  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedColor, setSelectedColor] = useState("");
 
   const {
     main_image_path,
@@ -361,90 +361,77 @@ const ProductDetails = () => {
                 </Typography>
               </Box>
 
-              {/* <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
-                {productColor &&
-                  productColor.length > 0 &&
-                  productColor.map((item, index) => {
-                    const { product_color } = item;
-                    const color = product_color.toLowerCase();
-                    const selectedClass =
-                      selectedColor === color ? `${color}-set-icon` : "";
-                    return (
-                      <Box
-                        key={index}
-                        sx={{ mr: 2 }}
-                        className={` ${color}-sroke-icon  ${selectedClass}`}
-                        onClick={() => handleSelectColor(color)}
-                      >
-                        <StarIcon width={23} height={23} stroke={color} />
-                      </Box>
-                    );
-                  })}
-              </Box> */}
               <Box
                 sx={{ display: "flex", alignItems: "center", my: 2, gap: 2 }}
               >
                 <Box
-                  onClick={() => handleStarClick('#000')}
+                  onClick={() => handleStarClick("#000")}
                   sx={{
-                    cursor: 'pointer',
-                    "& .star-icon-fill": { fill: selectedColor === '#000' ? '#000' : 'transparent' },
+                    cursor: "pointer",
+                    "& .star-icon-fill": {
+                      fill: selectedColor === "#000" ? "#000" : "transparent",
+                    },
                     "& .star-icon-fill:hover": { fill: "#000" },
                   }}
                 >
                   <StarIcon width={23} height={23} stroke="#000" />
                 </Box>
                 <Box
-                onClick={() => handleStarClick('#F5F5DC')}
+                  onClick={() => handleStarClick("#F5DEB3")}
                   sx={{
-                    cursor: 'pointer',
-                    "& .star-icon-fill": { fill: selectedColor === '#F5F5DC' ? '#F5F5DC' : 'transparent' },
-                    "& .star-icon-fill:hover": { fill: "#F5F5DC" },
+                    cursor: "pointer",
+                    "& .star-icon-fill": {
+                      fill:
+                        selectedColor === "#F5DEB3" ? "#F5DEB3" : "transparent",
+                    },
+                    "& .star-icon-fill:hover": { fill: "#F5DEB3" },
                   }}
                 >
-                  <StarIcon width={23} height={23} stroke="#F5F5DC" />
+                  <StarIcon width={23} height={23} stroke="#F5DEB3" />
                 </Box>
                 <Box
-                onClick={() => handleStarClick('#808000')}
+                  onClick={() => handleStarClick("#808000")}
                   sx={{
-                    cursor: 'pointer',
-                    "& .star-icon-fill": { fill: selectedColor === '#808000' ? '#808000' : 'transparent' },
+                    cursor: "pointer",
+                    "& .star-icon-fill": {
+                      fill:
+                        selectedColor === "#808000" ? "#808000" : "transparent",
+                    },
                     "& .star-icon-fill:hover": { fill: "#808000" },
                   }}
                 >
                   <StarIcon width={23} height={23} stroke="#808000" />
                 </Box>
                 <Box
-                onClick={() => handleStarClick('#808080')}
+                  onClick={() => handleStarClick("#808080")}
                   sx={{
-                    cursor: 'pointer',
-                    "& .star-icon-fill": { fill: selectedColor === '#808080' ? '#808080' : 'transparent' },
+                    cursor: "pointer",
+                    "& .star-icon-fill": {
+                      fill:
+                        selectedColor === "#808080" ? "#808080" : "transparent",
+                    },
                     "& .star-icon-fill:hover": { fill: "#808080" },
                   }}
                 >
                   <StarIcon width={23} height={23} stroke="#808080" />
                 </Box>
                 <Box
-                  onClick={() => handleStarClick('#A52A2A')}
+                  onClick={() => handleStarClick("#D2691E")}
                   sx={{
-                    cursor: 'pointer',
-                    "& .star-icon-fill": { fill: selectedColor === '#A52A2A' ? '#A52A2A' : 'transparent' },
-                    "& .star-icon-fill:hover": { fill: "#A52A2A" },
+                    cursor: "pointer",
+                    "& .star-icon-fill": {
+                      fill:
+                        selectedColor === "#D2691E" ? "#D2691E" : "transparent",
+                    },
+                    "& .star-icon-fill:hover": { fill: "#D2691E" },
                   }}
                 >
-                  <StarIcon width={23} height={23} stroke="#A52A2A" />
+                  <StarIcon width={23} height={23} stroke="#D2691E" />
                 </Box>
               </Box>
 
               <Button
-                onClick={() => [
-                  handleAddToCart(),
-                  // addToCart({
-                  //   productId: product?.id,
-                  //   productSize: selectedSize,
-                  //   productColor: selectedColor,
-                  // }),
-                ]}
+                onClick={() => [handleAddToCart()]}
                 variant="outlined"
                 className="custom-button"
                 sx={{ paddingInline: "35px" }}
