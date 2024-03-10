@@ -481,7 +481,7 @@ const ProductDetails = () => {
           </Grid>
         </Grid>
       </Container>
-      <section style={{ margin: "50px 0" }}>
+      {/* <section style={{ margin: "50px 0" }}>
         <Container>
           <Grid container spacing={5}>
             {relatedProducts.map((cureEle, index) => {
@@ -595,7 +595,7 @@ const ProductDetails = () => {
             })}
           </Grid>
         </Container>
-      </section>
+      </section> */}
       <section>
         <Footer />
       </section>
