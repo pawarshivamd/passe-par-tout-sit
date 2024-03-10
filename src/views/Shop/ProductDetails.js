@@ -63,7 +63,14 @@ const ProductDetails = () => {
     error,
   } = useSelector((state) => state.product);
 
-  const { other_images, main_image } = product ?? {};
+  const {
+    other_images,
+    main_image,
+    beige_image,
+    olive_green_image,
+    grey_image,
+    brown_image,
+  } = product ?? {};
   const imagesArray = parseOtherImages(other_images);
 
   console.log(imagesArray, "other_images");
@@ -287,16 +294,30 @@ const ProductDetails = () => {
                     }}
                     modules={[Navigation]}
                   >
-                    {/* <SwiperSlide onClick={() => setActiveimg(main_image)}>
+                    <SwiperSlide onClick={() => setActiveimg(main_image)}>
                       <img src={main_image} alt={main_image} />
-                    </SwiperSlide> */}
+                    </SwiperSlide>
+                    <SwiperSlide onClick={() => setActiveimg(beige_image)}>
+                      <img src={beige_image} alt={beige_image} />
+                    </SwiperSlide>
+                    <SwiperSlide
+                      onClick={() => setActiveimg(olive_green_image)}
+                    >
+                      <img src={olive_green_image} alt={olive_green_image} />
+                    </SwiperSlide>
+                    <SwiperSlide onClick={() => setActiveimg(grey_image)}>
+                      <img src={grey_image} alt={grey_image} />
+                    </SwiperSlide>
+                    <SwiperSlide onClick={() => setActiveimg(brown_image)}>
+                      <img src={brown_image} alt={brown_image} />
+                    </SwiperSlide>
 
                     {/* {other_images?.map((slide, i) => (
                       <SwiperSlide key={i} onClick={() => setActiveimg(slide)}>
                         <img src={slide} alt={slide} />
                       </SwiperSlide>
                     ))} */}
-                    {Array.isArray(imagesArray) &&
+                    {/* {Array.isArray(imagesArray) &&
                       imagesArray.map((slide, i) => (
                         <SwiperSlide
                           key={i}
@@ -304,7 +325,7 @@ const ProductDetails = () => {
                         >
                           <img src={slide.url} alt={slide.url} />
                         </SwiperSlide>
-                      ))}
+                      ))} */}
                   </Swiper>
                 </Grid>
               </Grid>
@@ -365,7 +386,10 @@ const ProductDetails = () => {
                 sx={{ display: "flex", alignItems: "center", my: 2, gap: 2 }}
               >
                 <Box
-                  onClick={() => handleStarClick("black")}
+                  onClick={() => {
+                    handleStarClick("black");
+                    setActiveimg(main_image);
+                  }}
                   sx={{
                     cursor: "pointer",
                     "& .star-icon-fill": {
@@ -377,7 +401,10 @@ const ProductDetails = () => {
                   <StarIcon width={23} height={23} stroke="#000" />
                 </Box>
                 <Box
-                  onClick={() => handleStarClick("beige")}
+                  onClick={() => {
+                    handleStarClick("beige");
+                    setActiveimg(beige_image);
+                  }}
                   sx={{
                     cursor: "pointer",
                     "& .star-icon-fill": {
@@ -390,12 +417,15 @@ const ProductDetails = () => {
                   <StarIcon width={23} height={23} stroke="#F5DEB3" />
                 </Box>
                 <Box
-                  onClick={() => handleStarClick("Olive Green")}
+                  onClick={() => {
+                    handleStarClick("olive_green");
+                    setActiveimg(olive_green_image);
+                  }}
                   sx={{
                     cursor: "pointer",
                     "& .star-icon-fill": {
                       fill:
-                        selectedColor === "Olive Green"
+                        selectedColor === "olive_green"
                           ? "#808000"
                           : "transparent",
                     },
@@ -405,12 +435,15 @@ const ProductDetails = () => {
                   <StarIcon width={23} height={23} stroke="#808000" />
                 </Box>
                 <Box
-                  onClick={() => handleStarClick("Grey")}
+                  onClick={() => {
+                    handleStarClick("grey");
+                    setActiveimg(grey_image);
+                  }}
                   sx={{
                     cursor: "pointer",
                     "& .star-icon-fill": {
                       fill:
-                        selectedColor === "Grey" ? "#808080" : "transparent",
+                        selectedColor === "grey" ? "#808080" : "transparent",
                     },
                     "& .star-icon-fill:hover": { fill: "#808080" },
                   }}
@@ -418,12 +451,15 @@ const ProductDetails = () => {
                   <StarIcon width={23} height={23} stroke="#808080" />
                 </Box>
                 <Box
-                  onClick={() => handleStarClick("Brown")}
+                  onClick={() => {
+                    handleStarClick("brown");
+                    setActiveimg(brown_image);
+                  }}
                   sx={{
                     cursor: "pointer",
                     "& .star-icon-fill": {
                       fill:
-                        selectedColor === "Brown" ? "#D2691E" : "transparent",
+                        selectedColor === "brown" ? "#D2691E" : "transparent",
                     },
                     "& .star-icon-fill:hover": { fill: "#D2691E" },
                   }}
