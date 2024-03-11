@@ -12,6 +12,7 @@ const ContinueProFooter = (props) => {
     isLoading,
     isError,
   } = useSelector((state) => state.cart) || {};
+  console.log(delivery_charge, item_total, payable_amount, "datatest");
 
   return (
     <Box className="banner-container">

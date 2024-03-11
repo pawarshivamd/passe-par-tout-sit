@@ -50,6 +50,7 @@ function App() {
               <Route path="/shop/new/:productId" element={<ProductDetails />} />
               <Route path="/shopping-bag" element={<ShoppingBag />} />
               <Route path="/address" element={<AddressMain />} />
+              <Route path="/address/:id" element={<AddressMain />} />
               <Route path="/select-address" element={<SelectAddress />} />
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/profile" element={<Profile />} />

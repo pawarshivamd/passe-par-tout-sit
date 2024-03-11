@@ -26,7 +26,7 @@ const AddressMain = () => {
     firstname: "",
     lastname: "",
     address: "",
-    country_code: "",
+    country_code: "+961",
     mobile: "",
     district: "",
     locality: "",
@@ -171,9 +171,9 @@ const AddressMain = () => {
                   color="primary"
                   variant="standard"
                   label="PREFIX"
-                  type="number"
+                  type="text"
                   name="country_code"
-                  onChange={handleChange}
+                  // onChange={handleChange}
                   value={values.country_code}
                   error={Boolean(errors.country_code)}
                   helperText={errors.country_code}
@@ -184,10 +184,22 @@ const AddressMain = () => {
                   placeholder="00 000 000"
                   color="primary"
                   variant="standard"
-                  type="number"
+                  // type="text"
+                  type="tel"
                   label="TELEPHONE"
                   name="mobile"
-                  onChange={handleChange}
+                  // onChange={handleChange}
+                  onChange={(e) => {
+                    // Remove non-numeric characters
+                    const sanitizedValue = e.target.value.replace(/\D/g, "");
+                    // Update the state with the sanitized value
+                    handleChange({
+                      target: {
+                        name: "mobile",
+                        value: sanitizedValue,
+                      },
+                    });
+                  }}
                   value={values.mobile}
                   error={Boolean(errors.mobile)}
                   helperText={errors.mobile}

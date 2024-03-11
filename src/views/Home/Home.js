@@ -21,8 +21,8 @@ import {
 } from "../../Redux/Thunks/wishListThunk";
 import Loader from "../../utils/Loader";
 import Notification from "../../utils/Notification";
-import banner1 from "../../assets/img/bannerdemo.png"
-import banner2 from "../../assets/img/banner2.png"
+import banner1 from "../../assets/img/bannerdemo.png";
+import banner2 from "../../assets/img/banner2.png";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -147,6 +147,7 @@ const Home = () => {
                   width={"100%"}
                   alt={item?.product.main_image}
                   style={{ objectFit: "contain" }}
+                  // onClick={()=> navigate(/shop/new/`${item?.product.id}`)}
                 />
               </Box>
             </Grid>
@@ -190,7 +191,7 @@ const Home = () => {
       <section>
         <Box className="banner-container">
           <Box className="passe-banner-section">
-          <img src={banner2} alt="" width={"100%"} />
+            <img src={banner2} alt="" width={"100%"} />
             {/* <Box className="right-box-section">
               <Typography sx={{ textAlign: "center" }}>& even more swag</Typography>
               <Box sx={{ textAlign: "center" ,padding:" 0 15px"}}>
@@ -234,7 +235,7 @@ const Home = () => {
                           <Grid container spacing={2}>
                             <Grid item lg={6} md={5} sm={5} xs={5}>
                               <Link
-                                to={"/shop"}
+                                to={`/shop/new/${id}`}
                                 // onClick={() => {
                                 //   if (!token) {
                                 //     Notification(
@@ -244,6 +245,9 @@ const Home = () => {
                                 //   }
                                 // }}
                               >
+                                {/* <Link to={`/shop/new/${item.product.id}`}>
+                                  {item?.product?.product_name}
+                                </Link> */}
                                 <Box className="img-box">
                                   <img src={main_image} alt={product_name} />
                                 </Box>

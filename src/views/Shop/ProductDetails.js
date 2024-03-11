@@ -124,7 +124,9 @@ const ProductDetails = () => {
 
   const handleAddToCart = () => {
     if (!selectedSize) {
-      Notification("warning", "Please select a color and size");
+      Notification("warning", "Please select  size");
+    } else if (!selectedColor) {
+      Notification("warning", "Please select  color");
     } else {
       const product_id = productId;
       const product_color = selectedColor;
@@ -193,7 +195,7 @@ const ProductDetails = () => {
               </Typography>
               <Typography>
                 {/* {item?.product?.product_name}/{item?.product?.product_price} */}
-                {item?.product?.product_price}
+                {item?.product?.discount_price}
               </Typography>
               <Box sx={{ mt: 3 }}>
                 <Button
@@ -341,7 +343,7 @@ const ProductDetails = () => {
                 {product && product?.product_name}
               </Typography>
               <Typography sx={{ fontSize: "14px" }}>
-                {product && parseInt(product?.product_price) + "$"}
+                {product && parseInt(product?.discount_price) + "$"}
               </Typography>
               {/* <Typography sx={{ mt: 2 }}>
                 {product && product?.description}

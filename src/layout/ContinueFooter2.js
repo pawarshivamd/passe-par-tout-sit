@@ -13,6 +13,8 @@ const ContinueProFooter2 = (props) => {
     isError,
   } = useSelector((state) => state.cart) || {};
 
+  console.log(delivery_charge, item_total, payable_amount, "datatest");
+
   return (
     <Box className="banner-container">
       <section style={{ position: "relative", bottom: "0px" }}>

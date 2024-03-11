@@ -84,8 +84,18 @@ const SelectAddress = () => {
 
     if (address_id) {
       console.log("Order placement called");
-      dispatch(placeOrder(orderData)); // Ensure your placeOrder action can handle an array of orders
-      navigate("/profile");
+      // dispatch(placeOrder(orderData)); // Ensure your placeOrder action can handle an array of orders
+      // navigate("/profile");
+      dispatch(placeOrder(orderData))
+        .then(() => {
+          localStorage.removeItem("address_id");
+          navigate("/profile");
+        })
+        .catch((error) => {
+          // Handle error if dispatching the action fails
+          console.error("Failed to place order:", error);
+          // You might want to show an error notification here
+        });
     } else {
       Notification("info", "Please select an address");
     }
@@ -118,7 +128,7 @@ const SelectAddress = () => {
 
             {addresses && addresses.length > 0 ? (
               addresses.map((item) => {
-                console.log(item);
+                console.log(item, "itemdatattest");
                 return (
                   <Grid item lg={12}>
                     <Box className="select-address-box">
@@ -140,9 +150,9 @@ const SelectAddress = () => {
                         </span>
                         <br />
                       </Typography>
-                      {/* <Box sx={{ padding: "10px" }}>
-                        <Link>Edit</Link>
-                      </Box> */}
+                      <Box sx={{ padding: "10px" }}>
+                        <Link to={`/address/${item.id}`}>Edit</Link>
+                      </Box>
                       <Box sx={{ padding: "10px" }}>
                         <Button
                           variant="outlined"

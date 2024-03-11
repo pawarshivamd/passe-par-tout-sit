@@ -141,13 +141,15 @@ const ShoppingBag = () => {
                           sx={{ borderRadius: "0px", boxShadow: "none" }}
                         >
                           <Box className="product-img">
-                            <CardMedia
-                              component="img"
-                              height="100%"
-                              image={item?.product.main_image}
-                              alt={item?.product.main_image}
-                              sx={{ objectFit: "cover" }}
-                            />
+                            <Link to={`/shop/new/${item.product.id}`}>
+                              <CardMedia
+                                component="img"
+                                height="100%"
+                                image={item?.product.main_image}
+                                alt={item?.product.main_image}
+                                sx={{ objectFit: "cover" }}
+                              />
+                            </Link>
                           </Box>
                           <CardContent
                             sx={{
@@ -181,7 +183,7 @@ const ShoppingBag = () => {
                               />
                             </Box>
                             <Typography variant="body2">
-                              {item?.product?.product_price}
+                              {item?.product?.discount_price}
                             </Typography>
                           </CardContent>
                         </Card>

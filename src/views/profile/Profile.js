@@ -141,7 +141,7 @@ const Profile = () => {
                                   </Typography>
                                 </Box>
                                 <Typography variant="body2">
-                                  {item.product_price}
+                                  {item.discount_price}
                                 </Typography>
                               </CardContent>
                             </Card>

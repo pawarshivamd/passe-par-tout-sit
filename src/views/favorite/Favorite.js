@@ -76,20 +76,22 @@ const Favorite = () => {
         <Grid container spacing={2}>
           {wishlist && wishlist.length > 0 ? (
             wishlist.map((cureEle, index) => {
-              const { main_image, ImgAlt, product_name, product_price } =
+              const { id, main_image, ImgAlt, product_name, product_price } =
                 cureEle.product;
               console.log(cureEle, "cureEle");
               return (
                 <Grid item lg={4} md={4} sm={6} xs={12} key={index}>
                   <Card className="product-card-">
                     <Box className="product-img">
-                      <CardMedia
-                        component="img"
-                        height="100%"
-                        image={main_image}
-                        alt={ImgAlt}
-                        sx={{ objectFit: "contain" }}
-                      />
+                      <Link to={`/shop/new/${id}`}>
+                        <CardMedia
+                          component="img"
+                          height="100%"
+                          image={main_image}
+                          alt={ImgAlt}
+                          sx={{ objectFit: "contain" }}
+                        />
+                      </Link>
                     </Box>
                     <CardContent
                       sx={{

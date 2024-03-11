@@ -31,6 +31,7 @@ const cartSlice = createSlice({
       state.isError = null;
     });
     builder.addCase(fetchCartDetails.fulfilled, (state, action) => {
+      console.log(action.payload, "datatest");
       state.isLoading = false;
       state.cartData = action.payload;
     });

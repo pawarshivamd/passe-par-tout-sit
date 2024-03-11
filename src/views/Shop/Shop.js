@@ -238,9 +238,15 @@ const Shop = () => {
           <Grid container spacing={2}>
             {searchedProducts && searchedProducts.length > 0 ? (
               searchedProducts?.map((cureEle, index) => {
-                const { id, main_image, ImgAlt, product_name, product_price } =
-                  cureEle;
-                console.log(id, "main_image");
+                const {
+                  id,
+                  main_image,
+                  ImgAlt,
+                  product_name,
+                  product_price,
+                  discount_price,
+                } = cureEle;
+                console.log(cureEle, "main_image");
                 return (
                   <Grid item lg={4} md={4} sm={6} xs={12} key={id}>
                     <Box>
@@ -311,7 +317,7 @@ const Shop = () => {
                             )}
                           </Box>
                           <Typography variant="body2">
-                            {parseInt(product_price)}$
+                            {parseInt(discount_price)}$
                           </Typography>
                         </CardContent>
                       </Card>
