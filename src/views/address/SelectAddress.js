@@ -60,6 +60,7 @@ const SelectAddress = () => {
   //     Notification("info", "Please select an address");
   //   }
   // };
+  console.log(cartData, "cartDatadata test");
   const handleContinueClick = () => {
     // Assuming user_data and address_id are already available as shown in your example
     const user_id = user_data.id;
@@ -74,7 +75,7 @@ const SelectAddress = () => {
       address_id: address_id,
       cart_id: item.id, // This will be the same for all items, consider if this is the intended logic
       product_size: item.size, // Size of the current item
-      product_color: "beige",
+      product_color: item.color,
       // If you need to include more item-specific data, you can add them here
     }));
 

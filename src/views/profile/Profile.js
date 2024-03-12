@@ -107,6 +107,7 @@ const Profile = () => {
                             xs={12}
                             key={itemIndex}
                           >
+                            {console.log(item, "order")}
                             <Card className="product-card-">
                               <Box className="product-img">
                                 <CardMedia
