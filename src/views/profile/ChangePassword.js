@@ -141,7 +141,7 @@ const ChangePassword = ({ SaveButton }) => {
           <Grid item lg={12} xs={12}>
             <FormControl variant="standard" fullWidth>
               <InputLabel htmlFor="password" className="textFieldcustomLable">
-                Password
+                NEW PASSWORD
               </InputLabel>
               <Input
                 id="password"

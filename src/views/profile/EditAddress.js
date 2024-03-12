@@ -29,7 +29,7 @@ const EditAddress = ({ saveButton }) => {
     country_code: "+961",
     mobile: "",
     district: "",
-    locality: "",
+    // locality: "",
     region: "",
     address_type: "",
   });
@@ -72,9 +72,9 @@ const EditAddress = ({ saveButton }) => {
       errors.district = "District is required";
     }
 
-    if (!val.locality) {
-      errors.locality = "Locality is required";
-    }
+    // if (!val.locality) {
+    //   errors.locality = "Locality is required";
+    // }
 
     if (!val.region) {
       errors.region = "Region is required";
@@ -316,7 +316,7 @@ const EditAddress = ({ saveButton }) => {
             helperText={errors.district}
           />
         </Grid>
-        <Grid item lg={6} md={6} sm={6} xs={12}>
+        {/* <Grid item lg={6} md={6} sm={6} xs={12}>
           <CustomInput
             id="LOCALITY"
             name="locality"
@@ -327,8 +327,8 @@ const EditAddress = ({ saveButton }) => {
             value={values.locality}
             error={Boolean(errors.locality)}
             helperText={errors.locality}
-          />
-        </Grid>
+          /> 
+        </Grid>*/}
         <Grid item lg={6} md={6} sm={6} xs={12}>
           <CustomInput
             id="REGION"

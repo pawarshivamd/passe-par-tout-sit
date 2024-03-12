@@ -38,7 +38,7 @@ const Shop = () => {
   const [compLoaded, setCompLoaded] = useState(false);
   const [searchValue, setSeachVal] = useState("");
   const [searchedProducts, setSearchedProducts] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState(0);
   const [isChecked, setIsChecked] = useState(false);
   const { wishList } = useSelector((state) => state.wishList);
   const token = localStorage.getItem("auth_token");
@@ -120,7 +120,7 @@ const Shop = () => {
         fetchShopProducts({
           category_id: selectedCategory,
           start: 0,
-          count: 10,
+          count: 100,
           search: searchValue,
         })
       );
@@ -139,7 +139,7 @@ const Shop = () => {
           fetchShopProducts({
             category_id: selectedCategory,
             start: 0,
-            count: 10,
+            count: 100,
             search: searchValue,
           })
         );
@@ -220,8 +220,10 @@ const Shop = () => {
                     },
                   }}
                 >
+                  <MenuItem value={0}>All</MenuItem>
                   <MenuItem value={1}>Male</MenuItem>
                   <MenuItem value={2}>Female</MenuItem>
+                  <MenuItem value={3}>Unisex</MenuItem>
                 </Select>
               </FormControl>
             </Box>

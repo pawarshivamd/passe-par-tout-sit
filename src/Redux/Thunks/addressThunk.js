@@ -30,3 +30,29 @@ export const fetchAddresss = createAsyncThunk(
     }
   }
 );
+
+export const fetchAddressByID = createAsyncThunk(
+  "fetchAddressByID",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await API.get(`/address-detail/${id}`);
+      return response.data.response;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const editAddress = createAsyncThunk(
+  "editAddress",
+  async (address, { rejectWithValue }) => {
+    try {
+      const response = await API.post(`/edit-address/${address.id}`, address);
+      const { data } = response;
+      console.log(data, "datatesttttt");
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);

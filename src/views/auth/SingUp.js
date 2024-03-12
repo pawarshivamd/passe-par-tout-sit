@@ -226,7 +226,21 @@ const SingUp = () => {
                             helperText={errors.mobile}
                             variant="standard"
                             type="tel"
-                            onChange={handleChange}
+                            // onChange={handleChange}
+                            onChange={(e) => {
+                              // Remove non-numeric characters
+                              const sanitizedValue = e.target.value.replace(
+                                /\D/g,
+                                ""
+                              );
+                              // Update the state with the sanitized value
+                              handleChange({
+                                target: {
+                                  name: "mobile",
+                                  value: sanitizedValue,
+                                },
+                              });
+                            }}
                             inputProps={{
                               maxLength: 8,
                             }}

@@ -10,18 +10,22 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import CustomInput from "../../layout/CustomInput";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Notification from "../../utils/Notification";
-import { useDispatch } from "react-redux";
-import { addAddress } from "../../Redux/Thunks/addressThunk";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addAddress,
+  editAddress,
+  fetchAddressByID,
+} from "../../Redux/Thunks/addressThunk";
 
 const AddressMain = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  let { id } = useParams();
   const [values, setValues] = useState({
     firstname: "",
     lastname: "",
@@ -29,10 +33,25 @@ const AddressMain = () => {
     country_code: "+961",
     mobile: "",
     district: "",
-    locality: "",
+    // locality: "",
     region: "",
     address_type: "",
   });
+  const addressByID = useSelector((state) => state.address.addressByID);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchAddressByID(id));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (addressByID) {
+      setValues(addressByID);
+    }
+  }, [addressByID]);
+
+  console.log(addressByID, "idtest");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -70,9 +89,9 @@ const AddressMain = () => {
       errors.district = "District is required";
     }
 
-    if (!val.locality) {
-      errors.locality = "Locality is required";
-    }
+    // if (!val.locality) {
+    //   errors.locality = "Locality is required";
+    // }
 
     if (!val.region) {
       errors.region = "Region is required";
@@ -93,14 +112,25 @@ const AddressMain = () => {
     const validationErros = validate(values);
     setErrors(validationErros);
     if (Object.keys(validationErros).length === 0) {
-      dispatch(addAddress(values))
-        .then((res) => {
-          console.log(res);
-          navigate("/select-address");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (!values.id) {
+        dispatch(addAddress(values))
+          .then((res) => {
+            console.log(res);
+            navigate("/select-address");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        dispatch(editAddress(values))
+          .then((res) => {
+            console.log(res);
+            navigate("/select-address");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
   };
 
@@ -223,7 +253,7 @@ const AddressMain = () => {
               helperText={errors.district}
             />
           </Grid>
-          <Grid item lg={6} md={6} sm={6} xs={12}>
+          {/* <Grid item lg={6} md={6} sm={6} xs={12}>
             <CustomInput
               id="LOCALITY"
               name="locality"
@@ -235,7 +265,7 @@ const AddressMain = () => {
               error={Boolean(errors.locality)}
               helperText={errors.locality}
             />
-          </Grid>
+          </Grid> */}
           <Grid item lg={6} md={6} sm={6} xs={12}>
             <CustomInput
               id="REGION"
