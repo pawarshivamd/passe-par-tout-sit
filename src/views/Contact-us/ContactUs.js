@@ -107,8 +107,8 @@ const ContactUs = () => {
                 <LocationIcon width={17} fill="none " />
               </Box>
               <Box>
-                <Typography variant="body2">20 Margaret st, London</Typography>
-                <Typography variant="body2">Great britain, 3NM98-LK</Typography>
+                <Typography variant="body2">Beirut, Lebanon</Typography>
+                {/* <Typography variant="body2">Great britain, 3NM98-LK</Typography> */}
               </Box>
             </Box>
           </Grid>

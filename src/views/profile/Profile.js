@@ -136,8 +136,11 @@ const Profile = () => {
                                     variant="subtitle1"
                                     component="div"
                                   >
-                                    <Link to={`/shop/new/${item.product_id}`}>
-                                      {item.product_name}
+                                    <Link
+                                    //  to={`/shop/new/${item.product_id}`}
+                                    to="/purchase-details"
+                                     >
+                                      {item.product_name} + 3 more items
                                     </Link>
                                   </Typography>
                                 </Box>

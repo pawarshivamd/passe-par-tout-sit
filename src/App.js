@@ -17,6 +17,7 @@ import ContactUs from "./views/Contact-us/ContactUs";
 import Profile from "./views/profile/Profile";
 import { store } from "./Redux/Store/Store";
 import { NotificationContainer } from "react-notifications";
+import PurchaseDetails from "./views/PurchaseDetails/PurchaseDetails";
 
 // import Product from './layout/productModel/Product';
 
@@ -54,6 +55,7 @@ function App() {
               <Route path="/select-address" element={<SelectAddress />} />
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/purchase-details" element={<PurchaseDetails />} />
             </Routes>
           </Suspense>
         </BrowserRouter>
