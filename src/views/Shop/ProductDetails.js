@@ -413,14 +413,12 @@ const ProductDetails = () => {
                     </Typography>
                   </Box>
                 ) : (
+                  <Box className="pro-rating-star">
                   <Box className="set-pro-rating-star">
-                    <Typography sx={{
-                    cursor: "pointer",
-                    "& .star-icon-fill": {
-                      fill: selectedColor === "#efc80c" ? "#efc80c" : "transparent",
-                    },
-                    "& .star-icon-fill:hover": { fill: "#efc80c" },
-                  }}>
+                    <Typography 
+                    className="rating-box rating-star "
+                    
+                    >
                       <StarIcon
                        stroke="#efc80c"
                         onClick={() => {
@@ -435,6 +433,7 @@ const ProductDetails = () => {
                         }}
                       />
                     </Typography>
+                  </Box>
                   </Box>
                 )}
               </Box>
