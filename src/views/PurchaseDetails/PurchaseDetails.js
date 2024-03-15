@@ -21,30 +21,7 @@ import { useTheme } from "@emotion/react";
 import { theme } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { trackOrder } from "../../Redux/Thunks/orderThunk";
-const steps = [
-  "Order Placed",
-  "Order Confirmed",
-  "Out For Delivery",
-  "Order Delivered",
-];
-const stepDetails = [
-  {
-    date: "16th June 2022",
-    time: "10:54pm",
-  },
-  {
-    date: "16th June 2022",
-    time: "10:54pm",
-  },
-  {
-    date: "16th June 2022",
-    time: "10:54pm",
-  },
-  {
-    date: "16th June 2022",
-    time: "10:54pm",
-  },
-];
+
 // const cardData = [
 //   {
 //     id:"0",
@@ -56,15 +33,58 @@ const PurchaseDetails = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = useDispatch();
+  const orderDetails = useSelector((state) => state.order.trackorders);
+  const { order_delivery_trackings } = orderDetails;
+  console.log(orderDetails, "orderDetails.length", id);
+  // const steps = [
+  //   "Order Placed",
+  //   "Order Confirmed",
+  //   "Out For Delivery",
+  //   "Order Delivered",
+  // ];
+  const allPossibleSteps = [
+    "Order Placed",
+    "Order Confirmed",
+    "Out For Delivery",
+    "Order Delivered",
+  ];
+
+  // const stepDetails = [
+  //   {
+  //     date: "16th June 2022",
+  //     time: "10:54pm",
+  //   },
+  //   {
+  //     date: "16th June 2022",
+  //     time: "10:54pm",
+  //   },
+  //   {
+  //     date: "16th June 2022",
+  //     time: "10:54pm",
+  //   },
+  //   {
+  //     date: "16th June 2022",
+  //     time: "10:54pm",
+  //   },
+  // ];
+  const steps = order_delivery_trackings?.map((tracking) => tracking.status);
+  const stepDetails = order_delivery_trackings?.map((tracking) => ({
+    date: new Date(tracking.created_at).toLocaleDateString(), // Convert to your preferred date format
+    time: new Date(tracking.created_at).toLocaleTimeString(), // Convert to your preferred time format
+  }));
+  const currentStepIndex = allPossibleSteps.findIndex(
+    (step) => step === order_delivery_trackings?.slice(-1)[0]?.status
+  );
+  const trackingStatuses = order_delivery_trackings?.map(
+    (tracking) => tracking?.status
+  );
 
   useEffect(() => {
-    if (id) {
-      dispatch(trackOrder(id));
-    }
-  }, []);
+    // if (id) {
+    dispatch(trackOrder(id));
+    // }
+  }, [dispatch]);
 
-  const orderDetails = useSelector((state) => state.order.trackorders);
-  console.log(orderDetails, "orderDetails.length", id);
   return (
     <Box sx={{ mt: 20 }}>
       <SearchBox />
@@ -81,13 +101,13 @@ const PurchaseDetails = () => {
             >
               Order Tracking
             </Typography>
-            <Box sx={{ width: "100%" }}>
+            {/* <Box sx={{ width: "100%" }}>
               <Stepper
                 activeStep={2}
                 alternativeLabel={isSmallScreen ? false : true}
                 orientation={isSmallScreen ? "vertical" : "horizontal"}
               >
-                {steps.map((label, index) => (
+                {steps?.map((label, index) => (
                   <Step
                     key={label}
                     sx={{
@@ -136,201 +156,128 @@ const PurchaseDetails = () => {
                   </Step>
                 ))}
               </Stepper>
+            </Box> */}
+            <Box sx={{ width: "100%" }}>
+              <Stepper
+                activeStep={currentStepIndex}
+                alternativeLabel
+                orientation="horizontal"
+              >
+                {allPossibleSteps?.map((label, index) => (
+                  <Step key={label}>
+                    <StepLabel
+                      icon={
+                        index <= currentStepIndex ? (
+                          <CheckCircleIcon sx={{ color: "#efc80c" }} />
+                        ) : (
+                          <CheckCircleIcon sx={{ color: "#FFF" }} />
+                        )
+                      }
+                      sx={{
+                        "& .MuiStepLabel-root .Mui-completed, & .MuiStepLabel-root.Mui-active":
+                          {
+                            color: trackingStatuses?.includes(label)
+                              ? "#efc80c"
+                              : "#FFF",
+                          },
+                        "& .MuiStepLabel-label.Mui-completed.MuiStepLabel-alternativeLabel, & .MuiStepLabel-label.Mui-active.MuiStepLabel-alternativeLabel":
+                          {
+                            color: trackingStatuses?.includes(label)
+                              ? "#efc80c"
+                              : "#FFF",
+                          },
+                        "& .MuiStepLabel-label": {
+                          color: "#FFF", // Ensures that non-active step labels are white
+                        },
+                        "& .MuiStepLabel-root .Mui-active .MuiStepIcon-text": {
+                          fill: "#000", // Keeps the active step's icon text color as black (if applicable)
+                        },
+                      }}
+                    >
+                      {label}
+                      {trackingStatuses?.includes(label) && (
+                        <div style={{ color: "#efc80c", marginTop: "4px" }}>
+                          <div>
+                            {new Date(
+                              order_delivery_trackings.find(
+                                (tracking) => tracking.status === label
+                              ).created_at
+                            ).toLocaleDateString()}
+                          </div>
+                          <div>
+                            {new Date(
+                              order_delivery_trackings.find(
+                                (tracking) => tracking.status === label
+                              ).created_at
+                            ).toLocaleTimeString()}
+                          </div>
+                        </div>
+                      )}
+                    </StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
             </Box>
 
             <Box sx={{ mt: 12, mb: 5 }}>
               <Grid container spacing={2}>
-                {/* {cardData.map((item, id) => (
-                
-              ))} */}
-                <Grid item lg={4} md={4} sm={6} xs={12}>
-                  <Card className="product-card-">
-                    <Box className="product-img">
-                      <Link
-                      // to={`/shop/new/${id}`}
-                      >
-                        <CardMedia
-                          component="img"
-                          height="100%"
-                          image={Img}
-                          alt={Img}
-                          sx={{ objectFit: "contain" }}
-                        />
-                      </Link>
-                    </Box>
-                    <CardContent
-                      sx={{
-                        background: "#191919",
-                        color: "#D9D9D9",
-                        paddingInline: "0px",
-                      }}
-                    >
-                      <Typography variant="subtitle1" component="div">
-                        <Link>PPT LOTS(HOODIE&SWEATPANT)</Link>
-                      </Typography>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          // justifyContent: "space-between",
-                          gap: 5,
-                          alignItems: "center",
-                          mt: 1,
-                        }}
-                      >
-                        <Typography sx={{ fontSize: "14px" }}>
-                          Size: M
-                        </Typography>
-                        <Typography sx={{ fontSize: "14px" }}>
-                          Color: Black
-                        </Typography>
-                      </Box>
-                      <Typography sx={{ fontSize: "14px" }}>
-                        Price: $100.00
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item lg={4} md={4} sm={6} xs={12}>
-                  <Card className="product-card-">
-                    <Box className="product-img">
-                      <Link
-                      // to={`/shop/new/${id}`}
-                      >
-                        <CardMedia
-                          component="img"
-                          height="100%"
-                          image={Img}
-                          alt={Img}
-                          sx={{ objectFit: "contain" }}
-                        />
-                      </Link>
-                    </Box>
-                    <CardContent
-                      sx={{
-                        background: "#191919",
-                        color: "#D9D9D9",
-                        paddingInline: "0px",
-                      }}
-                    >
-                      <Typography variant="subtitle1" component="div">
-                        <Link>PPT LOTS(HOODIE&SWEATPANT)</Link>
-                      </Typography>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          // justifyContent: "space-between",
-                          gap: 5,
-                          alignItems: "center",
-                          mt: 1,
-                        }}
-                      >
-                        <Typography sx={{ fontSize: "14px" }}>
-                          Size: M
-                        </Typography>
-                        <Typography sx={{ fontSize: "14px" }}>
-                          Color: Black
-                        </Typography>
-                      </Box>
-                      <Typography sx={{ fontSize: "14px" }}>
-                        Price: $100.00
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item lg={4} md={4} sm={6} xs={12}>
-                  <Card className="product-card-">
-                    <Box className="product-img">
-                      <Link
-                      // to={`/shop/new/${id}`}
-                      >
-                        <CardMedia
-                          component="img"
-                          height="100%"
-                          image={Img}
-                          alt={Img}
-                          sx={{ objectFit: "contain" }}
-                        />
-                      </Link>
-                    </Box>
-                    <CardContent
-                      sx={{
-                        background: "#191919",
-                        color: "#D9D9D9",
-                        paddingInline: "0px",
-                      }}
-                    >
-                      <Typography variant="subtitle1" component="div">
-                        <Link>PPT LOTS(HOODIE&SWEATPANT)</Link>
-                      </Typography>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          // justifyContent: "space-between",
-                          gap: 5,
-                          alignItems: "center",
-                          mt: 1,
-                        }}
-                      >
-                        <Typography sx={{ fontSize: "14px" }}>
-                          Size: M
-                        </Typography>
-                        <Typography sx={{ fontSize: "14px" }}>
-                          Color: Black
-                        </Typography>
-                      </Box>
-                      <Typography sx={{ fontSize: "14px" }}>
-                        Price: $100.00
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item lg={4} md={4} sm={6} xs={12}>
-                  <Card className="product-card-">
-                    <Box className="product-img">
-                      <Link
-                      // to={`/shop/new/${id}`}
-                      >
-                        <CardMedia
-                          component="img"
-                          height="100%"
-                          image={Img}
-                          alt={Img}
-                          sx={{ objectFit: "contain" }}
-                        />
-                      </Link>
-                    </Box>
-                    <CardContent
-                      sx={{
-                        background: "#191919",
-                        color: "#D9D9D9",
-                        paddingInline: "0px",
-                      }}
-                    >
-                      <Typography variant="subtitle1" component="div">
-                        <Link>PPT LOTS(HOODIE&SWEATPANT)</Link>
-                      </Typography>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          // justifyContent: "space-between",
-                          gap: 5,
-                          alignItems: "center",
-                          mt: 1,
-                        }}
-                      >
-                        <Typography sx={{ fontSize: "14px" }}>
-                          Size: M
-                        </Typography>
-                        <Typography sx={{ fontSize: "14px" }}>
-                          Color: Black
-                        </Typography>
-                      </Box>
-                      <Typography sx={{ fontSize: "14px" }}>
-                        Price: $100.00
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
+                {orderDetails && orderDetails
+                  ? orderDetails?.order_details?.order_items?.map(
+                      (item, index) => (
+                        <>
+                          <Grid item lg={4} md={4} sm={6} xs={12}>
+                            <Card className="product-card-">
+                              <Box className="product-img">
+                                <Link
+                                // to={`/shop/new/${id}`}
+                                >
+                                  <CardMedia
+                                    component="img"
+                                    height="100%"
+                                    image={item?.product_details?.main_image}
+                                    alt={Img}
+                                    sx={{ objectFit: "contain" }}
+                                  />
+                                </Link>
+                              </Box>
+                              <CardContent
+                                sx={{
+                                  background: "#191919",
+                                  color: "#D9D9D9",
+                                  paddingInline: "0px",
+                                }}
+                              >
+                                <Typography variant="subtitle1" component="div">
+                                  <Link>
+                                    {item?.product_details?.product_name}
+                                  </Link>
+                                </Typography>
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    // justifyContent: "space-between",
+                                    gap: 5,
+                                    alignItems: "center",
+                                    mt: 1,
+                                  }}
+                                >
+                                  <Typography sx={{ fontSize: "14px" }}>
+                                    Size: {item?.product_size}
+                                  </Typography>
+                                  <Typography sx={{ fontSize: "14px" }}>
+                                    Color: {item?.product_color}
+                                  </Typography>
+                                </Box>
+                                <Typography sx={{ fontSize: "14px" }}>
+                                  Price: ${item?.product_price}
+                                </Typography>
+                              </CardContent>
+                            </Card>
+                          </Grid>
+                        </>
+                      )
+                    )
+                  : ""}
               </Grid>
             </Box>
           </Grid>
@@ -348,7 +295,7 @@ const PurchaseDetails = () => {
                     <Typography>Shipping Details</Typography>
                   </Box>
                   <Typography sx={{ padding: "10px" }}>
-                    Tanvi
+                    {orderDetails?.order_details?.user.name}
                     <span
                       style={{
                         color: "#efc80c",
@@ -357,18 +304,21 @@ const PurchaseDetails = () => {
                         marginLeft: "20px",
                       }}
                     >
-                      Home
+                      {orderDetails?.order_details?.address.address_type}
                     </span>
                   </Typography>
                   <Typography
                     sx={{ p: "10px" }}
                     className="select-address-here"
                   >
-                    <span>Gujarat, India</span>
+                    <span>
+                      {orderDetails?.order_details?.address.region},
+                      {orderDetails?.order_details?.address.district}
+                    </span>
                     <br />
-                    <span>b/12 mayur vihar opposite matruvatika</span>
+                    <span>{orderDetails?.order_details?.address.address}</span>
                     <br />
-                    <span>+961 48564189</span>
+                    <span>+961 {orderDetails?.order_details?.user.mobile}</span>
                     <br />
                   </Typography>
                 </Box>
@@ -394,7 +344,9 @@ const PurchaseDetails = () => {
                       }}
                     >
                       <Typography>Subtotal</Typography>
-                      <Typography>$100.00</Typography>
+                      <Typography>
+                        ${orderDetails?.sub_total?.toFixed(2)}
+                      </Typography>
                     </Box>
                     <Box
                       sx={{
@@ -424,7 +376,7 @@ const PurchaseDetails = () => {
                       <Typography
                         sx={{ borderTop: "1px solid #efc80c", pt: 1 }}
                       >
-                        $105.00
+                        ${orderDetails?.total_amount?.toFixed(2)}
                       </Typography>
                     </Box>
                   </Box>
