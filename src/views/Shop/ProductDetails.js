@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../utils/Loader";
 import {
   addToWishList,
+  fetchWishList,
   removeFromWishList,
 } from "../../Redux/Thunks/wishListThunk";
 
@@ -62,6 +63,14 @@ const ProductDetails = () => {
     isLoading,
     error,
   } = useSelector((state) => state.product);
+  const { wishList } = useSelector((state) => state.wishList);
+  console.log(wishList, "productsss::>>2");
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchWishList());
+    }
+  }, [dispatch, token]);
 
   const {
     other_images,
@@ -78,25 +87,63 @@ const ProductDetails = () => {
   // const data = useSelector((state) => state.product);
 
   console.log(product, "other_images");
+  // const handleToggle = (product_id) => {
+  //   if (token) {
+  //     setIsChecked((prevItems) => {
+  //       const isCurrentlyChecked = !prevItems; // Toggle the current state
+
+  //       // Dispatch based on the new state
+  //       if (isCurrentlyChecked) {
+  //         dispatch(addToWishList({ product_id }));
+  //       } else {
+  //         dispatch(removeFromWishList({ product_id }));
+  //       }
+
+  //       return {
+  //         ...prevItems,
+  //         ...isCurrentlyChecked,
+  //       };
+  //     });
+  //   } else {
+  //     Notification("info", "Please login to Continue");
+  //   }
+  // };
+  const handleToggle = (product_id) => {
+    if (token) {
+      // Directly toggle the current state
+      const isCurrentlyChecked = !isChecked;
+
+      // Update the state
+      setIsChecked(isCurrentlyChecked);
+
+      // Dispatch based on the new state
+      if (isCurrentlyChecked) {
+        dispatch(addToWishList({ product_id }));
+      } else {
+        dispatch(removeFromWishList({ product_id }));
+      }
+    } else {
+      Notification("info", "Please login to Continue");
+    }
+  };
+
+  console.log(isChecked, "isWishlisted");
+
+  useEffect(() => {
+    if (token && wishList?.wishlist && product?.id) {
+      const isWishlisted = wishList.wishlist.some(
+        (wishItem) => Number(wishItem.product_id) === productId
+      );
+
+      setIsChecked(isWishlisted);
+    }
+  }, [product, wishList.wishlist, token]);
 
   const {
     cartData,
     isLoading: cartIsLoading,
     isError: cartIsError,
   } = useSelector((state) => state.cart);
-
-  const handleToggle = (product_id) => {
-    if (token) {
-      setIsChecked((prevChecked) => !prevChecked);
-      if (isChecked) {
-        dispatch(removeFromWishList({ product_id }));
-      } else {
-        dispatch(addToWishList({ product_id }));
-      }
-    } else {
-      Notification("info", "Please login to Continue");
-    }
-  };
 
   useEffect(() => {
     dispatch(fetchProductDetails(productId));
@@ -116,10 +163,6 @@ const ProductDetails = () => {
 
   const handleSelectedSize = (size) => {
     setSelectedSize((prevSize) => (prevSize === size ? null : size));
-  };
-
-  const handleSelectColor = (color) => {
-    setSelectedColor((prevColor) => (prevColor === color ? null : color));
   };
 
   const handleAddToCart = () => {
@@ -192,6 +235,7 @@ const ProductDetails = () => {
               <Typography sx={{ mt: 1 }}>
                 {item?.product?.product_name}
               </Typography>
+
               <Typography>
                 {/* {item?.product?.product_name}/{item?.product?.product_price} */}
                 {item?.product?.discount_price}
@@ -320,21 +364,6 @@ const ProductDetails = () => {
                     <SwiperSlide onClick={() => setActiveimg(brown_image)}>
                       <img src={brown_image} alt={brown_image} />
                     </SwiperSlide>
-
-                    {/* {other_images?.map((slide, i) => (
-                      <SwiperSlide key={i} onClick={() => setActiveimg(slide)}>
-                        <img src={slide} alt={slide} />
-                      </SwiperSlide>
-                    ))} */}
-                    {/* {Array.isArray(imagesArray) &&
-                      imagesArray.map((slide, i) => (
-                        <SwiperSlide
-                          key={i}
-                          onClick={() => setActiveimg(slide.url)}
-                        >
-                          <img src={slide.url} alt={slide.url} />
-                        </SwiperSlide>
-                      ))} */}
                   </Swiper>
                 </Grid>
               </Grid>
@@ -346,9 +375,63 @@ const ProductDetails = () => {
               sx={{ padding: "0 20px" }}
               className="product-details-right-section"
             >
-              <Typography sx={{ fontWeight: "400", fontSize: "22px" }}>
-                {product && product?.product_name}
-              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontWeight: "400",
+                    fontSize: "22px",
+                    marginRight: "40px",
+                  }}
+                >
+                  {product && product?.product_name}
+                </Typography>
+
+                {/* <Box className="pro-rating-star"></Box> */}
+
+                {isChecked ? (
+                  <Box className="set-pro-rating-star">
+                    <Typography className="rating-box set-rating-star ">
+                      <StarIcon
+                        onClick={() => {
+                          if (token) {
+                            handleToggle(productId);
+                          } else {
+                            Notification(
+                              "error",
+                              "Please log in to add to wishlist"
+                            );
+                          }
+                        }}
+                      />
+                    </Typography>
+                  </Box>
+                ) : (
+                  <Box className="pro-rating-star">
+                    <Typography className="rating-box rating-star ">
+                      <StarIcon
+                        onClick={() => {
+                          if (token) {
+                            handleToggle(productId);
+                          } else {
+                            Notification(
+                              "error",
+                              "Please log in to add to wishlist"
+                            );
+                          }
+                        }}
+                      />
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
+              {/* </Typography> */}
+
               <Typography sx={{ fontSize: "14px" }}>
                 {product && parseInt(product?.discount_price) + "$"}
               </Typography>
