@@ -246,6 +246,10 @@ const Shop = () => {
                 const {
                   id,
                   main_image,
+                  beige_image,
+                  olive_green_image,
+                  grey_image,
+                  brown_image,
                   ImgAlt,
                   product_name,
                   product_price,
@@ -271,13 +275,26 @@ const Shop = () => {
                           modules={[Autoplay]}
                           className="mySwiper"
                         >
-                          <SwiperSlide>
+                          {/* <SwiperSlide>
                             <CardActionArea onClick={() => handleNavigate(id)}>
                               <Box className="product-img">
                                 <CardMedia
                                   component="img"
                                   height="100%"
                                   image={main_image}
+                                  alt={ImgAlt}
+                                  sx={{ objectFit: "contain" }}
+                                />
+                              </Box>
+                            </CardActionArea>
+                          </SwiperSlide> */}
+                          <SwiperSlide>
+                            <CardActionArea onClick={() => handleNavigate(id)}>
+                              <Box className="product-img">
+                                <CardMedia
+                                  component="img"
+                                  height="100%"
+                                  image={beige_image}
                                   alt={ImgAlt}
                                   sx={{ objectFit: "contain" }}
                                 />
@@ -290,7 +307,7 @@ const Shop = () => {
                                 <CardMedia
                                   component="img"
                                   height="100%"
-                                  image={main_image}
+                                  image={olive_green_image}
                                   alt={ImgAlt}
                                   sx={{ objectFit: "contain" }}
                                 />
@@ -303,7 +320,7 @@ const Shop = () => {
                                 <CardMedia
                                   component="img"
                                   height="100%"
-                                  image={main_image}
+                                  image={grey_image}
                                   alt={ImgAlt}
                                   sx={{ objectFit: "contain" }}
                                 />
@@ -316,7 +333,7 @@ const Shop = () => {
                                 <CardMedia
                                   component="img"
                                   height="100%"
-                                  image={main_image}
+                                  image={brown_image}
                                   alt={ImgAlt}
                                   sx={{ objectFit: "contain" }}
                                 />
