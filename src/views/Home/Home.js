@@ -23,6 +23,10 @@ import Loader from "../../utils/Loader";
 import Notification from "../../utils/Notification";
 import banner1 from "../../assets/img/bannerdemo.png";
 import banner2 from "../../assets/img/banner2.png";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination,Autoplay } from "swiper/modules";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -248,10 +252,70 @@ const Home = () => {
                                 {/* <Link to={`/shop/new/${item.product.id}`}>
                                   {item?.product?.product_name}
                                 </Link> */}
-                                <Box className="img-box">
+                                {/* <Box className="img-box">
                                   <img src={main_image} alt={product_name} />
-                                </Box>
-                              </Link>
+                                </Box> */}
+                              
+                              
+                                <Swiper
+                                  spaceBetween={30}
+                                  slidesPerView={1}
+                                  centeredSlides={true}
+                                  loop={true}
+                                  autoplay={{
+                                    delay: 2500,
+                                    disableOnInteraction: false,
+                                  }}
+                                  pagination={{
+                                    clickable: true,
+                                  }}
+                                  modules={[Autoplay]}
+                                  className="mySwiper"
+                                >
+                                
+                                  <SwiperSlide>
+                                    <Box className="img-box">
+                                      <img
+                                        src={main_image}
+                                        alt={product_name}
+                                      />
+                                    </Box>
+                                  </SwiperSlide>
+                                  <SwiperSlide>
+                                    <Box className="img-box">
+                                      <img
+                                        src={main_image}
+                                        alt={product_name}
+                                      />
+                                    </Box>
+                                  </SwiperSlide>
+                                  <SwiperSlide>
+                                    <Box className="img-box">
+                                      <img
+                                        src={main_image}
+                                        alt={product_name}
+                                      />
+                                    </Box>
+                                  </SwiperSlide>
+                                  <SwiperSlide>
+                                    <Box className="img-box">
+                                      <img
+                                        src={main_image}
+                                        alt={product_name}
+                                      />
+                                    </Box>
+                                  </SwiperSlide>
+                                  <SwiperSlide>
+                                    <Box className="img-box">
+                                      <img
+                                        src={main_image}
+                                        alt={product_name}
+                                      />
+                                    </Box>
+                                  </SwiperSlide>
+                                </Swiper>
+                              
+                                </Link>
                             </Grid>
                             <Grid item lg={6} md={7} sm={7} xs={7}>
                               <Box className="card-contain">
