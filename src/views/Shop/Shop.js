@@ -26,7 +26,10 @@ import {
   fetchWishList,
   removeFromWishList,
 } from "../../Redux/Thunks/wishListThunk";
-
+import "swiper/css";
+import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
 const Shop = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -253,17 +256,88 @@ const Shop = () => {
                   <Grid item lg={4} md={4} sm={6} xs={12} key={id}>
                     <Box>
                       <Card className="product-card-">
-                        <CardActionArea onClick={() => handleNavigate(id)}>
-                          <Box className="product-img">
-                            <CardMedia
-                              component="img"
-                              height="100%"
-                              image={main_image}
-                              alt={ImgAlt}
-                              sx={{ objectFit: "contain" }}
-                            />
-                          </Box>
-                        </CardActionArea>
+                        <Swiper
+                          spaceBetween={30}
+                          slidesPerView={1}
+                          centeredSlides={true}
+                          loop={true}
+                          autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                          }}
+                          pagination={{
+                            clickable: true,
+                          }}
+                          modules={[Autoplay]}
+                          className="mySwiper"
+                        >
+                          <SwiperSlide>
+                            <CardActionArea onClick={() => handleNavigate(id)}>
+                              <Box className="product-img">
+                                <CardMedia
+                                  component="img"
+                                  height="100%"
+                                  image={main_image}
+                                  alt={ImgAlt}
+                                  sx={{ objectFit: "contain" }}
+                                />
+                              </Box>
+                            </CardActionArea>
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <CardActionArea onClick={() => handleNavigate(id)}>
+                              <Box className="product-img">
+                                <CardMedia
+                                  component="img"
+                                  height="100%"
+                                  image={main_image}
+                                  alt={ImgAlt}
+                                  sx={{ objectFit: "contain" }}
+                                />
+                              </Box>
+                            </CardActionArea>
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <CardActionArea onClick={() => handleNavigate(id)}>
+                              <Box className="product-img">
+                                <CardMedia
+                                  component="img"
+                                  height="100%"
+                                  image={main_image}
+                                  alt={ImgAlt}
+                                  sx={{ objectFit: "contain" }}
+                                />
+                              </Box>
+                            </CardActionArea>
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <CardActionArea onClick={() => handleNavigate(id)}>
+                              <Box className="product-img">
+                                <CardMedia
+                                  component="img"
+                                  height="100%"
+                                  image={main_image}
+                                  alt={ImgAlt}
+                                  sx={{ objectFit: "contain" }}
+                                />
+                              </Box>
+                            </CardActionArea>
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <CardActionArea onClick={() => handleNavigate(id)}>
+                              <Box className="product-img">
+                                <CardMedia
+                                  component="img"
+                                  height="100%"
+                                  image={main_image}
+                                  alt={ImgAlt}
+                                  sx={{ objectFit: "contain" }}
+                                />
+                              </Box>
+                            </CardActionArea>
+                          </SwiperSlide>
+                        </Swiper>
+
                         <CardContent
                           sx={{
                             background: "#191919",
