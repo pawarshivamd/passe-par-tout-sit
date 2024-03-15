@@ -132,7 +132,7 @@ const ProductDetails = () => {
   useEffect(() => {
     if (token && wishList?.wishlist && product?.id) {
       const isWishlisted = wishList.wishlist.some(
-        (wishItem) => Number(wishItem.product_id) === productId
+        (wishItem) => Number(wishItem.product_id) === product.id
       );
 
       setIsChecked(isWishlisted);
@@ -372,7 +372,7 @@ const ProductDetails = () => {
           {/* col-6 right section for text */}
           <Grid item lg={6} md={6} sm={6} xs={12}>
             <Box
-              sx={{ padding: "0 20px", }}
+              sx={{ padding: "0 20px" }}
               className="product-details-right-section"
             >
               <Box
@@ -396,7 +396,8 @@ const ProductDetails = () => {
 
                 {isChecked ? (
                   <Box className="set-pro-rating-star">
-                    <Typography   className="rating-box set-rating-star ">
+                    <Typography className="rating-box set-rating-star ">
+                      {console.log(1)}
                       <StarIcon
                         stroke="#efc80c"
                         onClick={() => {
@@ -414,26 +415,24 @@ const ProductDetails = () => {
                   </Box>
                 ) : (
                   <Box className="pro-rating-star">
-                  <Box className="set-pro-rating-star">
-                    <Typography 
-                    className="rating-box rating-star "
-                    
-                    >
-                      <StarIcon
-                       stroke="#efc80c"
-                        onClick={() => {
-                          if (token) {
-                            handleToggle(productId);
-                          } else {
-                            Notification(
-                              "error",
-                              "Please log in to add to wishlist"
-                            );
-                          }
-                        }}
-                      />
-                    </Typography>
-                  </Box>
+                    {console.log(2)}
+                    <Box className="set-pro-rating-star">
+                      <Typography className="rating-box rating-star ">
+                        <StarIcon
+                          stroke="#efc80c"
+                          onClick={() => {
+                            if (token) {
+                              handleToggle(productId);
+                            } else {
+                              Notification(
+                                "error",
+                                "Please log in to add to wishlist"
+                              );
+                            }
+                          }}
+                        />
+                      </Typography>
+                    </Box>
                   </Box>
                 )}
               </Box>
