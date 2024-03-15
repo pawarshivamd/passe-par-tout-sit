@@ -26,7 +26,7 @@ import banner2 from "../../assets/img/banner2.png";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination,Autoplay } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -255,8 +255,7 @@ const Home = () => {
                                 {/* <Box className="img-box">
                                   <img src={main_image} alt={product_name} />
                                 </Box> */}
-                              
-                              
+
                                 <Swiper
                                   spaceBetween={30}
                                   slidesPerView={1}
@@ -272,7 +271,6 @@ const Home = () => {
                                   modules={[Autoplay]}
                                   className="mySwiper"
                                 >
-                                
                                   <SwiperSlide>
                                     <Box className="img-box">
                                       <img
@@ -314,8 +312,7 @@ const Home = () => {
                                     </Box>
                                   </SwiperSlide>
                                 </Swiper>
-                              
-                                </Link>
+                              </Link>
                             </Grid>
                             <Grid item lg={6} md={7} sm={7} xs={7}>
                               <Box className="card-contain">

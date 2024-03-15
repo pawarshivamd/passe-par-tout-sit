@@ -172,17 +172,16 @@ const ProductDetails = () => {
             onClick={() => setIsDrawerVisible(false)}
           />
         </Box>
-
         <Typography sx={{ mt: 2, textAlign: "right" }}>
           ADDED TO YOUR SHOPPING BAG
         </Typography>
-
+        {console.log(cartData, "cartDatatest")}
         {cartData?.cart_items?.map((item, index) => (
           <Grid container spacing={2} sx={{ mb: 3 }} key={index}>
             <Grid item lg={5} md={5} sm={12} xs={12}>
               <Box>
                 <img
-                  src={item?.product.main_image}
+                  src={item?.main_image_path}
                   width={"100%"}
                   alt={item?.main_image_path}
                   style={{ objectFit: "contain" }}
@@ -196,6 +195,14 @@ const ProductDetails = () => {
               <Typography>
                 {/* {item?.product?.product_name}/{item?.product?.product_price} */}
                 {item?.product?.discount_price}
+              </Typography>
+              <Typography>
+                {/* {item?.product?.product_name}/{item?.product?.product_price} */}
+                Size:- {item?.size}
+              </Typography>
+              <Typography>
+                {/* {item?.product?.product_name}/{item?.product?.product_price} */}
+                Color:- {item?.color}
               </Typography>
               <Box sx={{ mt: 3 }}>
                 <Button

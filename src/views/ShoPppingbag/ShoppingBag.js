@@ -145,7 +145,7 @@ const ShoppingBag = () => {
                               <CardMedia
                                 component="img"
                                 height="100%"
-                                image={item?.product.main_image}
+                                image={item?.main_image_path}
                                 alt={item?.product.main_image}
                                 sx={{ objectFit: "cover" }}
                               />
@@ -177,11 +177,18 @@ const ShoppingBag = () => {
                                   {item?.product?.product_name}
                                 </Link>
                               </Typography>
+
                               <CloseIcon
                                 onClick={() => handleProductRemove(item?.id)}
                                 className="close-icon"
                               />
                             </Box>
+                            <Typography variant="subtitle1" component="div">
+                              Size:-{item?.size}
+                            </Typography>
+                            <Typography variant="subtitle1" component="div">
+                              Color:-{item?.color}
+                            </Typography>
                             <Typography variant="body2">
                               {item?.product?.discount_price}
                             </Typography>
