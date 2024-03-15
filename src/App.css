@@ -548,7 +548,14 @@ input[type="number"] {
     }
   }
 }
-
+.pro-rating-star {
+  .star-icon-fill {
+    fill: var(--white);
+    &:hover {
+      fill: var(--theme-color);
+    }
+  }
+}
 .contact-main-text {
   position: relative;
   font-size: 22px;

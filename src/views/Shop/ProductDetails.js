@@ -392,17 +392,11 @@ const ProductDetails = () => {
                   {product && product?.product_name}
                 </Typography>
 
-                {/* <Box className="pro-rating-star"></Box> */}
+                <Box className="pro-rating-star"></Box>
 
                 {isChecked ? (
                   <Box className="set-pro-rating-star">
-                    <Typography   sx={{
-                    cursor: "pointer",
-                    "& .star-icon-fill": {
-                      fill: selectedColor === "#efc80c" ? "#efc80c" : "transparent",
-                    },
-                    "& .star-icon-fill:hover": { fill: "#efc80c" },
-                  }}>
+                    <Typography   className="rating-box set-rating-star ">
                       <StarIcon
                         stroke="#efc80c"
                         onClick={() => {
@@ -419,7 +413,7 @@ const ProductDetails = () => {
                     </Typography>
                   </Box>
                 ) : (
-                  <Box className="pro-rating-star">
+                  <Box className="set-pro-rating-star">
                     <Typography sx={{
                     cursor: "pointer",
                     "& .star-icon-fill": {
