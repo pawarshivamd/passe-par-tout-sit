@@ -378,7 +378,7 @@ const ProductDetails = () => {
               <Box
                 sx={{
                   display: "flex",
-                  justifyContent: "flex-start",
+                  justifyContent: "space-between",
                   alignItems: "center",
                 }}
               >
@@ -399,7 +399,7 @@ const ProductDetails = () => {
                     <Typography className="rating-box set-rating-star ">
                       {console.log(1)}
                       <StarIcon
-                        stroke="#efc80c"
+                        
                         onClick={() => {
                           if (token) {
                             handleToggle(productId);
@@ -419,7 +419,7 @@ const ProductDetails = () => {
                     <Box className="set-pro-rating-star">
                       <Typography className="rating-box rating-star ">
                         <StarIcon
-                          stroke="#efc80c"
+                          
                           onClick={() => {
                             if (token) {
                               handleToggle(productId);
