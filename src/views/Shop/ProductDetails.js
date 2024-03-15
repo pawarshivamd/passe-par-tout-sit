@@ -372,7 +372,7 @@ const ProductDetails = () => {
           {/* col-6 right section for text */}
           <Grid item lg={6} md={6} sm={6} xs={12}>
             <Box
-              sx={{ padding: "0 20px" }}
+              sx={{ padding: "0 20px", }}
               className="product-details-right-section"
             >
               <Box
@@ -396,8 +396,15 @@ const ProductDetails = () => {
 
                 {isChecked ? (
                   <Box className="set-pro-rating-star">
-                    <Typography className="rating-box set-rating-star ">
+                    <Typography   sx={{
+                    cursor: "pointer",
+                    "& .star-icon-fill": {
+                      fill: selectedColor === "#efc80c" ? "#efc80c" : "transparent",
+                    },
+                    "& .star-icon-fill:hover": { fill: "#efc80c" },
+                  }}>
                       <StarIcon
+                        stroke="#efc80c"
                         onClick={() => {
                           if (token) {
                             handleToggle(productId);
@@ -413,8 +420,15 @@ const ProductDetails = () => {
                   </Box>
                 ) : (
                   <Box className="pro-rating-star">
-                    <Typography className="rating-box rating-star ">
+                    <Typography sx={{
+                    cursor: "pointer",
+                    "& .star-icon-fill": {
+                      fill: selectedColor === "#efc80c" ? "#efc80c" : "transparent",
+                    },
+                    "& .star-icon-fill:hover": { fill: "#efc80c" },
+                  }}>
                       <StarIcon
+                       stroke="#efc80c"
                         onClick={() => {
                           if (token) {
                             handleToggle(productId);
@@ -688,7 +702,7 @@ const ProductDetails = () => {
           </Grid>
         </Container>
       </section> */}
-      <section>
+      <section style={{ marginTop: "50px " }}>
         <Footer />
       </section>
       <CustomDrawer
