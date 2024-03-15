@@ -229,6 +229,10 @@ const Home = () => {
                       id,
                       average_rating,
                       main_image,
+                      beige_image,
+                      olive_green_image,
+                      grey_image,
+                      brown_image,
                       product_name,
                       product_price,
                       discount_price,
@@ -282,7 +286,7 @@ const Home = () => {
                                   <SwiperSlide>
                                     <Box className="img-box">
                                       <img
-                                        src={main_image}
+                                        src={beige_image}
                                         alt={product_name}
                                       />
                                     </Box>
@@ -290,7 +294,7 @@ const Home = () => {
                                   <SwiperSlide>
                                     <Box className="img-box">
                                       <img
-                                        src={main_image}
+                                        src={olive_green_image}
                                         alt={product_name}
                                       />
                                     </Box>
@@ -298,7 +302,7 @@ const Home = () => {
                                   <SwiperSlide>
                                     <Box className="img-box">
                                       <img
-                                        src={main_image}
+                                        src={grey_image}
                                         alt={product_name}
                                       />
                                     </Box>
@@ -306,7 +310,7 @@ const Home = () => {
                                   <SwiperSlide>
                                     <Box className="img-box">
                                       <img
-                                        src={main_image}
+                                        src={brown_image}
                                         alt={product_name}
                                       />
                                     </Box>

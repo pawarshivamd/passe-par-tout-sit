@@ -45,7 +45,7 @@ const Shop = () => {
   const [isChecked, setIsChecked] = useState(false);
   const { wishList } = useSelector((state) => state.wishList);
   const token = localStorage.getItem("auth_token");
-  console.log(products, "productsss::>>2");
+  console.log(wishList, "productsss::>>2");
 
   useEffect(() => {
     if (token) {
