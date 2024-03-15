@@ -174,6 +174,12 @@ const PurchaseDetails = () => {
                         )
                       }
                       sx={{
+                        fontSize: {
+                          lg: "14px",
+                          md: "14px",
+                          sm: "12px",
+                          xs: "10px",
+                        },
                         "& .MuiStepLabel-root .Mui-completed, & .MuiStepLabel-root.Mui-active":
                           {
                             color: trackingStatuses?.includes(label)
@@ -196,22 +202,40 @@ const PurchaseDetails = () => {
                     >
                       {label}
                       {trackingStatuses?.includes(label) && (
-                        <div style={{ color: "#efc80c", marginTop: "4px" }}>
-                          <div>
+                        <Box sx={{ color: "#efc80c", marginTop: "4px" }}>
+                          <Box
+                            sx={{
+                              fontSize: {
+                                lg: "14px",
+                                md: "14px",
+                                sm: "12px",
+                                xs: "10px",
+                              },
+                            }}
+                          >
                             {new Date(
                               order_delivery_trackings.find(
                                 (tracking) => tracking.status === label
                               ).created_at
                             ).toLocaleDateString()}
-                          </div>
-                          <div>
+                          </Box>
+                          <Box
+                            sx={{
+                              fontSize: {
+                                lg: "14px",
+                                md: "14px",
+                                sm: "12px",
+                                xs: "10px",
+                              },
+                            }}
+                          >
                             {new Date(
                               order_delivery_trackings.find(
                                 (tracking) => tracking.status === label
                               ).created_at
                             ).toLocaleTimeString()}
-                          </div>
-                        </div>
+                          </Box>
+                        </Box>
                       )}
                     </StepLabel>
                   </Step>
@@ -219,7 +243,7 @@ const PurchaseDetails = () => {
               </Stepper>
             </Box>
 
-            <Box sx={{ mt: 12, mb: 5 }}>
+            {/* <Box sx={{ mt: 12, mb: 5 }}>
               <Grid container spacing={2}>
                 {orderDetails && orderDetails
                   ? orderDetails?.order_details?.order_items?.map(
@@ -279,6 +303,87 @@ const PurchaseDetails = () => {
                     )
                   : ""}
               </Grid>
+            </Box> */}
+            <Box sx={{ mt: 12, mb: 5 }}>
+              {orderDetails && orderDetails
+                ? orderDetails?.order_details?.order_items?.map(
+                    (item, index) => (
+                      <Box sx={{ border: "1px solid #E0E0E0", p: 1, my: 1 }}>
+                        <Grid container spacing={2}>
+                          <Grid item lg={2} md={2} sm={2} xs={3}>
+                            <Box sx={{ height: "100px" }}>
+                              <Link>
+                                <img
+                                  src={item?.product_details?.main_image}
+                                  alt=""
+                                  width={"100%"}
+                                  height={"100%"}
+                                  style={{ objectFit: "contain" }}
+                                />
+                              </Link>
+                            </Box>
+                          </Grid>
+                          <Grid item lg={10} md={10} sm={10} xs={9}>
+                            <Box>
+                              <Typography
+                                sx={{ mb: { lg: 1, md: 1, sm: 0, xs: 0 } }}
+                                variant="subtitle1"
+                              >
+                                <Link>
+                                  {item?.product_details?.product_name}
+                                </Link>
+                              </Typography>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  gap: "10%",
+                                  mb: { lg: 1, md: 1, sm: 0, xs: 0 },
+                                }}
+                              >
+                                <Typography
+                                  sx={{
+                                    fontSize: {
+                                      lg: "14px",
+                                      md: "14px",
+                                      sm: "12px",
+                                      xs: "12px",
+                                    },
+                                  }}
+                                >
+                                  Size: {item?.product_size}
+                                </Typography>
+                                <Typography
+                                  sx={{
+                                    fontSize: {
+                                      lg: "14px",
+                                      md: "14px",
+                                      sm: "12px",
+                                      xs: "12px",
+                                    },
+                                  }}
+                                >
+                                  Color: {item?.product_color}
+                                </Typography>
+                              </Box>
+                              <Typography
+                                sx={{
+                                  fontSize: {
+                                    lg: "14px",
+                                    md: "14px",
+                                    sm: "12px",
+                                    xs: "12px",
+                                  },
+                                }}
+                              >
+                                Price: ${item?.product_price}
+                              </Typography>
+                            </Box>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    )
+                  )
+                : ""}
             </Box>
           </Grid>
           <Grid item lg={3} md={4} sm={12} xs={12} ml={"auto"}>
