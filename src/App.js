@@ -55,7 +55,10 @@ function App() {
               <Route path="/select-address" element={<SelectAddress />} />
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/purchase-details" element={<PurchaseDetails />} />
+              <Route
+                path="/purchase-details/:id"
+                element={<PurchaseDetails />}
+              />
             </Routes>
           </Suspense>
         </BrowserRouter>

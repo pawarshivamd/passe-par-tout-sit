@@ -28,18 +28,21 @@ const ContinueProFooter = (props) => {
               >
                 <Grid item lg={2} md={2} sm={2} xs={6}>
                   <Typography>Items Total</Typography>
-                  <Typography>{item_total ? item_total : "0"}</Typography>
+                  <Typography>
+                    {" "}
+                    {(item_total ? item_total : 0).toFixed(2)}
+                  </Typography>
                 </Grid>
                 <Grid item lg={2} md={2} sm={2} xs={6}>
                   <Typography>Delivery</Typography>
                   <Typography>
-                    {delivery_charge ? delivery_charge : "0"}
+                    {(delivery_charge ? delivery_charge : 0).toFixed(2)}
                   </Typography>
                 </Grid>
                 <Grid item lg={2} md={2} sm={2} xs={6}>
                   <Typography>Total</Typography>
                   <Typography>
-                    {payable_amount ? payable_amount : "0"}
+                    {(payable_amount ? payable_amount : 0).toFixed(2)}
                   </Typography>
                 </Grid>
                 <Grid item lg={2} md={2} sm={2} xs={6}>

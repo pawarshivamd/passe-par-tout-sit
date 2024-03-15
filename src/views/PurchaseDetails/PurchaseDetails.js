@@ -11,14 +11,16 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Img from "../../assets/img/products/product1.png";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import SearchBox from "../../layout/searchcontainer/SearchBox";
 import Footer from "../footer/Footer";
 import { useTheme } from "@emotion/react";
 import { theme } from "../../App";
+import { useDispatch, useSelector } from "react-redux";
+import { trackOrder } from "../../Redux/Thunks/orderThunk";
 const steps = [
   "Order Placed",
   "Order Confirmed",
@@ -50,21 +52,40 @@ const stepDetails = [
 //   }
 // ]
 const PurchaseDetails = () => {
+  const { id } = useParams();
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(trackOrder(id));
+    }
+  }, []);
+
+  const orderDetails = useSelector((state) => state.order.trackorders);
+  console.log(orderDetails, "orderDetails.length", id);
   return (
     <Box sx={{ mt: 20 }}>
       <SearchBox />
       <Container>
         <Grid container spacing={2}>
           <Grid item lg={8} md={8} sm={12} xs={12}>
-          <Typography sx={{mb:5,p:1 ,borderBottom:"1px solid #efc80c",display:"inline-block"}} >Order Tracking</Typography>
+            <Typography
+              sx={{
+                mb: 5,
+                p: 1,
+                borderBottom: "1px solid #efc80c",
+                display: "inline-block",
+              }}
+            >
+              Order Tracking
+            </Typography>
             <Box sx={{ width: "100%" }}>
               <Stepper
                 activeStep={2}
-                alternativeLabel={isSmallScreen ?   false : true } 
-                orientation={isSmallScreen ? 'vertical' : 'horizontal'}
-
+                alternativeLabel={isSmallScreen ? false : true}
+                orientation={isSmallScreen ? "vertical" : "horizontal"}
               >
                 {steps.map((label, index) => (
                   <Step
@@ -117,9 +138,9 @@ const PurchaseDetails = () => {
               </Stepper>
             </Box>
 
-            <Box sx={{ mt: 12 ,mb:5 }}>
+            <Box sx={{ mt: 12, mb: 5 }}>
               <Grid container spacing={2}>
-              {/* {cardData.map((item, id) => (
+                {/* {cardData.map((item, id) => (
                 
               ))} */}
                 <Grid item lg={4} md={4} sm={6} xs={12}>
@@ -151,7 +172,7 @@ const PurchaseDetails = () => {
                         sx={{
                           display: "flex",
                           // justifyContent: "space-between",
-                          gap:5,
+                          gap: 5,
                           alignItems: "center",
                           mt: 1,
                         }}
@@ -198,7 +219,7 @@ const PurchaseDetails = () => {
                         sx={{
                           display: "flex",
                           // justifyContent: "space-between",
-                          gap:5,
+                          gap: 5,
                           alignItems: "center",
                           mt: 1,
                         }}
@@ -245,7 +266,7 @@ const PurchaseDetails = () => {
                         sx={{
                           display: "flex",
                           // justifyContent: "space-between",
-                          gap:5,
+                          gap: 5,
                           alignItems: "center",
                           mt: 1,
                         }}
@@ -292,7 +313,7 @@ const PurchaseDetails = () => {
                         sx={{
                           display: "flex",
                           // justifyContent: "space-between",
-                          gap:5,
+                          gap: 5,
                           alignItems: "center",
                           mt: 1,
                         }}
@@ -310,15 +331,20 @@ const PurchaseDetails = () => {
                     </CardContent>
                   </Card>
                 </Grid>
-
               </Grid>
             </Box>
           </Grid>
-          <Grid item  lg={3} md={4} sm={12} xs={12} ml={"auto"} >
+          <Grid item lg={3} md={4} sm={12} xs={12} ml={"auto"}>
             <Grid container spacing={2}>
               <Grid item lg={12} md={12} sm={6} xs={12}>
                 <Box>
-                  <Box sx={{ p: 1, borderBottom: "1px solid #efc80c",display:"inline-block" }}>
+                  <Box
+                    sx={{
+                      p: 1,
+                      borderBottom: "1px solid #efc80c",
+                      display: "inline-block",
+                    }}
+                  >
                     <Typography>Shipping Details</Typography>
                   </Box>
                   <Typography sx={{ padding: "10px" }}>
@@ -348,8 +374,14 @@ const PurchaseDetails = () => {
                 </Box>
               </Grid>
               <Grid item lg={12} md={12} sm={6} xs={12}>
-                <Box sx={{mt:{lg:5,md:5,sm:0,xs:2}}}>
-                  <Box sx={{ p: 1, borderBottom: "1px solid #efc80c",display:"inline-block" }}>
+                <Box sx={{ mt: { lg: 5, md: 5, sm: 0, xs: 2 } }}>
+                  <Box
+                    sx={{
+                      p: 1,
+                      borderBottom: "1px solid #efc80c",
+                      display: "inline-block",
+                    }}
+                  >
                     <Typography>Price Details</Typography>
                   </Box>
                   <Box sx={{ p: "10px" }}>
@@ -381,12 +413,19 @@ const PurchaseDetails = () => {
                         justifyContent: "space-between",
                         alignItems: "center",
                         mb: 1,
-                        gap:2,
-                        
+                        gap: 2,
                       }}
                     >
-                      <Typography sx={{borderTop:"1px solid #efc80c",flex:1,pt:1}}>Total</Typography>
-                      <Typography sx={{borderTop:"1px solid #efc80c",pt:1}}>$105.00</Typography>
+                      <Typography
+                        sx={{ borderTop: "1px solid #efc80c", flex: 1, pt: 1 }}
+                      >
+                        Total
+                      </Typography>
+                      <Typography
+                        sx={{ borderTop: "1px solid #efc80c", pt: 1 }}
+                      >
+                        $105.00
+                      </Typography>
                     </Box>
                   </Box>
                 </Box>
@@ -395,7 +434,7 @@ const PurchaseDetails = () => {
           </Grid>
         </Grid>
       </Container>
-      <Footer/>
+      <Footer />
     </Box>
   );
 };

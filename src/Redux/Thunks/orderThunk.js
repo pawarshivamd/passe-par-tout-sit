@@ -36,3 +36,22 @@ export const placeOrder = createAsyncThunk(
     }
   }
 );
+
+export const trackOrder = createAsyncThunk(
+  "trackOrder",
+  async (orderData, { rejectWithValue }) => {
+    try {
+      const { data, status } = await API.post(
+        `/order-details?order_id=${orderData}`
+      );
+      console.log(data, "data");
+
+      if (status === 200) {
+        Notification("success", data.message);
+        return data;
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);

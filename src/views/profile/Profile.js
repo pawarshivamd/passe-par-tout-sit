@@ -34,6 +34,8 @@ const Profile = () => {
     ({ order_history } = orders);
   }
 
+  console.log(order_history, "orderhistoryyyy");
+
   const handleTabChange = (tabNumber) => {
     setActiveTab(tabNumber);
   };
@@ -95,7 +97,7 @@ const Profile = () => {
             {activeTab === 1 && (
               <Box sx={{ mt: 5 }}>
                 <Grid container spacing={2}>
-                  {order_history && order_history?.length > 0 ? (
+                  {/* {order_history && order_history?.length > 0 ? (
                     order_history?.map((order, index) => (
                       <React.Fragment key={index}>
                         {order?.order_items?.map((item, itemIndex) => (
@@ -137,9 +139,9 @@ const Profile = () => {
                                     component="div"
                                   >
                                     <Link
-                                    //  to={`/shop/new/${item.product_id}`}
-                                    to="/purchase-details"
-                                     >
+                                      //  to={`/shop/new/${item.product_id}`}
+                                      to="/purchase-details"
+                                    >
                                       {item.product_name} + 3 more items
                                     </Link>
                                   </Typography>
@@ -151,6 +153,80 @@ const Profile = () => {
                             </Card>
                           </Grid>
                         ))}
+                      </React.Fragment>
+                    ))
+                  ) : (
+                    <Box
+                      sx={{
+                        minHeight: "40vh",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        mb: 3,
+                      }}
+                    >
+                      <Typography sx={{ textAlign: "center" }}>
+                        You have not placed any orders yet. &nbsp;
+                        <Button variant="contained">
+                          <RouterLink to={"/shop"} style={{ color: "#3d3d3d" }}>
+                            Go To Shop
+                          </RouterLink>
+                        </Button>
+                      </Typography>
+                    </Box>
+                  )} */}
+                  {order_history && order_history.length > 0 ? (
+                    order_history.map((order, index) => (
+                      <React.Fragment key={index}>
+                        {order.order_items && order.order_items.length > 0 && (
+                          <Grid item lg={4} md={4} sm={6} xs={12} key={index}>
+                            {console.log(order.order_items[0], "order")}
+                            <Card className="product-card-">
+                              <Box className="product-img">
+                                <CardMedia
+                                  component="img"
+                                  height="100%"
+                                  image={order.order_items[0].main_image}
+                                  alt={order.order_items[0].product_name}
+                                  sx={{ objectFit: "contain" }}
+                                />
+                              </Box>
+                              <CardContent
+                                sx={{
+                                  background: "#191919",
+                                  color: "#D9D9D9",
+                                  paddingInline: "0px",
+                                }}
+                              >
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                  }}
+                                >
+                                  <Typography
+                                    variant="subtitle1"
+                                    component="div"
+                                  >
+                                    <Link
+                                      to={`/purchase-details/${order.order_id}`}
+                                    >
+                                      {order.order_items[0].product_name}
+                                      {order.order_items.length > 1 &&
+                                        ` + ${
+                                          order.order_items.length - 1
+                                        } more items`}
+                                    </Link>
+                                  </Typography>
+                                </Box>
+                                <Typography variant="body2">
+                                  {order.order_items[0].discount_price}
+                                </Typography>
+                              </CardContent>
+                            </Card>
+                          </Grid>
+                        )}
                       </React.Fragment>
                     ))
                   ) : (
