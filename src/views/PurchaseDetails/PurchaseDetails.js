@@ -242,7 +242,7 @@ const PurchaseDetails = () => {
                 ))}
               </Stepper>
             </Box>
-              
+
             {/* <Box sx={{ mt: 12, mb: 5 }}>
               <Grid container spacing={2}>
                 {orderDetails && orderDetails

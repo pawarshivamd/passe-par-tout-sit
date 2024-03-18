@@ -186,6 +186,9 @@ export const deleteAccount = createAsyncThunk(
 
       if (status === 200) {
         Notification("success", message);
+        localStorage.clear();
+        useNavigate("/");
+        window.location.reload();
         return response;
       }
     } catch (error) {

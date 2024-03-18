@@ -2,6 +2,10 @@ import { TextField } from "@mui/material";
 import React from "react";
 
 const CustomInput = (props) => {
+  const inputProps = {
+    className: "customInput", // Your custom class
+    ...props.InputProps, // Spread any InputProps passed from the parent
+  };
   return (
     <div>
       <TextField
@@ -22,9 +26,10 @@ const CustomInput = (props) => {
         endadornment={<div>{props.endadornment}</div>}
         {...props}
         InputLabelProps={{ className: "textFieldcustomLable" }}
-        InputProps={{
-          className: "customInput", // Add your custom class here
-        }}
+        // InputProps={{
+        //   className: "customInput", // Add your custom class here
+        // }}
+        InputProps={inputProps}
       >
         {props.content}
       </TextField>

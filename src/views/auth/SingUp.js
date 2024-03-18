@@ -5,6 +5,8 @@ import {
   Container,
   FormHelperText,
   Grid,
+  IconButton,
+  InputAdornment,
   Typography,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
@@ -16,6 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../features/auth/api";
 import { registerUser } from "../../Redux/Thunks/userThunk";
 import Notification from "../../utils/Notification";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 const SingUp = () => {
   // const data = useSelector((state) => state.auth.user);
   // const [userData, setUserData] = useState({});
@@ -133,6 +137,10 @@ const SingUp = () => {
 
   // if (loading) return <div>Loading...</div>;
   // if (error) return <div>Error: {error}</div>;
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <Box sx={{ mt: 20 }} className="sing-up-section">
@@ -165,6 +173,7 @@ const SingUp = () => {
                       <CustomInput
                         id="PASSWORD"
                         name="password"
+                        type={showPassword ? "text" : "password"}
                         value={userData.password}
                         label="PASSWORD"
                         error={Boolean(errors.password)}
@@ -172,6 +181,24 @@ const SingUp = () => {
                         color="primary"
                         variant="standard"
                         onChange={handleChange}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                sx={{ color: "white" }}
+                                onClick={togglePasswordVisibility}
+                                edge="end"
+                              >
+                                {showPassword ? (
+                                  <VisibilityOff />
+                                ) : (
+                                  <Visibility />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                     </Grid>
                     <Grid item lg={12} xs={12}>

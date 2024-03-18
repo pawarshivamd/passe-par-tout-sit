@@ -129,11 +129,25 @@ const ChangePhoneNumber = ({ SaveButton }) => {
                   color="primary"
                   name="mobile"
                   value={userData.mobile}
-                  onChange={handleChange}
+                  // onChange={handleChange}
                   error={Boolean(errors.mobile)}
                   helperText={errors.mobile}
                   variant="standard"
-                  type="number"
+                  type="tel"
+                  onChange={(e) => {
+                    // Remove non-numeric characters
+                    const sanitizedValue = e.target.value.replace(/\D/g, "");
+                    // Update the state with the sanitized value
+                    handleChange({
+                      target: {
+                        name: "mobile",
+                        value: sanitizedValue,
+                      },
+                    });
+                  }}
+                  inputProps={{
+                    maxLength: 8,
+                  }}
                 />
               </Grid>
             </Grid>

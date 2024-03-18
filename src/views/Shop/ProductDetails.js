@@ -399,7 +399,6 @@ const ProductDetails = () => {
                     <Typography className="rating-box set-rating-star ">
                       {console.log(1)}
                       <StarIcon
-                        
                         onClick={() => {
                           if (token) {
                             handleToggle(productId);
@@ -419,7 +418,6 @@ const ProductDetails = () => {
                     <Box className="set-pro-rating-star">
                       <Typography className="rating-box rating-star ">
                         <StarIcon
-                          
                           onClick={() => {
                             if (token) {
                               handleToggle(productId);
@@ -438,9 +436,40 @@ const ProductDetails = () => {
               </Box>
               {/* </Typography> */}
 
-              <Typography sx={{ fontSize: "14px" }}>
-                {product && parseInt(product?.discount_price) + "$"}
-              </Typography>
+              {/* <Typography> */}
+              {/* {product && parseInt(product?.discount_price) + "$"} */}
+              {/* {parseFloat(product?.discount_price ?? 0).toFixed(2) + "$"} */}
+              {/* <Box className="price-box" sx={{ fontSize: "14px" }}>
+                <Typography className="main-price-text">
+                  {parseFloat(product?.discount_price).toFixed(2)}$
+                </Typography>
+                <Typography className="sub-rpice">
+                  DISCOUNT :<del> {parseInt(product?.product_price)}$</del>
+                </Typography>
+              </Box> */}
+              <Box
+                className="price-box"
+                sx={{
+                  fontSize: "14px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+              >
+                <Typography
+                  className="main-price-text"
+                  sx={{ display: "flex", alignItems: "center" }}
+                >
+                  {parseFloat(product?.discount_price).toFixed(2)}$
+                </Typography>
+                <Typography
+                  className="sub-price"
+                  sx={{ display: "flex", alignItems: "center" }}
+                >
+                  DISCOUNT :<del> {parseInt(product?.product_price)}$</del>
+                </Typography>
+              </Box>
+              {/* </Typography> */}
               {/* <Typography sx={{ mt: 2 }}>
                 {product && product?.description}
               </Typography> */}

@@ -70,21 +70,27 @@ const Signout = ({ saveButton }) => {
     return errors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const validationErrors = validate(userData);
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
-      dispatch(deleteAccount(userData))
-        .then((res) => {
-          console.log(res);
-          localStorage.clear();
-           navigate("/");
-          window.location.reload();
-         
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      const actionResult = await dispatch(deleteAccount(userData));
+      const result = actionResult;
+      console.log(result, "resultresultresult");
+      if (result) {
+        // Navigate or perform other actions after successful deletion
+        navigate("/");
+        window.location.reload();
+      }
+      // .then((res) => {
+      //   console.log(res);
+      //   localStorage.clear();
+      //   navigate("/");
+      //   window.location.reload();
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // });
     }
   };
 
