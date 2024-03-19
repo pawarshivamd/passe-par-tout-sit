@@ -406,7 +406,12 @@ const Home = () => {
                                     </Typography>
                                     <Typography className="sub-rpice">
                                       DISCOUNT :
-                                      <del> {parseInt(product_price)}$</del>
+                                      <del>
+                                        {" "}
+                                        {parseInt(product_price) -
+                                          parseInt(discount_price)}
+                                        $
+                                      </del>
                                     </Typography>
                                   </Box>
                                   <Box

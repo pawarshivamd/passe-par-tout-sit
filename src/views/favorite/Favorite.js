@@ -76,8 +76,15 @@ const Favorite = () => {
         <Grid container spacing={2}>
           {wishlist && wishlist.length > 0 ? (
             wishlist.map((cureEle, index) => {
-              const { id, main_image, ImgAlt, product_name, product_price } =
-                cureEle.product;
+              const {
+                id,
+                main_image,
+                ImgAlt,
+                product_name,
+                product_price,
+                selling_price,
+                discount_price,
+              } = cureEle.product;
               console.log(cureEle, "cureEle");
               return (
                 <Grid item lg={4} md={4} sm={6} xs={12} key={index}>
@@ -117,7 +124,7 @@ const Favorite = () => {
                           className="close-icon"
                         />
                       </Box>
-                      <Typography variant="body2">{product_price}</Typography>
+                      <Typography variant="body2">{discount_price}</Typography>
                     </CardContent>
                   </Card>
                 </Grid>

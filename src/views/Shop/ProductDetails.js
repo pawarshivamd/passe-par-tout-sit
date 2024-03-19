@@ -466,7 +466,13 @@ const ProductDetails = () => {
                   className="sub-price"
                   sx={{ display: "flex", alignItems: "center" }}
                 >
-                  DISCOUNT :<del> {parseInt(product?.product_price)}$</del>
+                  DISCOUNT :
+                  <del>
+                    {" "}
+                    {parseFloat(product?.product_price).toFixed(2) -
+                      parseFloat(product?.discount_price).toFixed(2)}
+                    $
+                  </del>
                 </Typography>
               </Box>
               {/* </Typography> */}
