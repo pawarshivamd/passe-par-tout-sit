@@ -31,4 +31,22 @@ API.interceptors.request.use(
   }
 );
 
+// Adding a response interceptor
+API.interceptors.response.use(
+  (response) => {
+    // If the request is successful, just return the response
+    return response;
+  },
+  (error) => {
+    // Check if the response status is 403
+    if (error.response && error.response.status === 401) {
+      // Clear local storage
+      localStorage.clear();
+      // Redirect to the root path
+      window.location.href = "/";
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default API;

@@ -17,6 +17,7 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { deleteAccount } from "../../Redux/Thunks/userThunk";
 import { useDispatch } from "react-redux";
+import Notification from "../../utils/Notification";
 const Signout = ({ saveButton }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmDeletBox, setShowConfirmDeletBox] = useState(false);
@@ -75,22 +76,17 @@ const Signout = ({ saveButton }) => {
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
       const actionResult = await dispatch(deleteAccount(userData));
-      const result = actionResult;
-      console.log(result, "resultresultresult");
-      if (result) {
-        // Navigate or perform other actions after successful deletion
+      const {
+        error: { message },
+        status,
+      } = actionResult;
+      console.log(message, status, actionResult, "resultresultresult");
+      if (message === "Rejected") {
+        Notification("error", "Invalid Email and Password");
+      } else {
         navigate("/");
         window.location.reload();
       }
-      // .then((res) => {
-      //   console.log(res);
-      //   localStorage.clear();
-      //   navigate("/");
-      //   window.location.reload();
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // });
     }
   };
 

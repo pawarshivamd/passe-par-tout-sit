@@ -183,7 +183,7 @@ export const deleteAccount = createAsyncThunk(
         data: { message, response },
         status,
       } = await API.post("/delete-account", deleteAccountData);
-
+      console.log(message, response, status, "resultresultresult");
       if (status === 200) {
         Notification("success", message);
         localStorage.clear();
